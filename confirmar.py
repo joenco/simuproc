@@ -37,10 +37,10 @@ class ConfirmarDatos(gtk.Fixed):
         msg_roundrobin = '● planificación por turno rotatorio(RR) - Round Robin"{0}".'.format(CFG['roundrobin'])
         msg_soprtunidad = '● Reemplazo del reloj(segunda oportunidad)"{0}".'.format(CFG['soprtunidad'])
 
-        msg_mensaje1 = '● Función de ejecución:"{0}" tiempo: "{1}'.format(CFG['ejecucion'], CFG['tejecucion'])
-        msg_mensaje2 = '● Función de uso del CPU:"{0}" tiempo: "{1}'.format(CFG['cpu'], CFG['tcpu'])
-        msg_mensaje3 = '● Función de bloqueo:"{0}" tiempo: "{1}'.format(CFG['bloqueo'], CFG['tbloqueo'])
-        msg_mensaje4 = '● Número de procesos a ejcutar:"{0}"'.format(CFG['nproceso'])
+        msg_mensaje1 = '● Función del tiempo de llegada: "{0}" tiempo: "{1}'.format(CFG['ejecucion'], CFG['tejecucion'])
+        msg_mensaje2 = '● Función de uso del tiempo de CPU: "{0}" tiempo: "{1}'.format(CFG['cpu'], CFG['tcpu'])
+        msg_mensaje3 = '● Función del tiempo de  bloqueo: "{0}" tiempo: "{1}'.format(CFG['bloqueo'], CFG['tbloqueo'])
+        msg_mensaje4 = '● Número de procesos a ejcutar: "{0}"'.format(CFG['nproceso'])
 
         msg_final = 'Presione el botón "Adelante" para iniciar la Corrida. Después de este paso no podrá detener la corrida, así que asegúrese de que sus datos son correctos.'
         msg_titulo = '¡Todo listo!'

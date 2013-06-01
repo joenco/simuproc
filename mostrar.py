@@ -31,7 +31,7 @@ class MostrarResultados(gtk.HBox):
     def __init__(self, CFG):
         gtk.HBox.__init__(self)
 
-        table = gtk.Table(20, 4)
+        table = gtk.Table(20, 6)
 
         attr = pango.AttrList()
         size = pango.AttrSize(18000, 0, -1)
@@ -50,13 +50,25 @@ class MostrarResultados(gtk.HBox):
         self.txt2.set_alignment(0, 0.5)
         table.attach(self.txt2, 1, 2, 1, 2)
 
-        self.txt3 = gtk.Label("Tiempo total de ejecución")
+        self.txt3 = gtk.Label("Tiempo total de llegada")
         self.txt3.set_alignment(0, 0.5)
         table.attach(self.txt3, 2, 3, 1, 2)
 
-        self.txt4 = gtk.Label("Tiempo promedio de espera")
+        self.txt4 = gtk.Label("Tiempo promedio de llegada")
         self.txt4.set_alignment(0, 0.5)
         table.attach(self.txt4, 3, 4, 1, 2)
+
+        self.txt5 = gtk.Label("Tiempo total de servicio")
+        self.txt5.set_alignment(0, 0.5)
+        table.attach(self.txt5, 4, 5, 1, 2)
+
+        self.txt6 = gtk.Label("Tiempo promedio de servicio")
+        self.txt6.set_alignment(0, 0.5)
+        table.attach(self.txt6, 5, 6, 1, 2)
+
+        self.txt7 = gtk.Label("Tiempo promedio esperado")
+        self.txt7.set_alignment(0, 0.5)
+        table.attach(self.txt7, 6, 7, 1, 2)
 
         self.txtcfifo = gtk.Label("FCFS")
         self.txtcfifo.set_alignment(0, 0.5)
