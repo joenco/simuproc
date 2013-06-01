@@ -7,6 +7,7 @@ Realizado por Jorge Ortega <joenco@esdebian.org>
 	- lshw
 	- GTK
 	- matplotlib
+	- python-symPy
 
 - Este programa está distribuido bajo la GPL3 o superior
 - no es necesario instalarlo, solo hay que ejecutar el archivo ventanaprincipal.py
