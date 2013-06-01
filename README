@@ -9,5 +9,8 @@ Realizado por Jorge Ortega <joenco@esdebian.org>
 	- matplotlib
 	- python-symPy
 
+manuales d git:
+	- http://www.yagoperez.com/Post/GetPostByCode/un_poco_de_git_y_de_github
+	- http://rogerdudler.github.io/git-guide/index.es.html
 - Este programa está distribuido bajo la GPL3 o superior
 - no es necesario instalarlo, solo hay que ejecutar el archivo ventanaprincipal.py
