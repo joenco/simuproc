@@ -32,7 +32,7 @@ from config import CFG
 from common import UserMessage
 
 if __name__ == "__main__":
-   CFG['w'] = Ventana(820, 620, 'Simulador de planificador de procesos')
+   CFG['w'] = Ventana(820, 680, 'Simulador de planificador de procesos')
    b = Bienvenida(CFG)
    a = b.init(CFG)
 

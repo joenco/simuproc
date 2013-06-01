@@ -68,18 +68,18 @@ class Ventana(gtk.Window):
 
         # Creo el contenedor de los pasos
         self.c_pasos = gtk.VBox()
-        self.c_pasos.set_size_request((ancho - 10), (alto - 30))
+        self.c_pasos.set_size_request((ancho - 10), (alto - 80))
         self.c_principal.put(self.c_pasos, 5, 5)
 
         # Creo la botonera
         self.botonera = gtk.Fixed()
         self.botonera.set_size_request(ancho, 40)
-        self.c_principal.put(self.botonera, 0, (alto - 20))
+        self.c_principal.put(self.botonera, 0, (alto - 80))
 
         # Creo la linea divisoria
-        self.linea = gtk.HSeparator()
-        self.linea.set_size_request(ancho, 5)
-        self.botonera.put(self.linea, 0, 0)
+        #self.linea = gtk.HSeparator()
+        #self.linea.set_size_request(ancho, 5)
+        #self.botonera.put(self.linea, 0, 0)
 
         # siguiente
         self.siguiente = gtk.Button(stock=gtk.STOCK_GO_FORWARD)
