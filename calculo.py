@@ -26,32 +26,44 @@
 # CODE IS POETRY
 
 import gtk, pango
+import random
 
-class CalculoFifo():
-    def calcular(self, n, te, tr):
-      cola_procesos = []
-      total_wtime = 0
-
+class CalculoFifo(gtk.HBox):
+    def calcular(self, n, te, tr, funcion1, funcion2, funcion3):
+      self.cola_procesos = []
+      self.total_llegada = 0
+      self.promedio_llegada=0
+      self.total_servicio=0
+      self.promedio_servicio=0
+      random.seed(5000)
       self.n = int(n)
       self.te = int(te)
       self.tr = int(tr)
+      self.func_llegada = funcion1
+      self.func_servicio = funcion2
+
+      #random.randint(0, self.te)
+      if self.func_llegada == 'Constante':
+        for i in xrange(self.n):
+          self.cola_procesos.append([])#agregamos un objeto de tipo lista a la cola
+          self.cola_procesos[i].append(i)
+          self.cola_procesos[i].append(self.te)
+          self.cola_procesos[i].append(self.tr)
+          print ''
 
       for i in xrange(self.n):
-        cola_procesos.append([])#agregamos un objeto de tipo lista a la cola
-        cola_procesos[i].append(i)
-        cola_procesos[i].append(self.te)
-        total_wtime += cola_procesos[i][1]
-        cola_procesos[i].append(self.tr)
-        print ''
+        self.total_llegada += self.cola_procesos[i][1]
+        self.total_servicio += self.cola_procesos[i][2]
 
-      cola_procesos.sort(key = lambda cola_procesos:cola_procesos[1])
-
-      print 'Nombre del proceso\t\t Tiempo de espera \t \tTiempo de rafaga'
       for i in xrange(self.n):
-        print cola_procesos[i][0],'\t\t',cola_procesos[i][1],'\t\t',cola_procesos[i][2]
+        print self.cola_procesos[i][0],'\t\t',self.cola_procesos[i][1],'\t\t',self.cola_procesos[i][2]
 
-      Total_promedio = int(total_wtime/self.n)
-      print 'Tiempo total de espera: ',total_wtime
-      print 'Tiempo promedio de espera: ',(Total_promedio)
+      self.promedio_llegada = float(self.total_llegada/self.n)
+      self.promedio_servicio = int(self.total_servicio/self.n)
+      print 'Tiempo total de llegada: ',self.total_llegada
+      print 'Tiempo total de servicio: ',self.total_servicio
+      print 'Tiempo promedio de llegada: ',(self.promedio_llegada)
+      print 'Tiempo promedio de servicio: ',self.promedio_servicio
 
-      return total_wtime, Total_promedio
+        #return self.total_llegada, self.promedio_llegada
+      return self.total_llegada, self.promedio_llegada

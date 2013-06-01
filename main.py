@@ -280,7 +280,7 @@ class Confirmar():
 
     def ejecutar(self, CFG):
         calculo = CalculoFifo()
-        CFG['calculofifo'] = calculo.calcular(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'])
+        CFG['calculofifo'] = calculo.calcular(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'], CFG['bloqueo'])
         CFG['w'].next('Mostrar', Mostrar, (CFG), MostrarResultados(CFG))
         CFG['w'].siguiente.show()
         CFG['w'].ejecutar.hide()
