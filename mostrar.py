@@ -86,4 +86,15 @@ class MostrarResultados(gtk.HBox):
         self.tpromedio.set_alignment(0, 0.5)
         table.attach(self.tpromedio, 3, 4, 2, 3)
 
+        self.tproceso = gtk.Label(CFG['calculofifo'][2])
+        self.tproceso.set_alignment(0, 0.5)
+        table.attach(self.tproceso, 4, 5, 2, 3)
+
+        self.pproceso = gtk.Label(CFG['calculofifo'][3])
+        self.pproceso.set_alignment(0, 0.5)
+        table.attach(self.pproceso, 5, 6, 2, 3)
+
+        self.pproceso1 = gtk.Label(CFG['calculofifo'][3])
+        self.pproceso1.set_alignment(0, 0.5)
+        table.attach(self.pproceso1, 6, 7, 2, 3)
         self.pack_start(table, padding=40)
