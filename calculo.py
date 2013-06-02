@@ -35,26 +35,28 @@ class CalculoFifo(gtk.HBox):
       self.cola_procesos = []
       self.total_llegada = 0
       self.promedio_llegada=0
-      self.total_proceso=0
+      self.total_servicio=0
       self.promedio_llegada=0
-      self.promedio_proceso=0
+      self.promedio_servicio=0
+      self.total_esperado=0
+      self.promedio_de_espera=0
       random.seed(5000)
-      self.n = float(n) #núermo de procesos.
+      self.n = float(n) #número de procesos.
       self.te = float(te) #tiempo de llegada de los procesos
-      self.tp = float(tp) #tiempo de duración de los procesos.
-      self.func_llegada = funcion1
-      self.func_proceso = funcion2
+      self.tp = float(tp) #tiempo de servicio de los procesos.
+      self.func_llegada = funcion1 #función para los tiempos de llegada.
+      self.func_servicio = funcion2 #función para el tiempo de servicio.
 
       for i in xrange(self.n):
         self.cola_procesos.append([])#agregamos un objeto de tipo lista a la cola
         self.cola_procesos[i].append(i)
-        if self.func_proceso == 'Constante':
+        if self.func_servicio == 'Constante':
           self.cola_procesos[i].append(self.tp)
-        elif self.func_proceso == 'Uniforme':
+        elif self.func_servicio == 'Uniforme':
           self.cola_procesos[i].append(np.random.randint(0, self.tp))
-        elif self.func_proceso == 'Exponencial':
+        elif self.func_servicio == 'Exponencial':
           self.cola_procesos[i].append(np.random.exponential(self.tp))
-        elif self.func_proceso == 'Normal':
+        elif self.func_servicio == 'Normal':
           self.cola_procesos[i].append(st.norm.cdf(self.tp))
 
         if self.func_llegada == 'Constante':
@@ -66,19 +68,21 @@ class CalculoFifo(gtk.HBox):
         elif self.func_llegada == 'Normal':
           self.cola_procesos[i].append(st.norm.cdf(self.te))
 
+      self.cola_procesos[0][2]=self.cola_procesos[0][2]-self.cola_procesos[0][2]
       for i in xrange(self.n):
-        self.total_proceso += self.cola_procesos[i][1]
+        self.total_servicio += self.cola_procesos[i][1]
         self.total_llegada += self.cola_procesos[i][2]
-
-      for i in xrange(self.n):
+        self.total_esperado +=  self.cola_procesos[i][1]-self.cola_procesos[i][2]
         print self.cola_procesos[i][0],'\t\t',self.cola_procesos[i][1],'\t\t',self.cola_procesos[i][2]
 
       self.promedio_llegada = float(self.total_llegada/self.n)
-      self.promedio_proceso = float(self.total_proceso/self.n)
+      self.promedio_servicio = float(self.total_servicio/self.n)
+      self.promedio_de_espera = float(self.total_esperado/self.n)
       print 'Tiempo total de llegada: ',self.total_llegada
-      print 'Tiempo total de proceso: ',self.total_proceso
+      print 'Tiempo total de proceso: ',self.total_servicio
       print 'Tiempo promedio de llegada: ',(self.promedio_llegada)
-      print 'Tiempo promedio de proceso: ',(self.promedio_proceso)
+      print 'Tiempo promedio de proceso: ',(self.promedio_servicio)
+      print 'Tiempo promedio esperado: ',(self.promedio_de_espera)
 
         #return self.total_llegada, self.promedio_llegada
-      return self.total_llegada, self.promedio_llegada, self.total_proceso, self.promedio_proceso
+      return self.total_llegada, self.promedio_llegada, self.total_servicio, self.promedio_servicio, self.promedio_de_espera, self.cola_procesos
