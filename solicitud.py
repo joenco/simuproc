@@ -47,7 +47,7 @@ class SolicitudDatos(gtk.HBox):
         size = pango.AttrSize(18000, 0, -1)
         attr.insert(size)
 
-        self.lbltitle1 = gtk.Label("Solicitud de los Algoritmos")
+        self.lbltitle1 = gtk.Label("Solicitud de los datos")
         self.lbltitle1.set_alignment(0, 0.5)
         self.lbltitle1.set_attributes(attr)
         self.table.attach(self.lbltitle1, 0, 2, 0, 1)
@@ -113,10 +113,20 @@ class SolicitudDatos(gtk.HBox):
         self.txttbloqueo = gtk.Entry()
         self.table.attach(self.txttbloqueo, 1, 2, 10, 11)
 
-        self.lbltitle2 = gtk.Label("Solicitud de los datos")
-        self.lbltitle2.set_alignment(0, 0.5)
-        self.lbltitle2.set_attributes(attr)
-        self.table.attach(self.lbltitle2, 0, 2, 12, 13)
+        self.txtdura = gtk.Label("Elija el algoritmo y escriba el valor para el tiempo de duración de los procesos:")
+        self.txtdura.set_alignment(0, 0.5)
+        self.table.attach(self.txtdura, 0, 1, 11, 12)
+
+        self.tiempoduracion = gtk.combo_box_new_text()
+        self.tiempoduracion.insert_text(0, 'Constante')
+        self.tiempoduracion.set_active(0)
+        self.tiempoduracion.insert_text(1, 'Uniforme')
+        self.tiempoduracion.insert_text(2, 'Exponencial')
+        self.tiempoduracion.insert_text(3, 'Normal')
+        self.table.attach(self.tiempoduracion, 0, 1, 12, 13)
+
+        self.txttduracion = gtk.Entry()
+        self.table.attach(self.txttduracion, 0, 2, 12, 13)
 
         self.lbln = gtk.Label("Número de procesos a ejecutar:")
         self.lbln.set_alignment(0, 0.5)
