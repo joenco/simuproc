@@ -201,9 +201,11 @@ class Solicitud():
         CFG['ejecucion'] = CFG['w'].formulario('Solicitud').tiempoejecucion.get_active_text()
         CFG['cpu'] = CFG['w'].formulario('Solicitud').tiempocpu.get_active_text()
         CFG['bloqueo'] = CFG['w'].formulario('Solicitud').tiempobloqueo.get_active_text()
+        CFG['proceso'] = CFG['w'].formulario('Solicitud').tiempoduracion.get_active_text()
         CFG['tejecucion'] = CFG['w'].formulario('Solicitud').txttejecucion.get_text()
         CFG['tcpu'] = CFG['w'].formulario('Solicitud').txttcpu.get_text()
         CFG['tbloqueo'] = CFG['w'].formulario('Solicitud').txttbloqueo.get_text()
+        CFG['tproceso'] = CFG['w'].formulario('Solicitud').txttduracion.get_text()
         CFG['nproceso'] = CFG['w'].formulario('Solicitud').txtn.get_text()
 
         if CFG['fifo'] == False:
@@ -258,15 +260,6 @@ class Solicitud():
         CFG['w'].ejecutar.show()
         CFG['w'].next('Confirmar', Confirmar, (CFG), ConfirmarDatos(CFG))
 
-class Calculo():
-    '''
-        hace los calculos.
-    '''
-    def init(self, CFG):
-        CFG['w'].next('Calculo', Calculo, (CFG), CalculoFifo(CFG))
-
-        CFG['calculofifo'] = CFG['w'].formulario('Calculo').CalculoFifo
-
 class Confirmar():
     '''
         muestra la confirmación de los datos para la corrida.
@@ -280,7 +273,7 @@ class Confirmar():
 
     def ejecutar(self, CFG):
         calculo = CalculoFifo()
-        CFG['calculofifo'] = calculo.calcular(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'], CFG['bloqueo'])
+        CFG['calculofifo'] = calculo.calcular(CFG['nproceso'], CFG['tejecucion'], CFG['tproceso'], CFG['ejecucion'], CFG['proceso'])
         CFG['w'].next('Mostrar', Mostrar, (CFG), MostrarResultados(CFG))
         CFG['w'].siguiente.show()
         CFG['w'].ejecutar.hide()
