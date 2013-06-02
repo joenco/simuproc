@@ -94,7 +94,7 @@ class MostrarResultados(gtk.HBox):
         self.pproceso.set_alignment(0, 0.5)
         table.attach(self.pproceso, 5, 6, 2, 3)
 
-        self.pproceso1 = gtk.Label(CFG['calculofifo'][3])
+        self.pproceso1 = gtk.Label(CFG['calculofifo'][4])
         self.pproceso1.set_alignment(0, 0.5)
         table.attach(self.pproceso1, 6, 7, 2, 3)
         self.pack_start(table, padding=40)
