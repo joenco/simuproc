@@ -194,21 +194,22 @@ class Solicitud():
         CFG['w'].siguiente.set_sensitive(True)
 
     def siguiente(self, CFG):
-        CFG['fifo'] = CFG['w'].formulario('Solicitud').FCFS.get_active()
-        CFG['menortiempo'] = CFG['w'].formulario('Solicitud').SRT.get_active()
-        CFG['roundrobin'] = CFG['w'].formulario('Solicitud').rr.get_active()
-        CFG['soprtunidad'] = CFG['w'].formulario('Solicitud').so.get_active()
-        CFG['ejecucion'] = CFG['w'].formulario('Solicitud').tiempoejecucion.get_active_text()
-        CFG['cpu'] = CFG['w'].formulario('Solicitud').tiempocpu.get_active_text()
-        CFG['bloqueo'] = CFG['w'].formulario('Solicitud').tiempobloqueo.get_active_text()
-        CFG['proceso'] = CFG['w'].formulario('Solicitud').tiempoduracion.get_active_text()
-        CFG['trr'] = CFG['w'].formulario('Solicitud').txtrr.get_text()
-        CFG['tejecucion'] = CFG['w'].formulario('Solicitud').txttejecucion.get_text()
-        CFG['tcpu'] = CFG['w'].formulario('Solicitud').txttcpu.get_text()
-        CFG['tbloqueo'] = CFG['w'].formulario('Solicitud').txttbloqueo.get_text()
-        CFG['tproceso'] = CFG['w'].formulario('Solicitud').txttduracion.get_text()
-        CFG['nproceso'] = CFG['w'].formulario('Solicitud').txtn.get_text()
+        CFG['fifo'] = CFG['w'].formulario('Solicitud').FCFS.get_active() #guarda la selección del algoritmo fifo. (false o true)
+        CFG['menortiempo'] = CFG['w'].formulario('Solicitud').SRT.get_active() #guarda la selección del algoritmo con menor tiempo (false o true).
+        CFG['roundrobin'] = CFG['w'].formulario('Solicitud').rr.get_active() #guarda la selección del algoritmo roundrobin (false o true)
+        CFG['soprtunidad'] = CFG['w'].formulario('Solicitud').so.get_active() #guarda la selección del algoritmo de la segunda oportunidad (false o true)
+        CFG['ejecucion'] = CFG['w'].formulario('Solicitud').tiempoejecucion.get_active_text() #guarda la función para el tiempo de llegada
+        CFG['cpu'] = CFG['w'].formulario('Solicitud').tiempocpu.get_active_text() #guarda la función para el tiempo de uso del CPU
+        CFG['bloqueo'] = CFG['w'].formulario('Solicitud').tiempobloqueo.get_active_text() #guarda la función del tiempo de bloqueo.
+        CFG['proceso'] = CFG['w'].formulario('Solicitud').tiempoduracion.get_active_text() #guarda la función del tiempo de servicio.
+        CFG['trr'] = CFG['w'].formulario('Solicitud').txtrr.get_text() #guarda el valor del cuantum de tiempo para el algoritmo roundrobin
+        CFG['tejecucion'] = CFG['w'].formulario('Solicitud').txttejecucion.get_text() #guarda el valor del tiempo de llegada de los procesos.
+        CFG['tcpu'] = CFG['w'].formulario('Solicitud').txttcpu.get_text() #guarda el valor del tiempo de uso del CPU
+        CFG['tbloqueo'] = CFG['w'].formulario('Solicitud').txttbloqueo.get_text() #guarda el valor de tiempo de bloqueo.
+        CFG['tproceso'] = CFG['w'].formulario('Solicitud').txttduracion.get_text() #guarda el valor del tiempo de servicio de los procesos.
+        CFG['nproceso'] = CFG['w'].formulario('Solicitud').txtn.get_text() #guarda el valor de la cantidad de procesos a ejecutar.
 
+        #se válidan todos los campos antes de continuar.
         if CFG['fifo'] == False:
           if CFG['menortiempo'] == False:
             if CFG['roundrobin'] == False:
@@ -273,7 +274,7 @@ class Solicitud():
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
 
-        if re.compile('^[\d]{1,}$').search(CFG['nproceso']) == None:
+        if re.compile('^[1-9]+[\d]{0,}$').search(CFG['nproceso']) == None:
             message = "El número de procesos es inválido, debe ser un valor entero."
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
@@ -291,6 +292,8 @@ class Confirmar():
         CFG['s'] = aconnect(CFG['w'].anterior, CFG['s'], self.anterior, CFG)
 
     def anterior(self, CFG):
+        CFG['w'].ejecutar.hide()
+        CFG['w'].siguiente.show()
         CFG['w'].previous('Solicitud', Solicitud, (CFG))
 
     def ejecutar(self, CFG):
