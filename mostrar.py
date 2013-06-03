@@ -98,3 +98,33 @@ class MostrarResultados(gtk.HBox):
         self.pproceso1.set_alignment(0, 0.5)
         table.attach(self.pproceso1, 6, 7, 2, 3)
         self.pack_start(table, padding=40)
+
+        #Round Robin
+        self.txtcfifo = gtk.Label("RR")
+        self.txtcfifo.set_alignment(0, 0.5)
+        table.attach(self.txtcfifo, 0, 1, 3, 4)
+
+        self.np = gtk.Label(CFG['nproceso'])
+        self.np.set_alignment(0, 0.5)
+        table.attach(self.np, 1, 2, 3, 4)
+
+        self.tejecucion = gtk.Label(CFG['calculorr'][0])
+        self.tejecucion.set_alignment(0, 0.5)
+        table.attach(self.tejecucion, 2, 3, 3, 4)
+
+        self.tpromedio = gtk.Label(CFG['calculorr'][1])
+        self.tpromedio.set_alignment(0, 0.5)
+        table.attach(self.tpromedio, 3, 4, 3, 4)
+
+        self.tproceso = gtk.Label(CFG['calculorr'][2])
+        self.tproceso.set_alignment(0, 0.5)
+        table.attach(self.tproceso, 4, 5, 3, 4)
+
+        self.pproceso = gtk.Label(CFG['calculorr'][3])
+        self.pproceso.set_alignment(0, 0.5)
+        table.attach(self.pproceso, 5, 6, 3, 4)
+
+        self.pproceso1 = gtk.Label(CFG['calculorr'][4])
+        self.pproceso1.set_alignment(0, 0.5)
+        table.attach(self.pproceso1, 6, 7, 3, 4)
+        self.pack_start(table, padding=40)
