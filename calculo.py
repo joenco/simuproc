@@ -29,9 +29,10 @@ import gtk, pango
 import random
 import numpy as np
 import scipy.stats as st
+from time import sleep
 
-class CalculoFifo(gtk.HBox):
-    def calcular(self, n, te, tp, funcion1, funcion2):
+class Algoritmos(gtk.HBox):
+    def Fifo(self, n, te, ts, f1, f2):
       self.cola_procesos = []
       self.total_llegada = 0
       self.promedio_llegada=0
@@ -43,26 +44,27 @@ class CalculoFifo(gtk.HBox):
       random.seed(5000)
       self.n = float(n) #número de procesos.
       self.te = float(te) #tiempo de llegada de los procesos
-      self.tp = float(tp) #tiempo de servicio de los procesos.
-      self.func_llegada = funcion1 #función para los tiempos de llegada.
-      self.func_servicio = funcion2 #función para el tiempo de servicio.
+      self.ts = float(ts) #tiempo de servicio de los procesos.
+      self.func_llegada = f1 #función para los tiempos de llegada.
+      self.func_servicio = f2 #función para el tiempo de servicio.
 
       for i in xrange(self.n):
         self.cola_procesos.append([])#agregamos un objeto de tipo lista a la cola
         self.cola_procesos[i].append(i)
+
         if self.func_servicio == 'Constante':
-          self.cola_procesos[i].append(self.tp)
+          self.cola_procesos[i].append(self.ts)
         elif self.func_servicio == 'Uniforme':
-          self.cola_procesos[i].append(np.random.randint(0, self.tp))
+          self.cola_procesos[i].append(np.random.randint(0, self.ts))
         elif self.func_servicio == 'Exponencial':
-          self.cola_procesos[i].append(np.random.exponential(self.tp))
+          self.cola_procesos[i].append(np.random.exponential(self.ts))
         elif self.func_servicio == 'Normal':
-          self.cola_procesos[i].append(st.norm.cdf(self.tp))
+          self.cola_procesos[i].append(st.norm.cdf(self.ts))
 
         if self.func_llegada == 'Constante':
           self.cola_procesos[i].append(self.te)
         elif self.func_llegada == 'Uniforme':
-          self.cola_procesos[i].append(np.random.randint(0, self.tp))
+          self.cola_procesos[i].append(np.random.randint(0, self.ts))
         elif self.func_llegada == 'Exponencial':
           self.cola_procesos[i].append(np.random.exponential(self.te))
         elif self.func_llegada == 'Normal':
@@ -86,3 +88,40 @@ class CalculoFifo(gtk.HBox):
 
         #return self.total_llegada, self.promedio_llegada
       return self.total_llegada, self.promedio_llegada, self.total_servicio, self.promedio_servicio, self.promedio_de_espera, self.cola_procesos
+
+    def MenorTiempo(self, n, te, tcpu, tb, ts, f1, f2, f3, f4):
+      self.cola_procesos= []
+      self.cola_bloqueados = []
+      self.cola_listos = []
+      self.te = float(te)
+      self.tcpu = float(tcpu)
+      self.tb = float(tb)
+      self.ts = float(ts)
+      self.func_llegada = f1
+      self.func_cpu = f2
+      self.func_bloqueados = f3
+      self.func_servicio = f4
+
+      for i in xrange(self.n):
+        self.cola_procesos.append([])#agregamos un objeto de tipo lista a la cola
+        self.cola_procesos[i].append(i)
+
+        if self.func_servicio == 'Constante':
+          self.cola_procesos[i].append(self.ts)
+        elif self.func_servicio == 'Uniforme':
+          self.cola_procesos[i].append(np.random.randint(0, self.ts))
+        elif self.func_servicio == 'Exponencial':
+          self.cola_procesos[i].append(np.random.exponential(self.ts))
+        elif self.func_servicio == 'Normal':
+          self.cola_procesos[i].append(st.norm.cdf(self.ts))
+
+        if self.func_llegada == 'Constante':
+          self.cola_procesos[i].append(self.te)
+        elif self.func_llegada == 'Uniforme':
+          self.cola_procesos[i].append(np.random.randint(0, self.ts))
+        elif self.func_llegada == 'Exponencial':
+          self.cola_procesos[i].append(np.random.exponential(self.te))
+        elif self.func_llegada == 'Normal':
+          self.cola_procesos[i].append(st.norm.cdf(self.te))
+
+      self.cola_procesos[0][2]=self.cola_procesos[0][2]-self.cola_procesos[0][2]
