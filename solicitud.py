@@ -126,7 +126,7 @@ class SolicitudDatos(gtk.HBox):
         self.table.attach(self.tiempoduracion, 0, 1, 12, 13)
 
         self.txttduracion = gtk.Entry()
-        self.table.attach(self.txttduracion, 0, 2, 12, 13)
+        self.table.attach(self.txttduracion, 1, 2, 12, 13)
 
         self.lbln = gtk.Label("Número de procesos a ejecutar:")
         self.lbln.set_alignment(0, 0.5)
