@@ -32,7 +32,7 @@ import gtk, re, Image
 from bienvenida import BienvenidaUsuario
 from solicitud import SolicitudDatos
 from confirmar import ConfirmarDatos
-from calculo import CalculoFifo
+from calculo import Algoritmos
 from mostrar import MostrarResultados
 from common import UserMessage, AboutWindow, aconnect, \
     debug_list
@@ -297,8 +297,8 @@ class Confirmar():
         CFG['w'].previous('Solicitud', Solicitud, (CFG))
 
     def ejecutar(self, CFG):
-        calculo = CalculoFifo()
-        CFG['calculofifo'] = calculo.calcular(CFG['nproceso'], CFG['tejecucion'], CFG['tproceso'], CFG['ejecucion'], CFG['proceso'])
+        calculo = Algoritmos()
+        CFG['calculofifo'] = calculo.Fifo(CFG['nproceso'], CFG['tejecucion'], CFG['tproceso'], CFG['ejecucion'], CFG['proceso'])
         CFG['w'].next('Mostrar', Mostrar, (CFG), MostrarResultados(CFG))
         CFG['w'].siguiente.show()
         CFG['w'].ejecutar.hide()
@@ -312,7 +312,7 @@ class Mostrar():
         CFG['s'] = aconnect(CFG['w'].anterior, CFG['s'], self.anterior, CFG)
 
     def init(self, CFG):
-        CFG['w'].next('Calculo', Calculo, (CFG), CalculoFifo(CFG))
+        CFG['w'].next('Calculo', Calculo, (CFG), Algoritmos(CFG))
 
     def anterior(self, CFG):
         CFG['w'].previous('Solicitud', Solicitud, (CFG))
