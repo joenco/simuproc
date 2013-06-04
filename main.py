@@ -299,7 +299,8 @@ class Confirmar():
     def ejecutar(self, CFG):
         calculo = Algoritmos()
         CFG['calculofifo'] = calculo.Fifo(CFG['nproceso'], CFG['tejecucion'], CFG['tproceso'], CFG['ejecucion'], CFG['proceso'])
-	CFG['calculorr'] = calculo.RoundRobin(CFG['nproceso'], CFG['tejecucion'], CFG['tproceso'], CFG['ejecucion'], CFG['proceso'],CFG['trr'])
+        CFG['calculorr'] = calculo.RoundRobin(CFG['nproceso'], CFG['tejecucion'], CFG['tproceso'], CFG['ejecucion'], CFG['proceso'],CFG['trr'])
+        CFG['mtiempo'] = calculo.MenorTiempo(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
         CFG['w'].next('Mostrar', Mostrar, (CFG), MostrarResultados(CFG))
         CFG['w'].siguiente.show()
         CFG['w'].ejecutar.hide()
