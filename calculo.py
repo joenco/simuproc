@@ -222,3 +222,118 @@ class Algoritmos(gtk.HBox):
       print "el tiempo promedio de uso es: ",self.tpeje
 
       return self.teje, self.tpeje, self.wt, self.tpe, self.cola_procesos
+
+#Preemptive Shortest Job First(SJF)
+    def PSJF(self, n, te, tcpu, f1, fcpu):
+      self.cola_procesos = []
+      self.procesos_actuales = []
+      self.espera_procesos_actuales = []
+      self.n = int(n) #número de procesos a ejecutar
+      self.te = float(te) #tiempo de espera de llegada de los procesos.
+      self.tcpu = float(tcpu) #tiempo de rafaga del CPU
+      self.func_llegada = f1
+      self.func_cpu = fcpu
+      self.wt=float(0.0) #tiempo total de espera
+      self.tpe  = float(0.0) #tiempo promedio de espera.
+      self.teje = float(0.0) #tiempo total de ejecucion
+      self.tpeje = float(0.0) #tiempo promedio de ejecucion.
+      self.aux = 0
+      self.actual = 0	
+      self.pos = 0		
+      self.tam=0
+      self.tparcial = 0
+      self.promedio_llegada = 0
+      self.total_llegada = 0
+
+      for i in xrange(self.n):
+        self.cola_procesos.append([]) #agregamos un objeto de tipo lista a la cola
+        self.cola_procesos[i].append(i)
+
+        if self.func_cpu == 'Constante':
+          self.cola_procesos[i].append(self.tcpu)
+        elif self.func_cpu == 'Uniforme':
+          self.cola_procesos[i].append(r.uniform(0, self.tcpu))
+        elif self.func_cpu == 'Exponencial':
+          self.cola_procesos[i].append(np.random.exponential(self.tcpu))
+        elif self.func_cpu == 'Normal':
+          self.cola_procesos[i].append(st.norm.cdf(self.tcpu))
+
+        if self.func_llegada == 'Constante':
+          self.cola_procesos[i].append(self.te)
+        elif self.func_llegada == 'Uniforme':
+          self.cola_procesos[i].append(r.uniform(0, self.te))
+        elif self.func_llegada == 'Exponencial':
+          self.cola_procesos[i].append(np.random.exponential(self.te))
+        elif self.func_llegada == 'Normal':
+          self.cola_procesos[i].append(st.norm.cdf(self.te))
+
+      #Simulando las llegadas
+      for i in xrange(self.n):
+        if i != 0:
+          self.procesos_actuales.append(self.cola_procesos[i][1])
+          self.espera_procesos_actuales.append(0)
+          self.tam += 1
+          self.tparcial = self.procesos_actuales[self.actual]
+          self.procesos_actuales[self.actual]-= self.cola_procesos[i][2]
+          for k in xrange(self.tam):
+            if(self.procesos_actuales[k]>0):
+              self.espera_procesos_actuales[k] += self.cola_procesos[i][2]
+          if self.procesos_actuales [self.actual] > 0:
+            self.teje += self.cola_procesos[i][2]
+            if self.cola_procesos[i][1] < self.procesos_actuales[self.actual]:  
+              self.actual = i
+          else:
+            self.teje += self.tparcial
+            self.pos= self.actual +1
+            for j in xrange(self.tam):
+              if (self.procesos_actuales[j] < self.procesos_actuales[self.pos]) and (self.procesos_actuales[j] > 0):
+                self.pos = j
+            self.actual=self.pos    
+        else:
+          self.procesos_actuales.append(self.cola_procesos[0][1])
+          self.espera_procesos_actuales.append(0)
+	  self.tam += 1
+          
+        #Para verificar en consola
+        #print 'posicion del proceso actual',self.actual
+        #print 'tiempo restante del proceso actual' , self.procesos_actuales[self.actual]     
+        #print 'llegada del proceso siguiente',self.cola_procesos[i][2] 
+        #for h in xrange(self.tam):
+        #  print'---',h,'---',self.procesos_actuales[h]
+       
+      self.procesos_actuales.sort(key = lambda procesos_actuales:procesos_actuales)  
+      #for h in xrange(self.tam):
+      #  print'---',h,'---',self.procesos_actuales[h]
+      self.actual = 0
+      for h in xrange(self.tam):
+        if (self.procesos_actuales[h]>0):
+          self.actual = h
+          break
+
+      #Ahora, el menor tiempo primero
+      for h in xrange(self.actual,self.tam):
+        self.teje += self.procesos_actuales[h]
+        self.procesos_actuales[h] -= self.procesos_actuales[h]
+        for l in xrange(self.tam):
+            if(self.procesos_actuales[l]>0):
+              self.espera_procesos_actuales[l] += self.procesos_actuales[h]
+  
+      #for h in xrange(self.tam):
+      #  print'+++',h,'+++',self.procesos_actuales[h]
+
+      for h in xrange(self.tam):
+        self.wt += self.espera_procesos_actuales[h]
+
+      for i in xrange(self.n):
+        self.total_llegada += round(self.cola_procesos[i][2], 2)
+      
+      self.tpe=round(self.wt/self.n, 2)
+      self.tpeje= round(self.teje/self.n, 2)
+      self.promedio_llegada = round(self.total_llegada/self.n, 2)
+      print "\nel tiempo total de espera de los procesos es: ",self.wt
+      print "el tiempo total  de uso del CPU es: ",self.teje
+      print 'Tiempo promedio de llegada: ',(self.promedio_llegada)
+      print "el tiempo promedio de espera es: ",self.tpe
+      print "el tiempo promedio de uso es: ",self.tpeje
+
+      return self.teje, self.tpeje, self.wt, self.tpe, self.cola_procesos, self.promedio_llegada, self.total_llegada
