@@ -25,8 +25,7 @@
 #
 # CODE IS POETRY
 
-import re, subprocess, math, cairo, gtk, hashlib, random, string, urllib2, os, glob, parted, crypt, threading, shutil, filecmp
-
+import re, subprocess, math, cairo, gtk, hashlib, random, string, urllib2, os, glob, crypt, threading, shutil, filecmp
 from translator import msj
 from config import APP_NAME, APP_COPYRIGHT, APP_DESCRIPTION, \
     APP_URL, LICENSE_FILE, AUTHORS_FILE, TRANSLATORS_FILE, VERSION_FILE, ABOUT_IMAGE, \
@@ -35,7 +34,7 @@ from config import APP_NAME, APP_COPYRIGHT, APP_DESCRIPTION, \
 def AboutWindow(widget=None):
     about = gtk.AboutDialog()
     about.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    about.set_logo(gtk.gdk.pixbuf_new_from_file(ABOUT_IMAGE))
+    #about.set_logo(gtk.gdk.pixbuf_new_from_file(ABOUT_IMAGE))
     about.set_name(APP_NAME)
     about.set_copyright(APP_COPYRIGHT)
     about.set_comments(APP_DESCRIPTION)
