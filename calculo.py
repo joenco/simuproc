@@ -26,10 +26,9 @@
 # CODE IS POETRY
 
 import gtk, pango
-import random as r
 import numpy as np
 import scipy.stats as st
-from time import sleep
+import random as r
 
 class Algoritmos(gtk.HBox):
     def RoundRobin(self, n, te, ts, fe, fs ,q):
@@ -123,6 +122,8 @@ class Algoritmos(gtk.HBox):
       self.teje = float(0.0) #tiempo total de ejecucion
       self.tpeje = float(0.0) #tiempo promedio de ejecucion.
 
+      datos = open('FCFS.dat', 'w')
+
       for i in xrange(self.n):
         self.cola_procesos.append([]) #agregamos un objeto de tipo lista a la cola
         self.cola_procesos[i].append(i)
@@ -130,7 +131,7 @@ class Algoritmos(gtk.HBox):
         if self.func_cpu == 'Constante':
           self.cola_procesos[i].append(self.tcpu)
         elif self.func_cpu == 'Uniforme':
-          self.cola_procesos[i].append(r.uniform(self.tcpu))
+          self.cola_procesos[i].append(r.uniform(0, self.tcpu))
         elif self.func_cpu == 'Exponencial':
           self.cola_procesos[i].append(np.random.exponential(self.tcpu))
         elif self.func_cpu == 'Normal':
@@ -151,6 +152,10 @@ class Algoritmos(gtk.HBox):
         print self.cola_procesos[i][0],'\t\t',self.cola_procesos[i][2],'\t\t',self.cola_procesos[i][1]
         self.wt += round(self.cola_procesos[i][1]-self.cola_procesos[i][2], 2) #restamos al uso del CPU, el tiempo de llegada.
         self.teje += round(self.cola_procesos[i][1], 1)
+        for j in xrange(3):
+          data=str(self.cola_procesos[i][j])
+          datos.write(' '+data)
+        datos.write('\n')
 
       self.wt = self.wt-self.cola_procesos[self.n-1][1]
       self.wt = round(self.wt-self.cola_procesos[self.n-1][1], 2)
@@ -160,6 +165,7 @@ class Algoritmos(gtk.HBox):
       print "el tiempo total  de uso del CPU es: ",self.teje
       print "el tiempo promedio de espera es: ",self.tpe
       print "el tiempo promedio de uso es: ",self.tpeje
+      datos.close()
 
       return self.teje, self.tpeje, self.wt, self.tpe, self.cola_procesos
 
