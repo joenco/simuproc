@@ -93,6 +93,12 @@ class Ventana(gtk.Window):
         self.cancelar.connect('clicked', self.close)
         self.botonera.put(self.cancelar, 10, 10)
 
+        # Acerca
+        self.acerca = gtk.Button(stock=gtk.STOCK_ABOUT)
+        self.acerca.set_size_request(100, 30)
+        self.acerca.connect('clicked', AboutWindow)
+        self.botonera.put(self.acerca, 110, 10)
+
         self.show_all()
 
         # Anterior
@@ -104,12 +110,6 @@ class Ventana(gtk.Window):
         self.ejecutar = gtk.Button(stock=gtk.STOCK_EXECUTE)
         self.ejecutar.set_size_request(100, 30)
         self.botonera.put(self.ejecutar, (ancho - 110), 10)
-
-        # Acerca
-        #self.acerca = gtk.Button(stock=gtk.STOCK_ABOUT)
-        #self.acerca.set_size_request(100, 30)
-        #self.acerca.connect('clicked', AboutWindow)
-        #self.botonera.put(self.acerca, 110, 10)
 
         self.connect("destroy", self.close)
         self.connect("delete-event", self.close)
