@@ -302,6 +302,7 @@ class Confirmar():
         grafico = Graficos()
         CFG['calculofifo'] = calculo.FCFS(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
         CFG['mtiempo'] = calculo.SJF(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
+        CFG['psjf'] = calculo.PSJF(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
         CFG['calculorr'] = calculo.RoundRobin(CFG['nproceso'], CFG['tejecucion'], CFG['tproceso'], CFG['ejecucion'], CFG['proceso'],CFG['trr'])
         CFG['graficofifo'] = grafico.Graficar(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'])
 
