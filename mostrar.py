@@ -127,4 +127,33 @@ class MostrarResultados(gtk.HBox):
         self.pproceso1 = gtk.Label(CFG['calculorr'][4])
         self.pproceso1.set_alignment(0, 0.5)
         table.attach(self.pproceso1, 6, 7, 3, 4)
+
+        self.combograficos = gtk.combo_box_new_text()
+        self.combograficos.insert_text(0, 'FSFSC')
+        self.combograficos.set_active(0)
+        self.combograficos.insert_text(1, 'SJF')
+        self.combograficos.insert_text(2, 'RR')
+        table.attach(self.combograficos, 0, 1, 4, 5)
+
+        self.ver = gtk.Button('Ver gráfica')
+        self.ver.connect('clicked', self.Ver)
+        table.attach(self.ver, 1, 2, 4, 5)
+
+        self.graficofifo = CFG['graficofifo']
+
         self.pack_start(table, padding=40)
+
+    def Ver(self, widget=None, event=None):
+      self.win = gtk.Window()
+      self.win.set_default_size(520,400)
+      vbox = gtk.VBox()
+      cerrar = gtk.Button(stock=gtk.STOCK_CLOSE)
+      cerrar.connect('clicked', self.Cerrar)
+      cerrar.show()
+      vbox.add(self.graficofifo)
+      vbox.add(cerrar)
+      self.win.add(vbox)
+      self.win.show_all()
+
+    def Cerrar(self, widget=None, event=None):
+      self.win.hide()
