@@ -33,6 +33,7 @@ from bienvenida import BienvenidaUsuario
 from solicitud import SolicitudDatos
 from confirmar import ConfirmarDatos
 from calculo import Algoritmos
+from graficos import Graficos
 from mostrar import MostrarResultados
 from common import UserMessage, AboutWindow, aconnect, \
     debug_list
@@ -298,9 +299,12 @@ class Confirmar():
 
     def ejecutar(self, CFG):
         calculo = Algoritmos()
-        CFG['calculofifo'] = calculo.FCFS(CFG['nproceso'], CFG['tejecucion'], CFG['tproceso'], CFG['ejecucion'], CFG['proceso'])
-        CFG['calculorr'] = calculo.RoundRobin(CFG['nproceso'], CFG['tejecucion'], CFG['tproceso'], CFG['ejecucion'], CFG['proceso'],CFG['trr'])
+        grafico = Graficos()
+        CFG['calculofifo'] = calculo.FCFS(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
         CFG['mtiempo'] = calculo.SJF(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
+        CFG['calculorr'] = calculo.RoundRobin(CFG['nproceso'], CFG['tejecucion'], CFG['tproceso'], CFG['ejecucion'], CFG['proceso'],CFG['trr'])
+        CFG['graficofifo'] = grafico.Graficar(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'])
+
         CFG['w'].next('Mostrar', Mostrar, (CFG), MostrarResultados(CFG))
         CFG['w'].siguiente.show()
         CFG['w'].ejecutar.hide()
