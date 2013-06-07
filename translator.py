@@ -27,9 +27,6 @@
 
 from gettext import gettext as _
 
-MAIN_ROOT_ERROR_MSG = _('Canaima Instalador debe ser ejecutado con permisos de superusuario.')
-MAIN_ROOT_ERROR_TITLE = _('Error de permisología')
-
 class msj:
     'Clase para administrar los mensajes mostrados al usuario'
 
