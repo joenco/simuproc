@@ -33,6 +33,7 @@ from bienvenida import BienvenidaUsuario
 from solicitud import SolicitudDatos
 from confirmar import ConfirmarDatos
 from calculo import Algoritmos
+from separar import Separar
 from graficos import Graficos
 from mostrar import MostrarResultados
 from common import UserMessage, AboutWindow, aconnect, \
@@ -202,12 +203,10 @@ class Solicitud():
         CFG['ejecucion'] = CFG['w'].formulario('Solicitud').tiempoejecucion.get_active_text() #guarda la función para el tiempo de llegada
         CFG['cpu'] = CFG['w'].formulario('Solicitud').tiempocpu.get_active_text() #guarda la función para el tiempo de uso del CPU
         CFG['bloqueo'] = CFG['w'].formulario('Solicitud').tiempobloqueo.get_active_text() #guarda la función del tiempo de bloqueo.
-        CFG['proceso'] = CFG['w'].formulario('Solicitud').tiempoduracion.get_active_text() #guarda la función del tiempo de servicio.
         CFG['trr'] = CFG['w'].formulario('Solicitud').txtrr.get_text() #guarda el valor del cuantum de tiempo para el algoritmo roundrobin
         CFG['tejecucion'] = CFG['w'].formulario('Solicitud').txttejecucion.get_text() #guarda el valor del tiempo de llegada de los procesos.
         CFG['tcpu'] = CFG['w'].formulario('Solicitud').txttcpu.get_text() #guarda el valor del tiempo de uso del CPU
         CFG['tbloqueo'] = CFG['w'].formulario('Solicitud').txttbloqueo.get_text() #guarda el valor de tiempo de bloqueo.
-        CFG['tproceso'] = CFG['w'].formulario('Solicitud').txttduracion.get_text() #guarda el valor del tiempo de servicio de los procesos.
         CFG['nproceso'] = CFG['w'].formulario('Solicitud').txtn.get_text() #guarda el valor de la cantidad de procesos a ejecutar.
 
         #se válidan todos los campos antes de continuar.
@@ -235,8 +234,21 @@ class Solicitud():
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
 
-        if re.compile('^[0-9]{1,}(\.[0-9]{0,})?$').search(CFG['tejecucion']) == None:
+        if CFG['ejecucion'] != 'Uniforme':
+          if re.compile('^[0-9]{1,}(\.[0-9]{0,})?$').search(CFG['tejecucion']) == None:
             message = "El tiempo de llegada de los procesos es inválido, debe ser un valornumérico."
+            UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
+            return
+        else:
+          if re.compile('^[0-9]{1,}(\.[0-9]{0,})?\s[0-9]{1,}(\.[0-9]{0,})?$').search(CFG['tejecucion']) == None:
+            message = "El tiempo de llegada de los procesos es inválido, debe separar los valores con un espacio"
+            UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
+            return
+
+          separar = Separar()
+          uniform = separar.Separar(CFG['tejecucion'])
+          if uniform[0]>=uniform[1]:
+            message = "El rango de valores para el tiempo de llegada es inválido, el 1er valor debe ser menor al 2do"
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
 
@@ -245,8 +257,21 @@ class Solicitud():
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
 
-        if re.compile('^[0-9]{1,}(\.[0-9]{1,})?$').search(CFG['tcpu']) == None:
-            message = "El valor del uso del CPU es inválido, debe ser un valor numérico"
+        if CFG['cpu'] != 'Uniforme':
+          if re.compile('^[0-9]{1,}(\.[0-9]{0,})?$').search(CFG['tcpu']) == None:
+            message = "El tiempo del uso del CPU de los procesos es inválido, debe ser un valornumérico."
+            UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
+            return
+        else:
+          if re.compile('^[0-9]{1,}(\.[0-9]{0,})?\s[0-9]{1,}(\.[0-9]{0,})?$').search(CFG['tcpu']) == None:
+            message = "El tiempo del uso de CPU de los procesos es inválido, debe separar los valores con un espacio"
+            UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
+            return
+
+          separar = Separar()
+          uniform = separar.Separar(CFG['tcpu'])
+          if uniform[0]>=uniform[1]:
+            message = "El rango de valores para el tiempo de CPU es inválido, el 1er valor debe ser menor al 2do"
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
 
@@ -255,18 +280,21 @@ class Solicitud():
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
 
-        if re.compile('^[0-9]{1,}(\.[0-9]{1,})?$').search(CFG['tbloqueo']) == None:
-            message = "El tiempo de bloqueo es inválido, debe ser un valor numérico."
+        if CFG['bloqueo'] != 'Uniforme':
+          if re.compile('^[0-9]{1,}(\.[0-9]{0,})?$').search(CFG['tbloqueo']) == None:
+            message = "El tiempo de bloqeo de los procesos es inválido, debe ser un valornumérico."
+            UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
+            return
+        else:
+          if re.compile('^[0-9]{1,}(\.[0-9]{0,})?\s[0-9]{1,}(\.[0-9]{0,})?$').search(CFG['tbloqueo']) == None:
+            message = "El tiempo de bloqeio de los procesos es inválido, debe separar los valores con un espacio"
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
 
-        if CFG['tproceso'].strip() == '':
-            message = "El campo del tiempo de proceso esta vacío, debe colocar un valor numérico."
-            UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
-            return
-
-        if re.compile('^[0-9]{1,}(\.[0-9]{1,})?$').search(CFG['tproceso']) == None:
-            message = "El tiempo para los procesos es inválido, debe ser un valor numérico."
+          separar = Separar()
+          uniform = separar.Separar(CFG['tbloqueo'])
+          if uniform[0]>=uniform[1]:
+            message = "El rango de valores para el tiempo de bloqueo es inválido, el 1er valor debe ser menor al 2do"
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
 
@@ -303,8 +331,8 @@ class Confirmar():
         CFG['calculofifo'] = calculo.FCFS(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
         CFG['mtiempo'] = calculo.SJF(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
         CFG['psjf'] = calculo.PSJF(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
-        CFG['calculorr'] = calculo.RoundRobin(CFG['nproceso'], CFG['tejecucion'], CFG['tproceso'], CFG['ejecucion'], CFG['proceso'],CFG['trr'])
-        CFG['graficofifo'] = grafico.Graficar(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'])
+        CFG['calculorr'] = calculo.RoundRobin(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'],CFG['trr'])
+        CFG['graficofifo'] = grafico.Graficar3D
 
         CFG['w'].next('Mostrar', Mostrar, (CFG), MostrarResultados(CFG))
         CFG['w'].siguiente.show()
