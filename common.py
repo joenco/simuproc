@@ -34,21 +34,21 @@ from config import APP_NAME, APP_COPYRIGHT, APP_DESCRIPTION, \
 def AboutWindow(widget=None):
     about = gtk.AboutDialog()
     about.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    #about.set_logo(gtk.gdk.pixbuf_new_from_file(ABOUT_IMAGE))
+    about.set_logo(gtk.gdk.pixbuf_new_from_file(ABOUT_IMAGE))
     about.set_name(APP_NAME)
     about.set_copyright(APP_COPYRIGHT)
     about.set_comments(APP_DESCRIPTION)
     about.set_website(APP_URL)
 
     try:
-        f = open(LICENSE_FILE, 'r')
+        f = open('documentos/gpl-3.0.txt', 'r')
         license = f.read()
         f.close()
     except Exception, msg:
         license = 'NOT FOUND'
 
     try:
-        f = open(AUTHORS_FILE, 'r')
+        f = open('documentos/autores.txt', 'r')
         a = f.read()
         authors = a.split('\n')
         f.close()
