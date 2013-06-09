@@ -29,6 +29,8 @@ import gtk, pango
 import numpy as np
 import scipy.stats as st
 import random as r
+from separar import Separar
+from guardardatos import Guardar
 
 class Algoritmos(gtk.HBox):
     def RoundRobin(self, n, te, ts, fe, fs ,q):
@@ -41,14 +43,26 @@ class Algoritmos(gtk.HBox):
       self.promedio_de_espera=float(0.0)
       #random.seed(5000)
       self.n = int(n) #número de procesos.
-      self.te = float(te) #tiempo de llegada de los procesos
-      self.ts = float(ts) #tiempo de duracion de los procesos.
       self.func_llegada = fe #función para los tiempos de llegada.
       self.func_servicio = fs #función para el tiempo de duracion.
       self.aux = 0
       self.q = float(q)
       self.ncpu = 0
       self.tiempo_parcial = 0
+      self.te = te
+      self.ts = ts
+      separar = Separar()
+      guardar = Guardar()
+
+      if self.func_llegada == 'Uniforme':
+        self.te = separar.Separar(self.te)
+      else:
+        self.te = float(te)
+
+      if self.func_servicio == 'Uniforme':
+        self.ts = separar.Separar(self.ts)
+      else:
+        self.ts = float(ts)
 
       for i in xrange(self.n+1):
         self.cola_procesos.append([])#agregamos un objeto de tipo lista a la cola
@@ -58,7 +72,7 @@ class Algoritmos(gtk.HBox):
         if self.func_servicio == 'Constante':
           self.cola_procesos[i].append(self.ts)
         elif self.func_servicio == 'Uniforme':
-          self.cola_procesos[i].append(r.uniform(self.ts))
+          self.cola_procesos[i].append(r.uniform(self.ts[0], self.ts[1]))
         elif self.func_servicio == 'Exponencial':
           self.cola_procesos[i].append(np.random.exponential(self.ts))
         elif self.func_servicio == 'Normal':
@@ -68,7 +82,7 @@ class Algoritmos(gtk.HBox):
         if self.func_llegada == 'Constante':
           self.cola_procesos[i].append(self.te)
         elif self.func_llegada == 'Uniforme':
-          self.cola_procesos[i].append(r.uniform(0, self.te))
+          self.cola_procesos[i].append(r.uniform(self.te[0], self.te[1]))
         elif self.func_llegada == 'Exponencial':
           self.cola_procesos[i].append(np.random.exponential(self.te))
         elif self.func_llegada == 'Normal':
@@ -98,6 +112,7 @@ class Algoritmos(gtk.HBox):
         self.total_llegada += round(self.cola_procesos[i][2], 2)
         self.total_esperado += round(self.cola_procesos[i][3], 2)
 
+      guardar.Guardar(self.cola_procesos, 3)
       self.promedio_llegada = round(self.total_llegada/self.n, 2)
       self.promedio_servicio = round(self.total_servicio/self.ncpu, 2)
       self.promedio_de_espera = round(self.total_esperado/self.n, 2)
@@ -113,16 +128,26 @@ class Algoritmos(gtk.HBox):
     def FCFS(self, n, te, tcpu, f1, f2):
       self.cola_procesos = []
       self.n = int(n) #número de procesos a ejecutar
-      self.te = float(te) #tiempo de espera de llegada de los procesos.
-      self.tcpu = float(tcpu) #tiempo de rafaga del CPU
       self.func_llegada = f1
       self.func_cpu = f2
       self.wt=float(0.0) #tiempo total de espera
       self.tpe  = float(0.0) #tiempo promedio de espera.
       self.teje = float(0.0) #tiempo total de ejecucion
       self.tpeje = float(0.0) #tiempo promedio de ejecucion.
+      self.te = te
+      self.tcpu = tcpu
+      separar = Separar()
+      guardar = Guardar()
 
-      datos = open('FCFS.dat', 'w')
+      if self.func_llegada == 'Uniforme':
+        self.te = separar.Separar(self.te)
+      else:
+        self.te = float(te)
+
+      if self.func_cpu == 'Uniforme':
+        self.tcpu = separar.Separar(self.tcpu)
+      else:
+        self.tcpu = float(tcpu)
 
       for i in xrange(self.n):
         self.cola_procesos.append([]) #agregamos un objeto de tipo lista a la cola
@@ -131,7 +156,7 @@ class Algoritmos(gtk.HBox):
         if self.func_cpu == 'Constante':
           self.cola_procesos[i].append(self.tcpu)
         elif self.func_cpu == 'Uniforme':
-          self.cola_procesos[i].append(r.uniform(0, self.tcpu))
+          self.cola_procesos[i].append(r.uniform(self.tcpu[0], self.tcpu[1]))
         elif self.func_cpu == 'Exponencial':
           self.cola_procesos[i].append(np.random.exponential(self.tcpu))
         elif self.func_cpu == 'Normal':
@@ -140,7 +165,7 @@ class Algoritmos(gtk.HBox):
         if self.func_llegada == 'Constante':
           self.cola_procesos[i].append(self.te)
         elif self.func_llegada == 'Uniforme':
-          self.cola_procesos[i].append(r.uniform(0, self.te))
+          self.cola_procesos[i].append(r.uniform(self.te[0], self.te[1]))
         elif self.func_llegada == 'Exponencial':
           self.cola_procesos[i].append(np.random.exponential(self.te))
         elif self.func_llegada == 'Normal':
@@ -152,10 +177,8 @@ class Algoritmos(gtk.HBox):
         print self.cola_procesos[i][0],'\t\t',self.cola_procesos[i][2],'\t\t',self.cola_procesos[i][1]
         self.wt += round(self.cola_procesos[i][1]-self.cola_procesos[i][2], 2) #restamos al uso del CPU, el tiempo de llegada.
         self.teje += round(self.cola_procesos[i][1], 1)
-        for j in xrange(3):
-          data=str(self.cola_procesos[i][j])
-          datos.write(' '+data)
-        datos.write('\n')
+
+      guardar.Guardar(self.cola_procesos, 0)
 
       self.wt = self.wt-self.cola_procesos[self.n-1][1]
       self.wt = round(self.wt-self.cola_procesos[self.n-1][1], 2)
@@ -165,7 +188,6 @@ class Algoritmos(gtk.HBox):
       print "el tiempo total  de uso del CPU es: ",self.teje
       print "el tiempo promedio de espera es: ",self.tpe
       print "el tiempo promedio de uso es: ",self.tpeje
-      datos.close()
 
       return self.teje, self.tpeje, self.wt, self.tpe, self.cola_procesos
 
@@ -173,14 +195,26 @@ class Algoritmos(gtk.HBox):
     def SJF(self, n, te, tcpu, f1, fcpu):
       self.cola_procesos = []
       self.n = int(n) #número de procesos a ejecutar
-      self.te = float(te) #tiempo de espera de llegada de los procesos.
-      self.tcpu = float(tcpu) #tiempo de rafaga del CPU
       self.func_llegada = f1
       self.func_cpu = fcpu
       self.wt=float(0.0) #tiempo total de espera
       self.tpe  = float(0.0) #tiempo promedio de espera.
       self.teje = float(0.0) #tiempo total de ejecucion
       self.tpeje = float(0.0) #tiempo promedio de ejecucion.
+      self.te = te
+      self.tcpu = tcpu
+      separar = Separar()
+      guardar = Guardar()
+
+      if self.func_llegada == 'Uniforme':
+        self.te = separar.Separar(self.te)
+      else:
+        self.te = float(te)
+
+      if self.func_cpu == 'Uniforme':
+        self.tcpu = separar.Separar(self.tcpu)
+      else:
+        self.tcpu = float(tcpu)
 
       for i in xrange(self.n):
         self.cola_procesos.append([]) #agregamos un objeto de tipo lista a la cola
@@ -189,7 +223,7 @@ class Algoritmos(gtk.HBox):
         if self.func_cpu == 'Constante':
           self.cola_procesos[i].append(self.tcpu)
         elif self.func_cpu == 'Uniforme':
-          self.cola_procesos[i].append(r.uniform(0, self.tcpu))
+          self.cola_procesos[i].append(r.uniform(self.tcpu[0], self.tcpu[1]))
         elif self.func_cpu == 'Exponencial':
           self.cola_procesos[i].append(np.random.exponential(self.tcpu))
         elif self.func_cpu == 'Normal':
@@ -198,7 +232,7 @@ class Algoritmos(gtk.HBox):
         if self.func_llegada == 'Constante':
           self.cola_procesos[i].append(self.te)
         elif self.func_llegada == 'Uniforme':
-          self.cola_procesos[i].append(r.uniform(0, self.te))
+          self.cola_procesos[i].append(r.uniform(self.te[0], self.te[1]))
         elif self.func_llegada == 'Exponencial':
           self.cola_procesos[i].append(np.random.exponential(self.te))
         elif self.func_llegada == 'Normal':
@@ -213,6 +247,7 @@ class Algoritmos(gtk.HBox):
         self.wt += round(self.cola_procesos[i][1]-self.cola_procesos[i][2], 2) #restamos al uso del CPU, el tiempo de llegada.
         self.teje += round(self.cola_procesos[i][1], 1)
 
+      guardar.Guardar(self.cola_procesos, 1)
       self.wt = round(self.wt-self.cola_procesos[self.n-1][1], 2)
       self.tpe=round(self.wt/self.n, 2)
       self.tpeje= round(self.teje/self.n, 2)
@@ -223,14 +258,12 @@ class Algoritmos(gtk.HBox):
 
       return self.teje, self.tpeje, self.wt, self.tpe, self.cola_procesos
 
-#Preemptive Shortest Job First(SJF)
+#Preemptive Shortest Job First(PSJF)
     def PSJF(self, n, te, tcpu, f1, fcpu):
       self.cola_procesos = []
       self.procesos_actuales = []
       self.espera_procesos_actuales = []
       self.n = int(n) #número de procesos a ejecutar
-      self.te = float(te) #tiempo de espera de llegada de los procesos.
-      self.tcpu = float(tcpu) #tiempo de rafaga del CPU
       self.func_llegada = f1
       self.func_cpu = fcpu
       self.wt=float(0.0) #tiempo total de espera
@@ -244,6 +277,20 @@ class Algoritmos(gtk.HBox):
       self.tparcial = 0
       self.promedio_llegada = 0
       self.total_llegada = 0
+      self.te = te
+      self.tcpu = tcpu
+      separar = Separar()
+      guardar = Guardar()
+
+      if self.func_llegada == 'Uniforme':
+        self.te = separar.Separar(self.te)
+      else:
+        self.te = float(te)
+
+      if self.func_cpu == 'Uniforme':
+        self.tcpu = separar.Separar(self.tcpu)
+      else:
+        self.tcpu = float(tcpu)
 
       for i in xrange(self.n):
         self.cola_procesos.append([]) #agregamos un objeto de tipo lista a la cola
@@ -252,7 +299,7 @@ class Algoritmos(gtk.HBox):
         if self.func_cpu == 'Constante':
           self.cola_procesos[i].append(self.tcpu)
         elif self.func_cpu == 'Uniforme':
-          self.cola_procesos[i].append(r.uniform(0, self.tcpu))
+          self.cola_procesos[i].append(r.uniform(self.tcpu[0], self.tcpu[1]))
         elif self.func_cpu == 'Exponencial':
           self.cola_procesos[i].append(np.random.exponential(self.tcpu))
         elif self.func_cpu == 'Normal':
@@ -261,7 +308,7 @@ class Algoritmos(gtk.HBox):
         if self.func_llegada == 'Constante':
           self.cola_procesos[i].append(self.te)
         elif self.func_llegada == 'Uniforme':
-          self.cola_procesos[i].append(r.uniform(0, self.te))
+          self.cola_procesos[i].append(r.uniform(self.te[0], self.te[1]))
         elif self.func_llegada == 'Exponencial':
           self.cola_procesos[i].append(np.random.exponential(self.te))
         elif self.func_llegada == 'Normal':
@@ -293,14 +340,14 @@ class Algoritmos(gtk.HBox):
           self.procesos_actuales.append(self.cola_procesos[0][1])
           self.espera_procesos_actuales.append(0)
 	  self.tam += 1
-          
+
         #Para verificar en consola
         #print 'posicion del proceso actual',self.actual
         #print 'tiempo restante del proceso actual' , self.procesos_actuales[self.actual]     
         #print 'llegada del proceso siguiente',self.cola_procesos[i][2] 
         #for h in xrange(self.tam):
         #  print'---',h,'---',self.procesos_actuales[h]
-       
+
       self.procesos_actuales.sort(key = lambda procesos_actuales:procesos_actuales)  
       #for h in xrange(self.tam):
       #  print'---',h,'---',self.procesos_actuales[h]
@@ -326,6 +373,8 @@ class Algoritmos(gtk.HBox):
 
       for i in xrange(self.n):
         self.total_llegada += round(self.cola_procesos[i][2], 2)
+
+      guardar.Guardar(self.cola_procesos, 2)
       
       self.tpe=round(self.wt/self.n, 2)
       self.tpeje= round(self.teje/self.n, 2)
