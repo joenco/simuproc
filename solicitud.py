@@ -69,16 +69,19 @@ class SolicitudDatos(gtk.HBox):
         self.so = gtk.CheckButton("Reemplazo del reloj(segunda oportunidad)")
         self.table.attach(self.so, 0, 1, 4, 5)
 
+        self.listafuncion = gtk.ListStore(str)
+        self.listafuncion.append(["Constante"])
+        self.listafuncion.append(["Uniforme"])
+        self.listafuncion.append(["Exponencial"])
+        self.listafuncion.append(["Normal"])
+
         self.tejecucion = gtk.Label("Elija el algoritmo y escriba el valor para el tiempo de llegada de los procesos:")
         self.tejecucion.set_alignment(0, 0.5)
         self.table.attach(self.tejecucion, 0, 2, 5, 6)
 
         self.tiempoejecucion = gtk.combo_box_new_text()
-        self.tiempoejecucion.insert_text(0, 'Constante')
+        self.tiempoejecucion.set_model(self.listafuncion)
         self.tiempoejecucion.set_active(0)
-        self.tiempoejecucion.insert_text(1, 'Uniforme')
-        self.tiempoejecucion.insert_text(2, 'Exponencial')
-        self.tiempoejecucion.insert_text(3, 'Normal')
         self.table.attach(self.tiempoejecucion, 0, 1, 6, 7)
 
         self.txttejecucion = gtk.Entry()
@@ -89,11 +92,8 @@ class SolicitudDatos(gtk.HBox):
         self.table.attach(self.tcpu, 0, 1, 7, 8)
 
         self.tiempocpu = gtk.combo_box_new_text()
-        self.tiempocpu.insert_text(0, 'Constante')
+        self.tiempocpu.set_model(self.listafuncion)
         self.tiempocpu.set_active(0)
-        self.tiempocpu.insert_text(1, 'Uniforme')
-        self.tiempocpu.insert_text(2, 'Exponencial')
-        self.tiempocpu.insert_text(3, 'Normal')
         self.table.attach(self.tiempocpu, 0, 1, 8, 9)
 
         self.txttcpu = gtk.Entry()
@@ -104,30 +104,12 @@ class SolicitudDatos(gtk.HBox):
         self.table.attach(self.tbloqueo, 0, 1, 9, 10)
 
         self.tiempobloqueo = gtk.combo_box_new_text()
-        self.tiempobloqueo.insert_text(0, 'Constante')
+        self.tiempobloqueo.set_model(self.listafuncion)
         self.tiempobloqueo.set_active(0)
-        self.tiempobloqueo.insert_text(1, 'Uniforme')
-        self.tiempobloqueo.insert_text(2, 'Exponencial')
-        self.tiempobloqueo.insert_text(3, 'Normal')
         self.table.attach(self.tiempobloqueo, 0, 1, 10, 11)
 
         self.txttbloqueo = gtk.Entry()
         self.table.attach(self.txttbloqueo, 1, 2, 10, 11)
-
-        self.txtdura = gtk.Label("Elija el algoritmo y escriba el valor para el tiempo de duración de los procesos:")
-        self.txtdura.set_alignment(0, 0.5)
-        self.table.attach(self.txtdura, 0, 1, 11, 12)
-
-        self.tiempoduracion = gtk.combo_box_new_text()
-        self.tiempoduracion.insert_text(0, 'Constante')
-        self.tiempoduracion.set_active(0)
-        self.tiempoduracion.insert_text(1, 'Uniforme')
-        self.tiempoduracion.insert_text(2, 'Exponencial')
-        self.tiempoduracion.insert_text(3, 'Normal')
-        self.table.attach(self.tiempoduracion, 0, 1, 12, 13)
-
-        self.txttduracion = gtk.Entry()
-        self.table.attach(self.txttduracion, 1, 2, 12, 13)
 
         self.lbln = gtk.Label("Número de procesos a ejecutar:")
         self.lbln.set_alignment(0, 0.5)
