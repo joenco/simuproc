@@ -30,14 +30,14 @@ import os
 curdir = os.path.normpath(os.path.join(os.path.realpath(__file__), '..', '..'))
 
 if curdir == '/usr/share/pyshared':
-    GUIDIR = '/usr/share/pyshared/canaimainstalador'
-    SHAREDIR = '/usr/share/canaima-instalador'
+    GUIDIR = '/usr/share/pyshared/simuproc'
+    SHAREDIR = '/usr/share/git-simuproc'
 else:
-    GUIDIR = curdir + '/canaimainstalador'
+    GUIDIR = curdir + '/simuproc'
     SHAREDIR = curdir
 
 BAR_ICON = GUIDIR + '/data/img/icon.png'
-ABOUT_IMAGE = GUIDIR + '/data/img/logo.png'
+ABOUT_IMAGE = GUIDIR + '/imagenes/logo.png'
 BANNER_IMAGE = GUIDIR + '/data/img/banner.png'
 WELCOME_IMAGE = GUIDIR + '/data/img/welcome.png'
 KEY_IMAGE_TMPL = GUIDIR + '/data/img/key_{0}.png'
@@ -50,7 +50,7 @@ TRANSLATORS_FILE = SHAREDIR + '/TRANSLATORS'
 
 APP_NAME = 'SimuProc'
 APP_COPYRIGHT = 'Copyright (C) 2013 - Varios autores'
-APP_URL = 'git clone https://libretecnologia@code.google.com/p/simuproc/'
+APP_URL = 'https://libretecnologia@code.google.com/p/simuproc/'
 APP_DESCRIPTION = 'Simulador de un planificador de procesos'
 # ------------------------------------------# -------
 ESPACIO_TOTAL = 1024.0 * 1024.0 * 6.0       # 6GB
