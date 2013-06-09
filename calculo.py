@@ -127,6 +127,7 @@ class Algoritmos(gtk.HBox):
 #First Come First Served(FCFS)
     def FCFS(self, n, te, tcpu, f1, f2):
       self.cola_procesos = []
+      self.t_espera = []
       self.n = int(n) #número de procesos a ejecutar
       self.func_llegada = f1
       self.func_cpu = f2
@@ -136,6 +137,8 @@ class Algoritmos(gtk.HBox):
       self.tpeje = float(0.0) #tiempo promedio de ejecucion.
       self.te = te
       self.tcpu = tcpu
+      self.wt1=float(0.0)
+      self.usocpu = float(0.0)
       separar = Separar()
       guardar = Guardar()
 
@@ -151,7 +154,9 @@ class Algoritmos(gtk.HBox):
 
       for i in xrange(self.n):
         self.cola_procesos.append([]) #agregamos un objeto de tipo lista a la cola
+        self.t_espera.append([])
         self.cola_procesos[i].append(i)
+        self.t_espera[i].append(i)
 
         if self.func_cpu == 'Constante':
           self.cola_procesos[i].append(self.tcpu)
@@ -172,16 +177,21 @@ class Algoritmos(gtk.HBox):
           self.cola_procesos[i].append(st.norm.cdf(self.te))
 
       self.cola_procesos[0][2]=self.cola_procesos[0][2]-self.cola_procesos[0][2]
+      self.t_espera[0].append(0)
       print 'Nombre del proceso\t\t Tiempo de espera \t \tTiempo de rafaga'
       for i in xrange(self.n):
         print self.cola_procesos[i][0],'\t\t',self.cola_procesos[i][2],'\t\t',self.cola_procesos[i][1]
-        self.wt += round(self.cola_procesos[i][1]-self.cola_procesos[i][2], 2) #restamos al uso del CPU, el tiempo de llegada.
+        for j in xrange(1, self.n):
+          self.t_espera[j].append(self.t_espera[i][1]-self.cola_procesos[j][2]+self.cola_procesos[i][1])
+        if self.t_espera[i][1]<0:
+          self.wt1 += self.t_espera[i][1]*-1
+        else:
+          self.wt += self.t_espera[i][1]
         self.teje += round(self.cola_procesos[i][1], 1)
 
       guardar.Guardar(self.cola_procesos, 0)
 
-      self.wt = self.wt-self.cola_procesos[self.n-1][1]
-      self.wt = round(self.wt-self.cola_procesos[self.n-1][1], 2)
+      self.usocpu = round(1.0-self.wt1/(self.wt1+self.teje), 2)
       self.tpe=round(self.wt/self.n, 2)
       self.tpeje= round(self.teje/self.n, 2)
       print "\nel tiempo total de espera de los procesos es: ",self.wt
@@ -189,11 +199,12 @@ class Algoritmos(gtk.HBox):
       print "el tiempo promedio de espera es: ",self.tpe
       print "el tiempo promedio de uso es: ",self.tpeje
 
-      return self.teje, self.tpeje, self.wt, self.tpe, self.cola_procesos
+      return self.usocpu, self.tpeje, self.tpe
 
 #Shortest Job First(SJF)
     def SJF(self, n, te, tcpu, f1, fcpu):
       self.cola_procesos = []
+      self.t_espera = []
       self.n = int(n) #número de procesos a ejecutar
       self.func_llegada = f1
       self.func_cpu = fcpu
@@ -203,6 +214,8 @@ class Algoritmos(gtk.HBox):
       self.tpeje = float(0.0) #tiempo promedio de ejecucion.
       self.te = te
       self.tcpu = tcpu
+      self.wt1 = float(0.0)
+      self.usocpu = float(0.0)
       separar = Separar()
       guardar = Guardar()
 
@@ -218,7 +231,9 @@ class Algoritmos(gtk.HBox):
 
       for i in xrange(self.n):
         self.cola_procesos.append([]) #agregamos un objeto de tipo lista a la cola
+        self.t_espera.append([])
         self.cola_procesos[i].append(i)
+        self.t_espera[i].append(i)
 
         if self.func_cpu == 'Constante':
           self.cola_procesos[i].append(self.tcpu)
@@ -241,14 +256,21 @@ class Algoritmos(gtk.HBox):
       self.cola_procesos.sort(key = lambda cola_procesos:cola_procesos[1])
 
       self.cola_procesos[0][2]=self.cola_procesos[0][2]-self.cola_procesos[0][2]
+      self.t_espera[0].append(0)
       print 'Nombre del proceso\t\t Tiempo de espera \t \tTiempo de rafaga'
       for i in xrange(self.n):
         print self.cola_procesos[i][0],'\t\t',self.cola_procesos[i][2],'\t\t',self.cola_procesos[i][1]
-        self.wt += round(self.cola_procesos[i][1]-self.cola_procesos[i][2], 2) #restamos al uso del CPU, el tiempo de llegada.
+        for j in xrange(1, self.n):
+          self.t_espera[j].append(self.t_espera[i][1]-self.cola_procesos[j][2]+self.cola_procesos[i][1])
+
+        if self.t_espera[i][1]<0:
+          self.wt1 += round(self.t_espera[i][1], 2)*-1
+        else:
+          self.wt += round(self.t_espera[i][1], 2) #restamos al uso del CPU, el tiempo de llegada.
         self.teje += round(self.cola_procesos[i][1], 1)
 
       guardar.Guardar(self.cola_procesos, 1)
-      self.wt = round(self.wt-self.cola_procesos[self.n-1][1], 2)
+      self.usocpu = round(1 - self.wt1/(self.wt1+self.teje), 2)
       self.tpe=round(self.wt/self.n, 2)
       self.tpeje= round(self.teje/self.n, 2)
       print "\nel tiempo total de espera de los procesos es: ",self.wt
@@ -256,7 +278,7 @@ class Algoritmos(gtk.HBox):
       print "el tiempo promedio de espera es: ",self.tpe
       print "el tiempo promedio de uso es: ",self.tpeje
 
-      return self.teje, self.tpeje, self.wt, self.tpe, self.cola_procesos
+      return self.usocpu, self.tpeje, self.tpe
 
 #Preemptive Shortest Job First(PSJF)
     def PSJF(self, n, te, tcpu, f1, fcpu):
