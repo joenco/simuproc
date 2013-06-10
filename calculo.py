@@ -31,6 +31,7 @@ import scipy.stats as st
 import random as r
 from separar import Separar
 from guardardatos import Guardar
+from graficos import Graficos
 
 class Algoritmos(gtk.HBox):
     def RoundRobin(self, n, te, ts, fe, fs ,q):
@@ -53,6 +54,7 @@ class Algoritmos(gtk.HBox):
       self.ts = ts
       separar = Separar()
       guardar = Guardar()
+      grafico = Graficos()
 
       if self.func_llegada == 'Uniforme':
         self.te = separar.Separar(self.te)
@@ -112,6 +114,7 @@ class Algoritmos(gtk.HBox):
         self.total_llegada += round(self.cola_procesos[i][2], 4)
         self.total_esperado += round(self.cola_procesos[i][3], 4)
 
+      self.canvas = grafico.Graficar(self.cola_procesos)
       guardar.Guardar(self.cola_procesos, 3)
       self.promedio_llegada = round(self.total_llegada/self.n, 4)
       self.promedio_servicio = round(self.total_servicio/self.ncpu, 4)
@@ -122,7 +125,7 @@ class Algoritmos(gtk.HBox):
       print 'Tiempo promedio de proceso: ',(self.promedio_servicio)
       print 'Tiempo promedio esperado: ',(self.promedio_de_espera)
 
-      return self.total_llegada, self.promedio_llegada, self.total_servicio, self.promedio_servicio, self.promedio_de_espera, self.cola_procesos
+      return self.total_llegada, self.promedio_llegada, self.total_servicio, self.promedio_servicio, self.promedio_de_espera, self.cola_procesos, self.canvas
 
 #First Come First Served(FCFS)
     def FCFS(self, n, te, tcpu, f1, f2):

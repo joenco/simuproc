@@ -117,7 +117,7 @@ class MostrarResultados(gtk.HBox):
         self.ver.connect('clicked', self.Ver)
         table.attach(self.ver, 1, 2, 4, 5)
 
-        self.graficofifo = CFG['graficofifo']
+        self.graficorr = CFG['calculorr'][6]
 
         self.pack_start(table, padding=40)
 
@@ -128,7 +128,7 @@ class MostrarResultados(gtk.HBox):
       cerrar = gtk.Button(stock=gtk.STOCK_CLOSE)
       cerrar.connect('clicked', self.Cerrar)
       cerrar.show()
-      vbox.add(self.graficofifo)
+      vbox.add(self.graficorr)
       vbox.add(cerrar)
       self.win.add(vbox)
       self.win.show_all()
