@@ -62,46 +62,49 @@ class MostrarResultados(gtk.HBox):
         self.txt5.set_alignment(0, 0.5)
         table.attach(self.txt5, 4, 5, 1, 2)
 
-        self.txtcfifo = gtk.Label("FCFS")
-        self.txtcfifo.set_alignment(0, 0.5)
-        table.attach(self.txtcfifo, 0, 1, 2, 3)
 
-        self.np = gtk.Label(CFG['nproceso'])
-        self.np.set_alignment(0, 0.5)
-        table.attach(self.np, 1, 2, 2, 3)
+        if CFG['fifo']==True:
+          self.txtcfifo = gtk.Label("FCFS")
+          self.txtcfifo.set_alignment(0, 0.5)
+          table.attach(self.txtcfifo, 0, 1, 2, 3)
 
-        self.tejecucion = gtk.Label(CFG['calculofifo'][0])
-        self.tejecucion.set_alignment(0, 0.5)
-        table.attach(self.tejecucion, 2, 3, 2, 3)
+          self.np = gtk.Label(CFG['nproceso'])
+          self.np.set_alignment(0, 0.5)
+          table.attach(self.np, 1, 2, 2, 3)
 
-        self.tpromedio = gtk.Label(CFG['calculofifo'][1])
-        self.tpromedio.set_alignment(0, 0.5)
-        table.attach(self.tpromedio, 3, 4, 2, 3)
+          self.tejecucion = gtk.Label(CFG['calculofifo'][0])
+          self.tejecucion.set_alignment(0, 0.5)
+          table.attach(self.tejecucion, 2, 3, 2, 3)
 
-        self.tproceso = gtk.Label(CFG['calculofifo'][2])
-        self.tproceso.set_alignment(0, 0.5)
-        table.attach(self.tproceso, 4, 5, 2, 3)
+          self.tpromedio = gtk.Label(CFG['calculofifo'][1])
+          self.tpromedio.set_alignment(0, 0.5)
+          table.attach(self.tpromedio, 3, 4, 2, 3)
+
+          self.tproceso = gtk.Label(CFG['calculofifo'][2])
+          self.tproceso.set_alignment(0, 0.5)
+          table.attach(self.tproceso, 4, 5, 2, 3)
 
         #Round Robin
-        self.txtcfifo = gtk.Label("RR")
-        self.txtcfifo.set_alignment(0, 0.5)
-        table.attach(self.txtcfifo, 0, 1, 3, 4)
+        if CFG['roundrobin']==True:
+          self.txtcfifo = gtk.Label("RR")
+          self.txtcfifo.set_alignment(0, 0.5)
+          table.attach(self.txtcfifo, 0, 1, 3, 4)
 
-        self.np = gtk.Label(CFG['nproceso'])
-        self.np.set_alignment(0, 0.5)
-        table.attach(self.np, 1, 2, 3, 4)
+          self.np = gtk.Label(CFG['nproceso'])
+          self.np.set_alignment(0, 0.5)
+          table.attach(self.np, 1, 2, 3, 4)
 
-        self.tejecucion = gtk.Label(CFG['calculorr'][0])
-        self.tejecucion.set_alignment(0, 0.5)
-        table.attach(self.tejecucion, 2, 3, 3, 4)
+          self.tejecucion = gtk.Label(CFG['calculorr'][0])
+          self.tejecucion.set_alignment(0, 0.5)
+          table.attach(self.tejecucion, 2, 3, 3, 4)
 
-        self.tpromedio = gtk.Label(CFG['calculorr'][1])
-        self.tpromedio.set_alignment(0, 0.5)
-        table.attach(self.tpromedio, 3, 4, 3, 4)
+          self.tpromedio = gtk.Label(CFG['calculorr'][1])
+          self.tpromedio.set_alignment(0, 0.5)
+          table.attach(self.tpromedio, 3, 4, 3, 4)
 
-        self.tproceso = gtk.Label(CFG['calculorr'][2])
-        self.tproceso.set_alignment(0, 0.5)
-        table.attach(self.tproceso, 4, 5, 3, 4)
+          self.tproceso = gtk.Label(CFG['calculorr'][2])
+          self.tproceso.set_alignment(0, 0.5)
+          table.attach(self.tproceso, 4, 5, 3, 4)
 
         self.combograficos = gtk.combo_box_new_text()
         self.combograficos.insert_text(0, 'FSFSC')
