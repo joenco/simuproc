@@ -109,13 +109,13 @@ class Algoritmos(gtk.HBox):
             self.aux=self.aux+1
 
       for i in xrange(self.n):
-        self.total_llegada += round(self.cola_procesos[i][2], 2)
-        self.total_esperado += round(self.cola_procesos[i][3], 2)
+        self.total_llegada += round(self.cola_procesos[i][2], 4)
+        self.total_esperado += round(self.cola_procesos[i][3], 4)
 
       guardar.Guardar(self.cola_procesos, 3)
-      self.promedio_llegada = round(self.total_llegada/self.n, 2)
-      self.promedio_servicio = round(self.total_servicio/self.ncpu, 2)
-      self.promedio_de_espera = round(self.total_esperado/self.n, 2)
+      self.promedio_llegada = round(self.total_llegada/self.n, 4)
+      self.promedio_servicio = round(self.total_servicio/self.ncpu, 4)
+      self.promedio_de_espera = round(self.total_esperado/self.n, 4)
       print 'Tiempo total de llegada: ',self.total_llegada
       print 'Tiempo total de proceso: ',self.total_servicio
       print 'Tiempo promedio de llegada: ',(self.promedio_llegada)
@@ -187,13 +187,13 @@ class Algoritmos(gtk.HBox):
           self.wt1 += self.t_espera[i][1]*-1
         else:
           self.wt += self.t_espera[i][1]
-        self.teje += round(self.cola_procesos[i][1], 1)
+        self.teje += round(self.cola_procesos[i][1], 4)
 
       guardar.Guardar(self.cola_procesos, 0)
 
-      self.usocpu = round(1.0-self.wt1/(self.wt1+self.teje), 2)
-      self.tpe=round(self.wt/self.n, 2)
-      self.tpeje= round(self.teje/self.n, 2)
+      self.usocpu = round(1.0-self.wt1/(self.wt1+self.teje), 4)
+      self.tpe=round(self.wt/self.n, 4)
+      self.tpeje= round(self.teje/self.n, 4)
       print "\nel tiempo total de espera de los procesos es: ",self.wt
       print "el tiempo total  de uso del CPU es: ",self.teje
       print "el tiempo promedio de espera es: ",self.tpe
@@ -264,15 +264,15 @@ class Algoritmos(gtk.HBox):
           self.t_espera[j].append(self.t_espera[i][1]-self.cola_procesos[j][2]+self.cola_procesos[i][1])
 
         if self.t_espera[i][1]<0:
-          self.wt1 += round(self.t_espera[i][1], 2)*-1
+          self.wt1 += round(self.t_espera[i][1], 4)*-1
         else:
-          self.wt += round(self.t_espera[i][1], 2) #restamos al uso del CPU, el tiempo de llegada.
-        self.teje += round(self.cola_procesos[i][1], 1)
+          self.wt += round(self.t_espera[i][1], 4)
+        self.teje += round(self.cola_procesos[i][1], 4)
 
       guardar.Guardar(self.cola_procesos, 1)
-      self.usocpu = round(1 - self.wt1/(self.wt1+self.teje), 2)
-      self.tpe=round(self.wt/self.n, 2)
-      self.tpeje= round(self.teje/self.n, 2)
+      self.usocpu = round(1 - self.wt1/(self.wt1+self.teje), 4)
+      self.tpe=round(self.wt/self.n, 4)
+      self.tpeje= round(self.teje/self.n, 4)
       print "\nel tiempo total de espera de los procesos es: ",self.wt
       print "el tiempo total  de uso del CPU es: ",self.teje
       print "el tiempo promedio de espera es: ",self.tpe
@@ -394,13 +394,13 @@ class Algoritmos(gtk.HBox):
         self.wt += self.espera_procesos_actuales[h]
 
       for i in xrange(self.n):
-        self.total_llegada += round(self.cola_procesos[i][2], 2)
+        self.total_llegada += round(self.cola_procesos[i][2], 4)
 
       guardar.Guardar(self.cola_procesos, 2)
       
-      self.tpe=round(self.wt/self.n, 2)
-      self.tpeje= round(self.teje/self.n, 2)
-      self.promedio_llegada = round(self.total_llegada/self.n, 2)
+      self.tpe=round(self.wt/self.n, 4)
+      self.tpeje= round(self.teje/self.n, 4)
+      self.promedio_llegada = round(self.total_llegada/self.n, 4)
       print "\nel tiempo total de espera de los procesos es: ",self.wt
       print "el tiempo total  de uso del CPU es: ",self.teje
       print 'Tiempo promedio de llegada: ',(self.promedio_llegada)
