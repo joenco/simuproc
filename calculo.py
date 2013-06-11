@@ -36,6 +36,7 @@ from graficos import Graficos
 class Algoritmos(gtk.HBox):
     def RoundRobin(self, n, te, ts, fe, fs ,q):
       self.cola_procesos = []
+      self.ejecucion = []
       self.total_llegada = float(0.0)
       self.total_servicio=float(0.0)
       self.total_esperado=float(0.0)
@@ -70,7 +71,7 @@ class Algoritmos(gtk.HBox):
         self.cola_procesos.append([])#agregamos un objeto de tipo lista a la cola
         self.cola_procesos[i].append(i)
 
-        #tiempo de duracion
+        #tiempo de duracion 
         if self.func_servicio == 'Constante':
           self.cola_procesos[i].append(self.ts)
         elif self.func_servicio == 'Uniforme':
@@ -90,21 +91,24 @@ class Algoritmos(gtk.HBox):
         elif self.func_llegada == 'Normal':
           self.cola_procesos[i].append(st.norm.cdf(self.te))
 
-        self.cola_procesos[i].append(0);         
+        self.cola_procesos[i].append(0)      
+
+      for k in xrange(self.n):
+        self.ejecucion.append(self.cola_procesos[k][1])
 
       while(self.aux<self.n):
         self.aux=0;
         for i in xrange(self.n):
-          if(self.cola_procesos[i][1]>0):
-            if(self.cola_procesos[i][1]-self.q > 0):
+          if(self.ejecucion[i]>0):
+            if(self.ejecucion[i]-self.q > 0):
               self.tiempo_parcial = self.q
             else:
-              self.tiempo_parcial = self.cola_procesos[i][1]	
+              self.tiempo_parcial = self.ejecucion[i]	
             for j in xrange(self.n):
               if (i!=j):
-                if(self.cola_procesos[j][1]>0):
+                if(self.ejecucion[j]>0):
                   self.cola_procesos[j][3] += self.tiempo_parcial
-            self.cola_procesos[i][1]=self.cola_procesos[i][1]-self.q
+            self.ejecucion[i]=self.ejecucion[i]-self.q
             self.ncpu = self.ncpu+1
             self.total_servicio += self.tiempo_parcial
           else:      
