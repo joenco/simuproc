@@ -36,8 +36,7 @@ from calculo import Algoritmos
 from separar import Separar
 from graficos import Graficos
 from mostrar import MostrarResultados
-from common import UserMessage, AboutWindow, aconnect, \
-    debug_list
+from common import UserMessage, AboutWindow, aconnect
 
 class Ventana(gtk.Window):
     def __init__(self, ancho, alto, titulo):
@@ -339,7 +338,6 @@ class Confirmar():
           CFG['psjf'] = calculo.PSJF(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
 
         CFG['w'].next('Mostrar', Mostrar, (CFG), MostrarResultados(CFG))
-        CFG['w'].siguiente.show()
         CFG['w'].ejecutar.hide()
 
 class Mostrar():
@@ -347,15 +345,9 @@ class Mostrar():
         Muestra los resultados.
     '''
     def __init__(self, CFG):
-        CFG['s'] = aconnect(CFG['w'].siguiente, CFG['s'], self.siguiente, CFG)
         CFG['s'] = aconnect(CFG['w'].anterior, CFG['s'], self.anterior, CFG)
 
-    def init(self, CFG):
-        CFG['w'].next('Calculo', Calculo, (CFG), Algoritmos(CFG))
-
     def anterior(self, CFG):
+        CFG['w'].ejecutar.hide()
+        CFG['w'].siguiente.show()
         CFG['w'].previous('Solicitud', Solicitud, (CFG))
-
-    def siguiente(self, CFG):
-        CFG['w'].next('Resultados', Resultados, (MostrarResultados), SolicitudDatos(CFG))
-
