@@ -26,12 +26,13 @@
 # CODE IS POETRY
 
 import gtk, pango
+import gtk.gdk
 
 class MostrarResultados(gtk.HBox):
     def __init__(self, CFG):
         gtk.HBox.__init__(self)
 
-        table = gtk.Table(20, 4)
+        table = gtk.Table(20, 6)
 
         attr = pango.AttrList()
         size = pango.AttrSize(18000, 0, -1)
@@ -62,6 +63,9 @@ class MostrarResultados(gtk.HBox):
         self.txt5.set_alignment(0, 0.5)
         table.attach(self.txt5, 4, 5, 1, 2)
 
+        self.txt6 = gtk.Label("Gráfica")
+        self.txt6.set_alignment(0, 0.5)
+        table.attach(self.txt6, 5, 6, 1, 2)
 
         if CFG['fifo']==True:
           self.txtcfifo = gtk.Label("FCFS")
@@ -84,54 +88,88 @@ class MostrarResultados(gtk.HBox):
           self.tproceso.set_alignment(0, 0.5)
           table.attach(self.tproceso, 4, 5, 2, 3)
 
-        #Round Robin
-        if CFG['roundrobin']==True:
-          self.txtcfifo = gtk.Label("RR")
-          self.txtcfifo.set_alignment(0, 0.5)
-          table.attach(self.txtcfifo, 0, 1, 3, 4)
+          self.gproceso = gtk.Button("Ver Gráfica")
+          #self.gproceso.connect('clicked', self.Ver(1))
+          table.attach(self.gproceso, 5, 6, 2, 3)
+
+        # SJF
+        if CFG['menortiempo']==True:
+          self.txtmt = gtk.Label("SJF")
+          self.txtmt.set_alignment(0, 0.5)
+          table.attach(self.txtmt, 0, 1, 3, 4)
 
           self.np = gtk.Label(CFG['nproceso'])
           self.np.set_alignment(0, 0.5)
           table.attach(self.np, 1, 2, 3, 4)
 
-          self.tejecucion = gtk.Label(CFG['calculorr'][0])
+          self.tejecucion = gtk.Label(CFG['mtiempo'][0])
           self.tejecucion.set_alignment(0, 0.5)
           table.attach(self.tejecucion, 2, 3, 3, 4)
 
-          self.tpromedio = gtk.Label(CFG['calculorr'][1])
+          self.tpromedio = gtk.Label(CFG['mtiempo'][1])
           self.tpromedio.set_alignment(0, 0.5)
           table.attach(self.tpromedio, 3, 4, 3, 4)
 
-          self.tproceso = gtk.Label(CFG['calculorr'][2])
+          self.tproceso = gtk.Label(CFG['mtiempo'][2])
           self.tproceso.set_alignment(0, 0.5)
           table.attach(self.tproceso, 4, 5, 3, 4)
 
-        self.combograficos = gtk.combo_box_new_text()
-        self.combograficos.insert_text(0, 'FSFSC')
-        self.combograficos.set_active(0)
-        self.combograficos.insert_text(1, 'SJF')
-        self.combograficos.insert_text(2, 'RR')
-        table.attach(self.combograficos, 0, 1, 4, 5)
+          self.gpoceso = gtk.Button('Ver gráfica')
+          #self.gproceso.connect('clicked', self.Ver(2))
+          table.attach(self.gpoceso, 5, 6, 3, 4)
 
-        self.ver = gtk.Button('Ver gráfica')
-        self.ver.connect('clicked', self.Ver)
-        table.attach(self.ver, 1, 2, 4, 5)
+        # Round Robin
+        if CFG['roundrobin']==True:
+          self.txtmt = gtk.Label("RR")
+          self.txtmt.set_alignment(0, 0.5)
+          table.attach(self.txtmt, 0, 1, 4, 5)
 
-        self.graficorr = CFG['calculorr'][6]
+          self.np = gtk.Label(CFG['nproceso'])
+          self.np.set_alignment(0, 0.5)
+          table.attach(self.np, 1, 2, 4, 5)
+
+          self.tejecucion = gtk.Label(CFG['calculorr'][0])
+          self.tejecucion.set_alignment(0, 0.5)
+          table.attach(self.tejecucion, 2, 3, 4, 5)
+
+          self.tpromedio = gtk.Label(CFG['calculorr'][1])
+          self.tpromedio.set_alignment(0, 0.5)
+          table.attach(self.tpromedio, 3, 4, 4, 5)
+
+          self.tproceso = gtk.Label(CFG['calculorr'][2])
+          self.tproceso.set_alignment(0, 0.5)
+          table.attach(self.tproceso, 4, 5, 4, 5)
+
+          self.gpoceso = gtk.Button('Ver gráfica')
+          #self.gproceso.connect('clicked', self.Ver(2))
+          table.attach(self.gpoceso, 5, 6, 4, 5)
+
+        # PSJF
+        if CFG['soprtunidad']==True:
+          self.txtmt = gtk.Label("PSJF")
+          self.txtmt.set_alignment(0, 0.5)
+          table.attach(self.txtmt, 0, 1, 5, 6)
+
+          self.np = gtk.Label(CFG['nproceso'])
+          self.np.set_alignment(0, 0.5)
+          table.attach(self.np, 1, 2, 5, 6)
+
+          self.tejecucion = gtk.Label(CFG['psjf'][0])
+          self.tejecucion.set_alignment(0, 0.5)
+          table.attach(self.tejecucion, 2, 3, 5, 6)
+
+          self.tpromedio = gtk.Label(CFG['psjf'][1])
+          self.tpromedio.set_alignment(0, 0.5)
+          table.attach(self.tpromedio, 3, 4,5, 6)
+
+          self.tproceso = gtk.Label(CFG['psjf'][2])
+          self.tproceso.set_alignment(0, 0.5)
+          table.attach(self.tproceso, 4, 5, 5, 6)
+
+          self.gpoceso = gtk.Button('Ver gráfica')
+          #self.gproceso.connect('clicked', self.Ver(2))
+          table.attach(self.gpoceso, 5, 6, 5, 6)
+
+        #self.graficorr = CFG['calculorr'][6]
 
         self.pack_start(table, padding=40)
-
-    def Ver(self, widget=None, event=None):
-      self.win = gtk.Window()
-      self.win.set_default_size(520,400)
-      vbox = gtk.VBox()
-      cerrar = gtk.Button(stock=gtk.STOCK_CLOSE)
-      cerrar.connect('clicked', self.Cerrar)
-      cerrar.show()
-      vbox.add(self.graficorr)
-      vbox.add(cerrar)
-      self.win.add(vbox)
-      self.win.show_all()
-
-    def Cerrar(self, widget=None, event=None):
-      self.win.hide()
