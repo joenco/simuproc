@@ -25,7 +25,6 @@
 #
 # CODE IS POETRY
 
-import gtk, pango
 import numpy as np
 import scipy.stats as st
 import random as r
@@ -33,104 +32,7 @@ from separar import Separar
 from guardardatos import Guardar
 from graficos import Graficos
 
-class Algoritmos(gtk.HBox):
-    def RoundRobin(self, n, te, ts, fe, fs ,q):
-      self.cola_procesos = []
-      self.ejecucion = []
-      self.total_llegada = float(0.0)
-      self.total_servicio=float(0.0)
-      self.total_esperado=float(0.0)
-      self.promedio_llegada=float(0.)
-      self.promedio_servicio=float(0.0)
-      self.promedio_de_espera=float(0.0)
-      #random.seed(5000)
-      self.n = int(n) #número de procesos.
-      self.func_llegada = fe #función para los tiempos de llegada.
-      self.func_servicio = fs #función para el tiempo de duracion.
-      self.aux = 0
-      self.q = float(q)
-      self.ncpu = 0
-      self.tiempo_parcial = 0
-      self.te = te
-      self.ts = ts
-      separar = Separar()
-      guardar = Guardar()
-      grafico = Graficos()
-
-      if self.func_llegada == 'Uniforme':
-        self.te = separar.Separar(self.te)
-      else:
-        self.te = float(te)
-
-      if self.func_servicio == 'Uniforme':
-        self.ts = separar.Separar(self.ts)
-      else:
-        self.ts = float(ts)
-
-      for i in xrange(self.n+1):
-        self.cola_procesos.append([])#agregamos un objeto de tipo lista a la cola
-        self.cola_procesos[i].append(i)
-
-        #tiempo de duracion 
-        if self.func_servicio == 'Constante':
-          self.cola_procesos[i].append(self.ts)
-        elif self.func_servicio == 'Uniforme':
-          self.cola_procesos[i].append(r.uniform(self.ts[0], self.ts[1]))
-        elif self.func_servicio == 'Exponencial':
-          self.cola_procesos[i].append(np.random.exponential(self.ts))
-        elif self.func_servicio == 'Normal':
-          self.cola_procesos[i].append(st.norm.cdf(self.ts))
-
-        #tiempo de llegada   
-        if self.func_llegada == 'Constante':
-          self.cola_procesos[i].append(self.te)
-        elif self.func_llegada == 'Uniforme':
-          self.cola_procesos[i].append(r.uniform(self.te[0], self.te[1]))
-        elif self.func_llegada == 'Exponencial':
-          self.cola_procesos[i].append(np.random.exponential(self.te))
-        elif self.func_llegada == 'Normal':
-          self.cola_procesos[i].append(st.norm.cdf(self.te))
-
-        self.cola_procesos[i].append(0)      
-
-      for k in xrange(self.n):
-        self.ejecucion.append(self.cola_procesos[k][1])
-
-      while(self.aux<self.n):
-        self.aux=0;
-        for i in xrange(self.n):
-          if(self.ejecucion[i]>0):
-            if(self.ejecucion[i]-self.q > 0):
-              self.tiempo_parcial = self.q
-            else:
-              self.tiempo_parcial = self.ejecucion[i]	
-            for j in xrange(self.n):
-              if (i!=j):
-                if(self.ejecucion[j]>0):
-                  self.cola_procesos[j][3] += self.tiempo_parcial
-            self.ejecucion[i]=self.ejecucion[i]-self.q
-            self.ncpu = self.ncpu+1
-            self.total_servicio += self.tiempo_parcial
-          else:      
-            self.aux=self.aux+1
-
-      for i in xrange(self.n):
-        self.total_llegada += round(self.cola_procesos[i][2], 4)
-        self.total_esperado += round(self.cola_procesos[i][3], 4)
-
-      self.canvas = grafico.Graficar(self.cola_procesos)
-      guardar.Guardar(self.cola_procesos, 3)
-      self.promedio_llegada = round(self.total_llegada/self.n, 4)
-      self.promedio_servicio = round(self.total_servicio/self.ncpu, 4)
-      self.promedio_de_espera = round(self.total_esperado/self.n, 4)
-      print 'Tiempo total de llegada: ',self.total_llegada
-      print 'Tiempo total de proceso: ',self.total_servicio
-      print 'Tiempo promedio de llegada: ',(self.promedio_llegada)
-      print 'Tiempo promedio de proceso: ',(self.promedio_servicio)
-      print 'Tiempo promedio esperado: ',(self.promedio_de_espera)
-
-      return self.total_llegada, self.promedio_llegada, self.total_servicio, self.promedio_servicio, self.promedio_de_espera, self.cola_procesos, self.canvas
-
+class Algoritmos():
 #First Come First Served(FCFS)
     def FCFS(self, n, te, tcpu, f1, f2):
       self.cola_procesos = []
@@ -286,6 +188,103 @@ class Algoritmos(gtk.HBox):
       print "el tiempo promedio de uso es: ",self.tpeje
 
       return self.usocpu, self.tpeje, self.tpe
+
+    def RoundRobin(self, n, te, ts, fe, fs ,q):
+      self.cola_procesos = []
+      self.ejecucion = []
+      self.total_llegada = float(0.0)
+      self.total_servicio=float(0.0)
+      self.total_esperado=float(0.0)
+      self.promedio_llegada=float(0.)
+      self.promedio_servicio=float(0.0)
+      self.promedio_de_espera=float(0.0)
+      #random.seed(5000)
+      self.n = int(n) #número de procesos.
+      self.func_llegada = fe #función para los tiempos de llegada.
+      self.func_servicio = fs #función para el tiempo de duracion.
+      self.aux = 0
+      self.q = float(q)
+      self.ncpu = 0
+      self.tiempo_parcial = 0
+      self.te = te
+      self.ts = ts
+      separar = Separar()
+      guardar = Guardar()
+      grafico = Graficos()
+
+      if self.func_llegada == 'Uniforme':
+        self.te = separar.Separar(self.te)
+      else:
+        self.te = float(te)
+
+      if self.func_servicio == 'Uniforme':
+        self.ts = separar.Separar(self.ts)
+      else:
+        self.ts = float(ts)
+
+      for i in xrange(self.n+1):
+        self.cola_procesos.append([])#agregamos un objeto de tipo lista a la cola
+        self.cola_procesos[i].append(i)
+
+        #tiempo de duracion 
+        if self.func_servicio == 'Constante':
+          self.cola_procesos[i].append(self.ts)
+        elif self.func_servicio == 'Uniforme':
+          self.cola_procesos[i].append(r.uniform(self.ts[0], self.ts[1]))
+        elif self.func_servicio == 'Exponencial':
+          self.cola_procesos[i].append(np.random.exponential(self.ts))
+        elif self.func_servicio == 'Normal':
+          self.cola_procesos[i].append(st.norm.cdf(self.ts))
+
+        #tiempo de llegada   
+        if self.func_llegada == 'Constante':
+          self.cola_procesos[i].append(self.te)
+        elif self.func_llegada == 'Uniforme':
+          self.cola_procesos[i].append(r.uniform(self.te[0], self.te[1]))
+        elif self.func_llegada == 'Exponencial':
+          self.cola_procesos[i].append(np.random.exponential(self.te))
+        elif self.func_llegada == 'Normal':
+          self.cola_procesos[i].append(st.norm.cdf(self.te))
+
+        self.cola_procesos[i].append(0)      
+
+      for k in xrange(self.n):
+        self.ejecucion.append(self.cola_procesos[k][1])
+
+      while(self.aux<self.n):
+        self.aux=0;
+        for i in xrange(self.n):
+          if(self.ejecucion[i]>0):
+            if(self.ejecucion[i]-self.q > 0):
+              self.tiempo_parcial = self.q
+            else:
+              self.tiempo_parcial = self.ejecucion[i]	
+            for j in xrange(self.n):
+              if (i!=j):
+                if(self.ejecucion[j]>0):
+                  self.cola_procesos[j][3] += self.tiempo_parcial
+            self.ejecucion[i]=self.ejecucion[i]-self.q
+            self.ncpu = self.ncpu+1
+            self.total_servicio += self.tiempo_parcial
+          else:      
+            self.aux=self.aux+1
+
+      for i in xrange(self.n):
+        self.total_llegada += round(self.cola_procesos[i][2], 4)
+        self.total_esperado += round(self.cola_procesos[i][3], 4)
+
+      self.canvas = grafico.Graficar(self.cola_procesos)
+      guardar.Guardar(self.cola_procesos, 3)
+      self.promedio_llegada = round(self.total_llegada/self.n, 4)
+      self.promedio_servicio = round(self.total_servicio/self.ncpu, 4)
+      self.promedio_de_espera = round(self.total_esperado/self.n, 4)
+      print 'Tiempo total de llegada: ',self.total_llegada
+      print 'Tiempo total de proceso: ',self.total_servicio
+      print 'Tiempo promedio de llegada: ',(self.promedio_llegada)
+      print 'Tiempo promedio de proceso: ',(self.promedio_servicio)
+      print 'Tiempo promedio esperado: ',(self.promedio_de_espera)
+
+      return self.total_llegada, self.promedio_llegada, self.total_servicio, self.promedio_servicio, self.promedio_de_espera, self.cola_procesos, self.canvas
 
 #Preemptive Shortest Job First(PSJF)
     def PSJF(self, n, te, tcpu, f1, fcpu):
