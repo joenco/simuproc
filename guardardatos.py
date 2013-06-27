@@ -17,7 +17,7 @@ class Guardar():
 
       n = len(self.nombre)
       for i in xrange(n):
-        for j in xrange(3):
+        for j in xrange(2):
           data=str(self.nombre[i][j])
           self.datos.write(' '+data)
         self.datos.write('\n')
