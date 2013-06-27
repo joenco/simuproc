@@ -32,24 +32,18 @@ from separar import Separar
 from guardardatos import Guardar
 from graficos import Graficos
 
+guardar = Guardar()
+
 class Algoritmos():
-#First Come First Served(FCFS)
-    def FCFS(self, n, te, tcpu, f1, f2):
+    def Cola_Procesos(self, n, te, tcpu, f1, f2):
       self.cola_procesos = []
-      self.t_espera = []
       self.n = int(n) #número de procesos a ejecutar
       self.func_llegada = f1
       self.func_cpu = f2
-      self.wt=float(0.0) #tiempo total de espera
-      self.tpe  = float(0.0) #tiempo promedio de espera.
-      self.teje = float(0.0) #tiempo total de ejecucion
-      self.tpeje = float(0.0) #tiempo promedio de ejecucion.
       self.te = te
       self.tcpu = tcpu
-      self.wt1=float(0.0)
-      self.usocpu = float(0.0)
       separar = Separar()
-      guardar = Guardar()
+
 
       if self.func_llegada == 'Uniforme':
         self.te = separar.Separar(self.te)
@@ -63,9 +57,7 @@ class Algoritmos():
 
       for i in xrange(self.n):
         self.cola_procesos.append([]) #agregamos un objeto de tipo lista a la cola
-        self.t_espera.append([])
         self.cola_procesos[i].append(i)
-        self.t_espera[i].append(i)
 
         if self.func_cpu == 'Constante':
           self.cola_procesos[i].append(self.tcpu)
@@ -86,6 +78,25 @@ class Algoritmos():
           self.cola_procesos[i].append(st.norm.cdf(self.te))
 
       self.cola_procesos[0][2]=self.cola_procesos[0][2]-self.cola_procesos[0][2]
+
+      return self.cola_procesos
+
+#First Come First Served(FCFS)
+    def FCFS(self, cola_procesos):
+      self.cola_procesos = cola_procesos
+      self.t_espera = []
+      self.wt=float(0.0) #tiempo total de espera
+      self.tpe  = float(0.0) #tiempo promedio de espera.
+      self.teje = float(0.0) #tiempo total de ejecucion
+      self.tpeje = float(0.0) #tiempo promedio de ejecucion.
+      self.wt1=float(0.0)
+      self.usocpu = float(0.0)
+      self.n = len(self.cola_procesos)
+
+      for i in xrange(self.n):
+        self.t_espera.append([])
+        self.t_espera[i].append(i)
+
       self.t_espera[0].append(0)
       print 'Nombre del proceso\t\t Tiempo de espera \t \tTiempo de rafaga'
       for i in xrange(self.n):
@@ -98,7 +109,7 @@ class Algoritmos():
           self.wt += self.t_espera[i][1]
         self.teje += round(self.cola_procesos[i][1], 4)
 
-      guardar.Guardar(self.cola_procesos, 0)
+      guardar.Guardar(self.t_espera, 0)
 
       self.usocpu = round(1.0-self.wt1/(self.wt1+self.teje), 4)
       self.tpe=round(self.wt/self.n, 4)
@@ -111,60 +122,22 @@ class Algoritmos():
       return self.usocpu, self.tpeje, self.tpe
 
 #Shortest Job First(SJF)
-    def SJF(self, n, te, tcpu, f1, fcpu):
-      self.cola_procesos = []
+    def SJF(self, cola_procesos):
+      self.cola_procesos = cola_procesos
       self.t_espera = []
-      self.n = int(n) #número de procesos a ejecutar
-      self.func_llegada = f1
-      self.func_cpu = fcpu
+      self.n = len(self.cola_procesos)
       self.wt=float(0.0) #tiempo total de espera
       self.tpe  = float(0.0) #tiempo promedio de espera.
       self.teje = float(0.0) #tiempo total de ejecucion
       self.tpeje = float(0.0) #tiempo promedio de ejecucion.
-      self.te = te
-      self.tcpu = tcpu
       self.wt1 = float(0.0)
       self.usocpu = float(0.0)
-      separar = Separar()
-      guardar = Guardar()
-
-      if self.func_llegada == 'Uniforme':
-        self.te = separar.Separar(self.te)
-      else:
-        self.te = float(te)
-
-      if self.func_cpu == 'Uniforme':
-        self.tcpu = separar.Separar(self.tcpu)
-      else:
-        self.tcpu = float(tcpu)
 
       for i in xrange(self.n):
-        self.cola_procesos.append([]) #agregamos un objeto de tipo lista a la cola
         self.t_espera.append([])
-        self.cola_procesos[i].append(i)
         self.t_espera[i].append(i)
 
-        if self.func_cpu == 'Constante':
-          self.cola_procesos[i].append(self.tcpu)
-        elif self.func_cpu == 'Uniforme':
-          self.cola_procesos[i].append(r.uniform(self.tcpu[0], self.tcpu[1]))
-        elif self.func_cpu == 'Exponencial':
-          self.cola_procesos[i].append(np.random.exponential(self.tcpu))
-        elif self.func_cpu == 'Normal':
-          self.cola_procesos[i].append(st.norm.cdf(self.tcpu))
-
-        if self.func_llegada == 'Constante':
-          self.cola_procesos[i].append(self.te)
-        elif self.func_llegada == 'Uniforme':
-          self.cola_procesos[i].append(r.uniform(self.te[0], self.te[1]))
-        elif self.func_llegada == 'Exponencial':
-          self.cola_procesos[i].append(np.random.exponential(self.te))
-        elif self.func_llegada == 'Normal':
-          self.cola_procesos[i].append(st.norm.cdf(self.te))
-
       self.cola_procesos.sort(key = lambda cola_procesos:cola_procesos[1])
-
-      self.cola_procesos[0][2]=self.cola_procesos[0][2]-self.cola_procesos[0][2]
       self.t_espera[0].append(0)
       print 'Nombre del proceso\t\t Tiempo de espera \t \tTiempo de rafaga'
       for i in xrange(self.n):
@@ -178,7 +151,7 @@ class Algoritmos():
           self.wt += round(self.t_espera[i][1], 4)
         self.teje += round(self.cola_procesos[i][1], 4)
 
-      guardar.Guardar(self.cola_procesos, 1)
+      guardar.Guardar(self.t_espera, 1)
       self.usocpu = round(1 - self.wt1/(self.wt1+self.teje), 4)
       self.tpe=round(self.wt/self.n, 4)
       self.tpeje= round(self.teje/self.n, 4)
@@ -189,7 +162,7 @@ class Algoritmos():
 
       return self.usocpu, self.tpeje, self.tpe
 
-    def RoundRobin(self, n, te, ts, fe, fs ,q):
+    def RoundRobin(self,  n, te, ts, fe, fs ,q):
       self.cola_procesos = []
       self.ejecucion = []
       self.total_llegada = float(0.0)
