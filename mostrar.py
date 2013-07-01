@@ -27,12 +27,14 @@
 
 import gtk, pango
 import gtk.gdk
+from threading import Thread, Semaphore
+from simulacion import Simulacion, ventana
 
 class MostrarResultados(gtk.HBox):
     def __init__(self, CFG):
         gtk.HBox.__init__(self)
 
-        table = gtk.Table(20, 6)
+        table = gtk.Table(20, 5)
 
         attr = pango.AttrList()
         size = pango.AttrSize(18000, 0, -1)
@@ -67,6 +69,8 @@ class MostrarResultados(gtk.HBox):
         self.txt6.set_alignment(0, 0.5)
         table.attach(self.txt6, 5, 6, 1, 2)
 
+        self.listafuncion = gtk.ListStore(str)
+
         if CFG['fifo']==True:
           self.txtcfifo = gtk.Label("FCFS")
           self.txtcfifo.set_alignment(0, 0.5)
@@ -88,9 +92,7 @@ class MostrarResultados(gtk.HBox):
           self.tproceso.set_alignment(0, 0.5)
           table.attach(self.tproceso, 4, 5, 2, 3)
 
-          self.gproceso = gtk.Button("Ver Gráfica")
-          #self.gproceso.connect('clicked', self.Ver(1))
-          table.attach(self.gproceso, 5, 6, 2, 3)
+          self.listafuncion.append(["FCFS"])
 
         # SJF
         if CFG['menortiempo']==True:
@@ -114,10 +116,7 @@ class MostrarResultados(gtk.HBox):
           self.tproceso.set_alignment(0, 0.5)
           table.attach(self.tproceso, 4, 5, 3, 4)
 
-          self.gpoceso = gtk.Button('Ver gráfica')
-          #self.gproceso.connect('clicked', self.Ver(2))
-          table.attach(self.gpoceso, 5, 6, 3, 4)
-
+          self.listafuncion.append(["SJF"])
         # Round Robin
         if CFG['roundrobin']==True:
           self.txtmt = gtk.Label("RR")
@@ -140,9 +139,7 @@ class MostrarResultados(gtk.HBox):
           self.tproceso.set_alignment(0, 0.5)
           table.attach(self.tproceso, 4, 5, 4, 5)
 
-          self.gpoceso = gtk.Button('Ver gráfica')
-          #self.gproceso.connect('clicked', self.Ver(2))
-          table.attach(self.gpoceso, 5, 6, 4, 5)
+          self.listafuncion.append(["RR"])
 
         # PSJF
         if CFG['soprtunidad']==True:
@@ -166,10 +163,33 @@ class MostrarResultados(gtk.HBox):
           self.tproceso.set_alignment(0, 0.5)
           table.attach(self.tproceso, 4, 5, 5, 6)
 
-          self.gpoceso = gtk.Button('Ver gráfica')
-          #self.gproceso.connect('clicked', self.Ver(2))
-          table.attach(self.gpoceso, 5, 6, 5, 6)
+          self.listafuncion.append(["PSJF"])
+
+        self.listaalgoritmo = gtk.combo_box_new_text()
+        self.listaalgoritmo.set_model(self.listafuncion)
+        self.listaalgoritmo.set_active(0)
+        table.attach(self.listaalgoritmo, 0, 1, 6, 7)
+
+        self.ver = gtk.Button("Ver gráfica")
+        #self.ver.connect('clicked', self.Ver)
+        table.attach(self.ver, 2, 3, 6, 7)
+
+        self.simulacion = gtk.Button("Ver Simulación")
+        self.simulacion.connect('clicked', self.Simulacion)
+        table.attach(self.simulacion, 4, 5, 6, 7)
 
         #self.graficorr = CFG['calculorr'][6]
+        self.n = int(CFG['nproceso'])
 
         self.pack_start(table, padding=40)
+
+    def Simulacion(self, widget=None, event=None):
+      gtk.gdk.threads_init()
+      win = ventana()
+      win.show()
+      semaforo = Semaphore(1)
+      if self.listaalgoritmo.get_active_text() == 'FCFS':
+        win.set_title('Algoritmo FCFS')
+        for x in xrange(self.n):
+          hilo = Simulacion(win.label, win.label1, win.label3, win.label5, x, semaforo)
+          hilo.start()
