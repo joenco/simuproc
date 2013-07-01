@@ -16,5 +16,10 @@ manuales d git:
 	- http://ingenieroedwinreyes.blogspot.com/2011/10/graficar-datos-3d-python_20.html (explica mejor como guardar un archivo)
 Manuales de distribución:
 	- https://pybonacci.wordpress.com/2012/04/21/estadistica-en-python-con-scipy/
+manuales de hilos:
+	- http://python.org.ar/Recetario/Gui/Gtk/MultiThread
+	- http://python.org.ar/Recetario
+	-http://chuwiki.chuidiang.org/index.php?title=Hilos_en_python  
+
 - Este programa está distribuido bajo la GPL3 o superior
 - no es necesario instalarlo, solo hay que ejecutar el archivo ventanaprincipal.py
