@@ -33,6 +33,7 @@ from guardardatos import Guardar
 from graficos import Graficos
 
 guardar = Guardar()
+graficos = Graficos()
 
 class Algoritmos():
     def Cola_Procesos(self, n, te, tcpu, f1, f2):
@@ -110,6 +111,7 @@ class Algoritmos():
         self.teje += round(self.cola_procesos[i][1], 4)
 
       guardar.Guardar(self.t_espera, 0)
+      self.cambas = graficos.Graficar(self.t_espera)
 
       self.usocpu = round(1.0-self.wt1/(self.wt1+self.teje), 4)
       self.tpe=round(self.wt/self.n, 4)
@@ -119,7 +121,7 @@ class Algoritmos():
       print "el tiempo promedio de espera es: ",self.tpe
       print "el tiempo promedio de uso es: ",self.tpeje
 
-      return self.usocpu, self.tpeje, self.tpe
+      return self.usocpu, self.tpeje, self.tpe, self.cambas
 
 #Shortest Job First(SJF)
     def SJF(self, cola_procesos):
