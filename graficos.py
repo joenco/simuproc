@@ -1,29 +1,74 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# ==============================================================================
+# Simulador de planificación de procesos.
+# ARCHIVO: mostrar.py
+# COPYRIGHT:
+#       (C) 2013 Jorge E. Ortega A. <joenco@esdebian.org>
+#       (C) 2013 
+# LICENCIA: GPL-3
+# ==============================================================================
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# COPYING file for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+# CODE IS POETRY
 
-import gtk, pango
+import gtk
+
+import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.figure import Figure
-from numpy import arange
 from matplotlib.backends.backend_gtkagg import FigureCanvasGTKAgg as FigureCanvas
-import random as r
 
-class Graficos():
-    def Graficar(self, procesos):
-      self.x1 = []
-      self.y1 = []
-      self.y2 = []
-      self.procesos = procesos
-      
-      n = len(self.procesos)
-      for i in xrange(n):
-        self.x1.append(self.procesos[i][0])#Numero de proceso
-        self.y1.append(self.procesos[i][1])#Tiempo de espera
-        #self.y2.append(self.procesos[i][3])#Tiempo de espera
-        
-      self.f = Figure(figsize=(5,4), dpi=100)
-      self.a = self.f.add_subplot(111)
-      self.a.plot(self.x1, self.y1)
-      #self.a.plot(self.x1, self.y2)
+class Graficar(gtk.Window):
+  def graficar(self, datos, titulo):
+    datos = datos
+    titulo = titulo
+    x1 = []
+    y1 = []
 
-      self.canvas = FigureCanvas(self.f)  # a gtk.DrawingArea
+    n = len(datos)
+    for i in xrange(n):
+      print datos[i][0],'\t',datos[i][1]
+      x1.append(datos[i][0])#Numero de proceso
+      y1.append(datos[i][1])#Tiempo de espera
 
-      return self.canvas
+    self.win = gtk.Window()
+    self.win.set_default_size(400,300)
+    self.win.set_title(titulo)
+
+    f = Figure(figsize=(5,4), dpi=100)
+    a = f.add_subplot(111)
+    a.plot(x1, y1, color='blue', label='(Procesos, Tiempo de espera)')
+    #a.title(u'Representación de Procesos vs Tiempo de espera')
+    #a.xlabel('Número de procesos')
+    #a.ylabel('Tiempo de espera')
+
+    vbox = gtk.VBox(False, 5)
+
+    canvas = FigureCanvas(f)  # a gtk.Draself.wingArea
+    canvas.show()
+    vbox.pack_start(canvas, True, True, 0)
+
+    cerrar = gtk.Button(stock=gtk.STOCK_CLOSE)
+    cerrar.connect("activate", self.close)
+    vbox.pack_start(cerrar, False, False, 0)
+
+    self.win.add(vbox)
+
+    self.win.show_all()
+
+  def close(self, widget=None, event=None):
+    self.win.hide()
