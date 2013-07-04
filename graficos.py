@@ -52,9 +52,10 @@ class Graficar(gtk.Window):
     f = Figure(figsize=(5,4), dpi=100)
     a = f.add_subplot(111)
     a.plot(x1, y1, color='blue', label='(Procesos, Tiempo de espera)')
-    #a.title(u'Representación de Procesos vs Tiempo de espera')
-    #a.xlabel('Número de procesos')
-    #a.ylabel('Tiempo de espera')
+    a.legend(loc = 2)
+    a.set_title(titulo)
+    a.set_xlabel('Número de procesos')
+    a.set_ylabel('Tiempo de espera')
 
     vbox = gtk.VBox(False, 5)
 
