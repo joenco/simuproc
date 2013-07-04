@@ -30,10 +30,8 @@ import scipy.stats as st
 import random as r
 from separar import Separar
 from guardardatos import Guardar
-from graficos import Graficos
 
 guardar = Guardar()
-graficos = Graficos()
 
 class Algoritmos():
     def Cola_Procesos(self, n, te, tcpu, f1, f2):
@@ -103,7 +101,7 @@ class Algoritmos():
       for i in xrange(self.n):
         print self.cola_procesos[i][0],'\t\t',self.cola_procesos[i][2],'\t\t',self.cola_procesos[i][1]
         for j in xrange(1, self.n):
-          self.t_espera[j].append(self.t_espera[i][1]-self.cola_procesos[j][2]+self.cola_procesos[i][1])
+          self.t_espera[j].append(round(self.t_espera[i][1]-self.cola_procesos[j][2]+self.cola_procesos[i][1]))
         if self.t_espera[i][1]<0:
           self.wt1 += self.t_espera[i][1]*-1
         else:
@@ -111,7 +109,6 @@ class Algoritmos():
         self.teje += round(self.cola_procesos[i][1], 4)
 
       guardar.Guardar(self.t_espera, 0)
-      self.cambas = graficos.Graficar(self.t_espera)
 
       self.usocpu = round(1.0-self.wt1/(self.wt1+self.teje), 4)
       self.tpe=round(self.wt/self.n, 4)
@@ -121,7 +118,7 @@ class Algoritmos():
       print "el tiempo promedio de espera es: ",self.tpe
       print "el tiempo promedio de uso es: ",self.tpeje
 
-      return self.usocpu, self.tpeje, self.tpe, self.cambas
+      return self.usocpu, self.tpeje, self.tpe, self.t_espera
 
 #Shortest Job First(SJF)
     def SJF(self, cola_procesos):
@@ -145,7 +142,7 @@ class Algoritmos():
       for i in xrange(self.n):
         print self.cola_procesos[i][0],'\t\t',self.cola_procesos[i][2],'\t\t',self.cola_procesos[i][1]
         for j in xrange(1, self.n):
-          self.t_espera[j].append(self.t_espera[i][1]-self.cola_procesos[j][2]+self.cola_procesos[i][1])
+          self.t_espera[j].append(round(self.t_espera[i][1]-self.cola_procesos[j][2]+self.cola_procesos[i][1]))
 
         if self.t_espera[i][1]<0:
           self.wt1 += round(self.t_espera[i][1], 4)*-1
@@ -162,7 +159,7 @@ class Algoritmos():
       print "el tiempo promedio de espera es: ",self.tpe
       print "el tiempo promedio de uso es: ",self.tpeje
 
-      return self.usocpu, self.tpeje, self.tpe
+      return self.usocpu, self.tpeje, self.tpe, self.t_espera
 
     def RoundRobin(self,  n, te, ts, fe, fs ,q):
       self.cola_procesos = []
@@ -185,7 +182,6 @@ class Algoritmos():
       self.ts = ts
       separar = Separar()
       guardar = Guardar()
-      grafico = Graficos()
 
       if self.func_llegada == 'Uniforme':
         self.te = separar.Separar(self.te)
@@ -248,7 +244,6 @@ class Algoritmos():
         self.total_llegada += round(self.cola_procesos[i][2], 4)
         self.total_esperado += round(self.cola_procesos[i][3], 4)
 
-      self.canvas = grafico.Graficar(self.cola_procesos)
       guardar.Guardar(self.cola_procesos, 3)
       self.promedio_llegada = round(self.total_llegada/self.n, 4)
       self.promedio_servicio = round(self.total_servicio/self.ncpu, 4)
@@ -259,7 +254,7 @@ class Algoritmos():
       print 'Tiempo promedio de proceso: ',(self.promedio_servicio)
       print 'Tiempo promedio esperado: ',(self.promedio_de_espera)
 
-      return self.total_llegada, self.promedio_llegada, self.total_servicio, self.promedio_servicio, self.promedio_de_espera, self.cola_procesos, self.canvas
+      return self.total_llegada, self.promedio_llegada, self.total_servicio, self.promedio_servicio, self.promedio_de_espera, self.cola_procesos
 
 #Preemptive Shortest Job First(PSJF)
     def PSJF(self, n, te, tcpu, f1, fcpu):
