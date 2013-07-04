@@ -17,11 +17,9 @@ class Guardar():
 
       n = len(self.nombre)
       for i in xrange(n):
-        #for j in xrange(2):
         x1 = str(self.nombre[i][0])
         y1 = str(self.nombre[i][1])
-        data = x1+', '+y1
-          #data=str(self.nombre[i][j])
+        data = x1+'  |  '+y1+'  |'
         self.datos.write(data)
         self.datos.write('\n')
 
