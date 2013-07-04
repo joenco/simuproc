@@ -179,7 +179,7 @@ class MostrarResultados(gtk.HBox):
         table.attach(self.ver, 2, 3, 6, 7)
 
         self.simulacion = gtk.Button("Ver Simulación")
-        #self.simulacion.connect('clicked', self.Simulacion)
+        self.simulacion.connect('clicked', self.Simulacion)
         table.attach(self.simulacion, 4, 5, 6, 7)
 
         #self.graficorr = CFG['calculorr'][6]
@@ -189,16 +189,16 @@ class MostrarResultados(gtk.HBox):
 
     def Ver(self, widget=None, event=None):
       if self.listaalgoritmo.get_active_text() == 'FCFS':
-        grafico = Graficar.graficar(self.datos, 'Gráfico FCFS')
+        grafico = Graficar.graficar(self.datos, u'Gráfico FCFS')
       if self.listaalgoritmo.get_active_text() == 'SJF':
-        grafico  = Graficar.graficar(self.datos1, 'Gráfico SJF')
+        grafico  = Graficar.graficar(self.datos1, u'Gráfico SJF')
 
     def Simulacion(self, widget=None, event=None):
       gtk.gdk.threads_init()
       win = ventana()
       semaforo = Semaphore(1)
       if self.listaalgoritmo.get_active_text() == 'FCFS':
-        win.set_title('Algoritmo FCFS')
+        win.set_title('Simulación del Algoritmo FCFS')
         for x in xrange(self.n):
           hilo = Simulacion(win.label, win.label1, win.label3, win.label5, self.n, x, semaforo)
           hilo.start()
