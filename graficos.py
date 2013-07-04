@@ -3,7 +3,7 @@
 #
 # ==============================================================================
 # Simulador de planificación de procesos.
-# ARCHIVO: mostrar.py
+# ARCHIVO: graficos.py
 # COPYRIGHT:
 #       (C) 2013 Jorge E. Ortega A. <joenco@esdebian.org>
 #       (C) 2013 
@@ -41,21 +41,20 @@ class Graficar(gtk.Window):
 
     n = len(datos)
     for i in xrange(n):
-      print datos[i][0],'\t',datos[i][1]
-      x1.append(datos[i][0])#Numero de proceso
+      x1.append(datos[i][0]+1)#Numero de proceso
       y1.append(datos[i][1])#Tiempo de espera
 
     self.win = gtk.Window()
-    self.win.set_default_size(400,300)
+    self.win.set_default_size(600,480)
     self.win.set_title(titulo)
 
     f = Figure(figsize=(5,4), dpi=100)
     a = f.add_subplot(111)
     a.plot(x1, y1, color='blue', label='(Procesos, Tiempo de espera)')
     a.legend(loc = 2)
-    a.set_title(titulo)
-    a.set_xlabel('Número de procesos')
-    a.set_ylabel('Tiempo de espera')
+    a.set_title(titulo, color='red', size=14)
+    a.set_xlabel(u'Número de procesos', color='red', size=14)
+    a.set_ylabel('Tiempo de espera', color='red', size=14)
 
     vbox = gtk.VBox(False, 5)
 
