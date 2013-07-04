@@ -29,7 +29,9 @@ import gtk, pango
 import gtk.gdk
 from threading import Thread, Semaphore
 from simulacion import Simulacion, ventana
+from graficos import Graficar
 
+Graficar = Graficar()
 class MostrarResultados(gtk.HBox):
     def __init__(self, CFG):
         gtk.HBox.__init__(self)
@@ -93,6 +95,7 @@ class MostrarResultados(gtk.HBox):
           table.attach(self.tproceso, 4, 5, 2, 3)
 
           self.listafuncion.append(["FCFS"])
+          self.datos = CFG['calculofifo'][3]
 
         # SJF
         if CFG['menortiempo']==True:
@@ -117,6 +120,7 @@ class MostrarResultados(gtk.HBox):
           table.attach(self.tproceso, 4, 5, 3, 4)
 
           self.listafuncion.append(["SJF"])
+          self.datos1 = CFG['mtiempo'][3]
         # Round Robin
         if CFG['roundrobin']==True:
           self.txtmt = gtk.Label("RR")
@@ -171,11 +175,11 @@ class MostrarResultados(gtk.HBox):
         table.attach(self.listaalgoritmo, 0, 1, 6, 7)
 
         self.ver = gtk.Button("Ver gráfica")
-        #self.ver.connect('clicked', self.Ver)
+        self.ver.connect('clicked', self.Ver)
         table.attach(self.ver, 2, 3, 6, 7)
 
         self.simulacion = gtk.Button("Ver Simulación")
-        self.simulacion.connect('clicked', self.Simulacion)
+        #self.simulacion.connect('clicked', self.Simulacion)
         table.attach(self.simulacion, 4, 5, 6, 7)
 
         #self.graficorr = CFG['calculorr'][6]
@@ -183,13 +187,19 @@ class MostrarResultados(gtk.HBox):
 
         self.pack_start(table, padding=40)
 
+    def Ver(self, widget=None, event=None):
+      if self.listaalgoritmo.get_active_text() == 'FCFS':
+        grafico = Graficar.graficar(self.datos, 'Gráfico FCFS')
+      if self.listaalgoritmo.get_active_text() == 'SJF':
+        grafico  = Graficar.graficar(self.datos1, 'Gráfico SJF')
+
     def Simulacion(self, widget=None, event=None):
       gtk.gdk.threads_init()
       win = ventana()
-      win.show()
       semaforo = Semaphore(1)
       if self.listaalgoritmo.get_active_text() == 'FCFS':
         win.set_title('Algoritmo FCFS')
         for x in xrange(self.n):
-          hilo = Simulacion(win.label, win.label1, win.label3, win.label5, x, semaforo)
+          hilo = Simulacion(win.label, win.label1, win.label3, win.label5, self.n, x, semaforo)
           hilo.start()
+      win.show()
