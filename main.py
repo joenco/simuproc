@@ -34,7 +34,6 @@ from solicitud import SolicitudDatos
 from confirmar import ConfirmarDatos
 from calculo import Algoritmos
 from separar import Separar
-from graficos import Graficos
 from mostrar import MostrarResultados
 from common import UserMessage, AboutWindow, aconnect
 
@@ -326,7 +325,6 @@ class Confirmar():
 
     def ejecutar(self, CFG):
         calculo = Algoritmos()
-        grafico = Graficos()
         cola = calculo.Cola_Procesos(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
 
         if CFG['fifo'] == True:
