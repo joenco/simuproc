@@ -8,12 +8,8 @@ from threading import Thread, Semaphore
 import gtk
 import gtk.gdk
 
-#texts = ['Jorge', 'Julio', 'Velquiz', 'José']
-
 class Simulacion(Thread):
-    '''un thread que quiere molestar el main thread'''
-
-    def __init__(self, label, label1, label2, label3, i, semaforo):
+    def __init__(self, label, label1, label2, label3, n, i, semaforo):
         Thread.__init__(self)
         self.setDaemon(True)
         self.label = label
@@ -21,6 +17,7 @@ class Simulacion(Thread):
         self.label2 = label2
         self.label3 = label3
         self.test = i
+        self.n = n
         self.semaforo = semaforo
         self.tiempo = float(0)
 
@@ -35,16 +32,16 @@ class Simulacion(Thread):
         texto4 = str(self.test)
         print texto4
         self.label2.set_text(texto4)
-        texto5 = str(10 - self.test)
+        texto5 = str(self.n - self.test)
         print texto5
         self.label3.set_text(texto5)
-        texto1 = 'Procesando proceso '+texto
+        texto1 = 'Ejecutando proceso '+texto
 
         gtk.gdk.threads_enter()
         # zona critica de gtk
         print texto1
         self.label.set_text(texto1)
-        if self.test < 9:
+        if self.test < self.n:
           texto3 = 'Proceso en cola esperando '+str(self.test+2)
           print texto3
           self.label1.set_text(texto3)
@@ -53,7 +50,7 @@ class Simulacion(Thread):
           texto4 = str(self.test+1)
           print texto4
           self.label2.set_text(texto4)
-          texto5 = str(10 - self.test-1)
+          texto5 = str(self.n - self.test-1)
           print texto5
           self.label3.set_text(texto5)
 
@@ -67,16 +64,14 @@ class Simulacion(Thread):
         self.semaforo.release()          
 
 class ventana(gtk.Window):
-    '''ventana con un label, ninguna locura'''
-
     def __init__(self):
         gtk.Window.__init__(self)
         self.set_default_size(640, 480)
-        self.set_title('gtk con threads')
+
         self.vbox = gtk.VBox(False, 5)
         self.hbox = gtk.HBox(False, 5)
-        self.add(self.hbox)
-        self.hbox.pack_start(self.vbox, False, False, 0)
+        self.add(self.vbox)
+        self.vbox.pack_start(self.hbox, False, False, 0)
 
         #Las etiquetas
         self.label = gtk.Label('')
@@ -100,6 +95,10 @@ class ventana(gtk.Window):
         self.label5.set_justify(gtk.JUSTIFY_CENTER)
         self.hbox.pack_start(self.label5, False, False, 0)
 
+        self.cerrar = gtk.Button(stock=gtk.STOCK_CLOSE)
+        self.cerrar.connect("activate", self.close)
+        self.vbox.pack_start(self.cerrar, False, False, 0)
+
         self.label.show()
         self.label1.show()
         self.label2.show()
@@ -108,3 +107,7 @@ class ventana(gtk.Window):
         self.label5.show()
         self.vbox.show()
         self.hbox.show()
+        self.cerrar.show()
+
+    def close(self, widget=None, event=None):
+        self.hide()
