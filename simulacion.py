@@ -8,7 +8,11 @@ from threading import Thread, Semaphore
 import gtk
 import gtk.gdk
 
+#texts = ['Jorge', 'Julio', 'Velquiz', 'José']
+
 class Simulacion(Thread):
+    '''un thread que quiere molestar el main thread'''
+
     def __init__(self, label, label1, label2, label3, n, i, semaforo):
         Thread.__init__(self)
         self.setDaemon(True)
@@ -16,8 +20,8 @@ class Simulacion(Thread):
         self.label1 = label1
         self.label2 = label2
         self.label3 = label3
-        self.test = i
         self.n = n
+        self.test = i
         self.semaforo = semaforo
         self.tiempo = float(0)
 
@@ -41,7 +45,7 @@ class Simulacion(Thread):
         # zona critica de gtk
         print texto1
         self.label.set_text(texto1)
-        if self.test < self.n:
+        if self.test < self.n-1:
           texto3 = 'Proceso en cola esperando '+str(self.test+2)
           print texto3
           self.label1.set_text(texto3)
@@ -64,22 +68,26 @@ class Simulacion(Thread):
         self.semaforo.release()          
 
 class ventana(gtk.Window):
+    '''ventana con un label, ninguna locura'''
+
     def __init__(self):
         gtk.Window.__init__(self)
         self.set_default_size(640, 480)
-
+        self.set_title('gtk con threads')
         self.vbox = gtk.VBox(False, 5)
         self.hbox = gtk.HBox(False, 5)
-        self.add(self.vbox)
-        self.vbox.pack_start(self.hbox, False, False, 0)
+        self.add(self.hbox)
+        self.hbox.pack_start(self.vbox, False, False, 0)
 
         #Las etiquetas
         self.label = gtk.Label('')
         self.label.set_justify(gtk.JUSTIFY_CENTER)
         self.label.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse('red'))
+        self.label.realize()
         self.vbox.pack_start(self.label, False, False, 0)
         self.label1 = gtk.Label('')
         self.label1.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse('blue'))
+        self.label1.realize()
         self.label1.set_justify(gtk.JUSTIFY_CENTER)
         self.vbox.pack_start(self.label1, False, False, 0)
         self.label2 = gtk.Label('Ejecutados ')
@@ -95,10 +103,6 @@ class ventana(gtk.Window):
         self.label5.set_justify(gtk.JUSTIFY_CENTER)
         self.hbox.pack_start(self.label5, False, False, 0)
 
-        self.cerrar = gtk.Button(stock=gtk.STOCK_CLOSE)
-        self.cerrar.connect("activate", self.close)
-        self.vbox.pack_start(self.cerrar, False, False, 0)
-
         self.label.show()
         self.label1.show()
         self.label2.show()
@@ -107,7 +111,3 @@ class ventana(gtk.Window):
         self.label5.show()
         self.vbox.show()
         self.hbox.show()
-        self.cerrar.show()
-
-    def close(self, widget=None, event=None):
-        self.hide()
