@@ -332,9 +332,9 @@ class Confirmar():
         if CFG['menortiempo'] == True:
           CFG['mtiempo'] = calculo.SJF(cola)
         if CFG['roundrobin'] == True:
-          CFG['calculorr'] = calculo.RoundRobin(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'],CFG['trr'])
+          CFG['calculorr'] = calculo.RoundRobin(cola,CFG['trr'])
         if CFG['soprtunidad'] == True:
-          CFG['psjf'] = calculo.PSJF(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
+          CFG['psjf'] = calculo.PSJF(cola)
 
         CFG['w'].next('Mostrar', Mostrar, (CFG), MostrarResultados(CFG))
         CFG['w'].ejecutar.hide()
