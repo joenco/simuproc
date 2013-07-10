@@ -306,9 +306,18 @@ class Solicitud():
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
 
-        CFG['w'].siguiente.hide()
-        CFG['w'].ejecutar.show()
-        CFG['w'].next('Confirmar', Confirmar, (CFG), ConfirmarDatos(CFG))
+        calculo = Algoritmos()
+        cola = calculo.Cola_Procesos(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
+
+        if CFG['fifo'] == True:
+          CFG['calculofifo'] = calculo.FCFS(cola)
+        if CFG['menortiempo'] == True:
+          CFG['mtiempo'] = calculo.SJF(cola)
+        if CFG['roundrobin'] == True:
+          CFG['calculorr'] = calculo.RoundRobin(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'],CFG['trr'])
+        if CFG['soprtunidad'] == True:
+          CFG['psjf'] = calculo.PSJF(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
+        CFG['w'].next('Mostrar', Mostrar, (CFG), MostrarResultados(CFG))
 
 class Confirmar():
     '''
