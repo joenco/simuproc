@@ -6,7 +6,7 @@ Realizado por Jorge Ortega <joenco@esdebian.org>
 	- python-imaging
 	- lshw
 	- GTK
-	- matplotlib
+	- python-matplotlib
 	- python-symPy
 	- python-scipy
 
