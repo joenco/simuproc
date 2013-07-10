@@ -55,7 +55,6 @@ class Graficar(gtk.Window):
     a.set_title(titulo, color='red', size=14)
     a.set_xlabel(u'Número de procesos', color='red', size=14)
     a.set_ylabel('Tiempo de espera', color='red', size=14)
-    a.imsave('imagenfcfs.png')
 
     vbox = gtk.VBox(False, 5)
 
