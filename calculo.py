@@ -163,7 +163,7 @@ class Algoritmos():
       return self.usocpu, self.tpeje, self.tpe, self.t_espera
 
 #Round Robin
-    def RoundRobin(self,  cola_procesos ,q):
+    def RoundRobin(self, cola_procesos, q):
       self.cola_procesos = cola_procesos
       self.ejecucion = []
       self.esperado = []
