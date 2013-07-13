@@ -50,16 +50,17 @@ class MostrarResultados(gtk.HBox):
         self.lbltitle1.set_attributes(attr)
         table.attach(self.lbltitle1, 0, 2, 0, 1)
 
-        n=int(CFG['nproceso'])/8
+        self.n=int(CFG['nproceso'])
+        self.n1=int(CFG['nproceso'])/8
         self.intervalo = 0.02
-        if n<100:
-            n=100
+        if self.n1<100:
+            self.n1=100
             self.intervalo=0.03
 
         self.pbar = gtk.ProgressBar()
         self.pbar.show()
         table.attach(self.pbar, 0, 6, 3, 4)
-        self.timer = gobject.timeout_add (n, self.progress_timeout, CFG, self)
+        self.timer = gobject.timeout_add (self.n1, self.progress_timeout, CFG, self)
 
         self.txt1 = gtk.Label(' ')
         self.txt1.set_alignment(0, 0.5)
@@ -185,15 +186,12 @@ class MostrarResultados(gtk.HBox):
         self.ver = gtk.Button("Ver gráfica")
         self.ver.hide()
         self.ver.connect('clicked', self.Ver)
-        table.attach(self.ver, 2, 3, 6, 7)
 
         self.simulacion = gtk.Button("Ver Simulación")
         self.simulacion.hide()
         self.simulacion.connect('clicked', self.Simulacion)
+        table.attach(self.ver, 2, 3, 6, 7)
         table.attach(self.simulacion, 4, 5, 6, 7)
-
-        #self.graficorr = CFG['calculorr'][6]
-        self.n = int(CFG['nproceso'])
 
         self.pack_start(table, padding=40)
 
@@ -218,8 +216,7 @@ class MostrarResultados(gtk.HBox):
         new_val = pbobj.pbar.get_fraction() + self.intervalo
 
         if new_val < 0.2:
-            print "en la cola"
-            self.cola = calculo.Cola_Procesos(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
+            self.cola = calculo.Cola_Procesos(self.n, CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
             self.intervalo=0.05
         if new_val > 0.3 and new_val < 0.35:
           if CFG['fifo'] == True:
@@ -237,40 +234,39 @@ class MostrarResultados(gtk.HBox):
             self.lbltitle1.set_text('Resultados de la corrida')
             self.pbar.hide()
             self.txt1.set_text("Algoritmos")
-            self.txt2.set_text("Número de procesos")
+            self.txt2.set_text(u"Número de procesos")
             self.txt3.set_text("Uso del CPU")
             self.txt4.set_text("Tiempo promedio del CPU")
             self.txt5.set_text("Tiempo promedio de espera")
-            self.txt1.set_text("Algoritmo")
 
             if CFG['fifo']==True:
                 self.txtfifo.set_text("FCFS")
-                self.txtfifo1.set_text(str(CFG['nproceso']))
+                self.txtfifo1.set_text(str(self.n))
                 self.txtfifo2.set_text(str(CFG['calculofifo'][0]))
                 self.txtfifo3.set_text(str(CFG['calculofifo'][1]))
                 self.txtfifo4.set_text(str(CFG['calculofifo'][2]))
                 self.datos = CFG['calculofifo'][3]
             if CFG['menortiempo']==True:
                 self.txtmt.set_text("SJF")
-                self.txtmt1.set_text(str(CFG['nproceso']))
+                self.txtmt1.set_text(str(self.n))
                 self.txtmt2.set_text(str(CFG['mtiempo'][0]))
                 self.txtmt3.set_text(str(CFG['mtiempo'][1]))
                 self.txtmt4.set_text(str(CFG['mtiempo'][2]))
                 self.datos1 = CFG['mtiempo'][3]
             if CFG['roundrobin']==True:
                 self.txtrr.set_text("RR")
-                self.txtrr1.set_text(str(CFG['nproceso']))
+                self.txtrr1.set_text(str(self.n))
                 self.txtrr2.set_text(str(CFG['calculorr'][0]))
                 self.txtrr3.set_text(str(CFG['calculorr'][1]))
                 self.txtrr4.set_text(str(CFG['calculorr'][2]))
             if CFG['soprtunidad']==True:
                 self.txtso.set_text("PSJF")
-                self.txtso1.set_text(str(CFG['nproceso']))
+                self.txtso1.set_text(str(self.n))
                 self.txtso2.set_text(str(CFG['psjf'][0]))
                 self.txtso3.set_text(str(CFG['psjf'][1]))
                 self.txtso4.set_text(str(CFG['psjf'][2]))
             CFG['w'].anterior.show()
-            CFG['w'].siguiente.show()
+
         pbobj.pbar.set_fraction(new_val)
 
         return True
