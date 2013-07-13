@@ -59,7 +59,7 @@ class MostrarResultados(gtk.HBox):
 
         self.pbar = gtk.ProgressBar()
         self.pbar.show()
-        table.attach(self.pbar, 0, 6, 3, 4)
+        table.attach(self.pbar, 0, 6, 6, 7)
         self.timer = gobject.timeout_add (self.n1, self.progress_timeout, CFG, self)
 
         self.txt1 = gtk.Label(' ')
@@ -186,11 +186,11 @@ class MostrarResultados(gtk.HBox):
         self.ver = gtk.Button("Ver gráfica")
         self.ver.hide()
         self.ver.connect('clicked', self.Ver)
+        table.attach(self.ver, 2, 3, 6, 7)
 
         self.simulacion = gtk.Button("Ver Simulación")
         self.simulacion.hide()
         self.simulacion.connect('clicked', self.Simulacion)
-        table.attach(self.ver, 2, 3, 6, 7)
         table.attach(self.simulacion, 4, 5, 6, 7)
 
         self.pack_start(table, padding=40)
