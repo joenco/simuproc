@@ -34,6 +34,7 @@ from solicitud import SolicitudDatos
 from confirmar import ConfirmarDatos
 from calculo import Algoritmos
 from separar import Separar
+from progreso import Progreso
 from mostrar import MostrarResultados
 from common import UserMessage, AboutWindow, aconnect
 
@@ -306,47 +307,9 @@ class Solicitud():
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
 
-        calculo = Algoritmos()
-        cola = calculo.Cola_Procesos(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
-
-        if CFG['fifo'] == True:
-          CFG['calculofifo'] = calculo.FCFS(cola)
-        if CFG['menortiempo'] == True:
-          CFG['mtiempo'] = calculo.SJF(cola)
-        if CFG['roundrobin'] == True:
-          CFG['calculorr'] = calculo.RoundRobin(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'],CFG['trr'])
-        if CFG['soprtunidad'] == True:
-          CFG['psjf'] = calculo.PSJF(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
         CFG['w'].next('Mostrar', Mostrar, (CFG), MostrarResultados(CFG))
-
-class Confirmar():
-    '''
-        muestra la confirmación de los datos para la corrida.
-    '''
-    def __init__(self, CFG):
-        CFG['s'] = aconnect(CFG['w'].ejecutar, CFG['s'], self.ejecutar, CFG)
-        CFG['s'] = aconnect(CFG['w'].anterior, CFG['s'], self.anterior, CFG)
-
-    def anterior(self, CFG):
-        CFG['w'].ejecutar.hide()
-        CFG['w'].siguiente.show()
-        CFG['w'].previous('Solicitud', Solicitud, (CFG))
-
-    def ejecutar(self, CFG):
-        calculo = Algoritmos()
-        cola = calculo.Cola_Procesos(CFG['nproceso'], CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
-
-        if CFG['fifo'] == True:
-          CFG['calculofifo'] = calculo.FCFS(cola)
-        if CFG['menortiempo'] == True:
-          CFG['mtiempo'] = calculo.SJF(cola)
-        if CFG['roundrobin'] == True:
-          CFG['calculorr'] = calculo.RoundRobin(cola,CFG['trr'])
-        if CFG['soprtunidad'] == True:
-          CFG['psjf'] = calculo.PSJF(cola)
-
-        CFG['w'].next('Mostrar', Mostrar, (CFG), MostrarResultados(CFG))
-        CFG['w'].ejecutar.hide()
+        CFG['w'].anterior.hide()
+        CFG['w'].siguiente.hide()
 
 class Mostrar():
     '''
