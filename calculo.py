@@ -61,7 +61,7 @@ class Algoritmos():
         if self.func_cpu == 'Constante':
           self.cola_procesos[i].append(self.tcpu)
         elif self.func_cpu == 'Uniforme':
-          self.cola_procesos[i].append(r.uniform(self.tcpu[0], self.tcpu[1]))
+          self.cola_procesos[i].append(round(r.uniform(self.tcpu[0], self.tcpu[1]), 3))
         elif self.func_cpu == 'Exponencial':
           self.cola_procesos[i].append(np.random.exponential(self.tcpu))
         elif self.func_cpu == 'Normal':
@@ -70,7 +70,7 @@ class Algoritmos():
         if self.func_llegada == 'Constante':
           self.cola_procesos[i].append(self.te)
         elif self.func_llegada == 'Uniforme':
-          self.cola_procesos[i].append(r.uniform(self.te[0], self.te[1]))
+          self.cola_procesos[i].append(round(r.uniform(self.te[0], self.te[1]), 3))
         elif self.func_llegada == 'Exponencial':
           self.cola_procesos[i].append(np.random.exponential(self.te))
         elif self.func_llegada == 'Normal':
@@ -109,7 +109,7 @@ class Algoritmos():
             self.wt += self.t_espera[j][1]
         self.teje += round(self.cola_procesos[i][1], 4)
 
-      guardar.Guardar(self.t_espera, 0)
+      guardar.Guardar(self.t_espera, self.cola_procesos, 0)
 
       self.usocpu = round(1.0-self.wt1/(self.wt1+self.teje), 4)
       self.tpe=round(self.wt/self.n, 4)
@@ -151,7 +151,7 @@ class Algoritmos():
             self.wt += self.t_espera[j][1]
         self.teje += round(self.cola_procesos[i][1], 4)
 
-      guardar.Guardar(self.t_espera, 1)
+      guardar.Guardar(self.t_espera, self.cola_procesos, 1)
       self.usocpu = round(1 - self.wt1/(self.wt1+self.teje), 4)
       self.tpe=round(self.wt/self.n, 4)
       self.tpeje= round(self.teje/self.n, 4)
@@ -180,7 +180,6 @@ class Algoritmos():
       self.tiempo_parcial = 0
       self.usocpu = float(0.0)
       self.wt1 = float(0.0)
-      guardar = Guardar()
 
       for i in xrange(self.n-1):
         if self.cola_procesos[i][1]-self.cola_procesos[i+1][2]<0:
@@ -244,7 +243,6 @@ class Algoritmos():
       self.tparcial = 0
       self.promedio_llegada = 0
       self.total_llegada = 0
-      guardar = Guardar()
 
       for i in xrange(self.n-1):
         if self.cola_procesos[i][1]-self.cola_procesos[i+1][2]<0:
