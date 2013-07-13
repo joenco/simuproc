@@ -106,11 +106,6 @@ class Ventana(gtk.Window):
         self.anterior.set_size_request(100, 30)
         self.botonera.put(self.anterior, (ancho - 210), 10)
 
-        # ejecutar
-        self.ejecutar = gtk.Button(stock=gtk.STOCK_EXECUTE)
-        self.ejecutar.set_size_request(100, 30)
-        self.botonera.put(self.ejecutar, (ancho - 110), 10)
-
         self.connect("destroy", self.close)
         self.connect("delete-event", self.close)
 
@@ -307,9 +302,9 @@ class Solicitud():
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
 
-        CFG['w'].next('Mostrar', Mostrar, (CFG), MostrarResultados(CFG))
         CFG['w'].anterior.hide()
         CFG['w'].siguiente.hide()
+        CFG['w'].next('Mostrar', Mostrar, (CFG), MostrarResultados(CFG))
 
 class Mostrar():
     '''
@@ -319,6 +314,5 @@ class Mostrar():
         CFG['s'] = aconnect(CFG['w'].anterior, CFG['s'], self.anterior, CFG)
 
     def anterior(self, CFG):
-        CFG['w'].ejecutar.hide()
         CFG['w'].siguiente.show()
         CFG['w'].previous('Solicitud', Solicitud, (CFG))
