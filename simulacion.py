@@ -8,11 +8,7 @@ from threading import Thread, Semaphore
 import gtk
 import gtk.gdk
 
-#texts = ['Jorge', 'Julio', 'Velquiz', 'José']
-
 class Simulacion(Thread):
-    '''un thread que quiere molestar el main thread'''
-
     def __init__(self, label, label1, label2, label3, n, i, semaforo):
         Thread.__init__(self)
         self.setDaemon(True)
@@ -68,8 +64,6 @@ class Simulacion(Thread):
         self.semaforo.release()          
 
 class ventana(gtk.Window):
-    '''ventana con un label, ninguna locura'''
-
     def __init__(self):
         gtk.Window.__init__(self)
         self.set_default_size(640, 480)
