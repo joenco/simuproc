@@ -43,7 +43,6 @@ class Algoritmos():
       self.tcpu = tcpu
       separar = Separar()
 
-
       if self.func_llegada == 'Uniforme':
         self.te = separar.Separar(self.te)
       else:
@@ -56,25 +55,25 @@ class Algoritmos():
 
       for i in xrange(self.n):
         self.cola_procesos.append([]) #agregamos un objeto de tipo lista a la cola
-        self.cola_procesos[i].append(i)
+        self.cola_procesos[i].append(i+1)
 
         if self.func_cpu == 'Constante':
           self.cola_procesos[i].append(self.tcpu)
         elif self.func_cpu == 'Uniforme':
           self.cola_procesos[i].append(round(r.uniform(self.tcpu[0], self.tcpu[1]), 3))
         elif self.func_cpu == 'Exponencial':
-          self.cola_procesos[i].append(np.random.exponential(self.tcpu))
+          self.cola_procesos[i].append(round(np.random.exponential(self.tcpu), 3)
         elif self.func_cpu == 'Normal':
-          self.cola_procesos[i].append(st.norm.cdf(self.tcpu))
+          self.cola_procesos[i].append(round(st.norm.cdf(self.tcpu), 3)
 
         if self.func_llegada == 'Constante':
           self.cola_procesos[i].append(self.te)
         elif self.func_llegada == 'Uniforme':
           self.cola_procesos[i].append(round(r.uniform(self.te[0], self.te[1]), 3))
         elif self.func_llegada == 'Exponencial':
-          self.cola_procesos[i].append(np.random.exponential(self.te))
+          self.cola_procesos[i].append(round(np.random.exponential(self.te), 3)
         elif self.func_llegada == 'Normal':
-          self.cola_procesos[i].append(st.norm.cdf(self.te))
+          self.cola_procesos[i].append(round(st.norm.cdf(self.te), 3)
 
       self.cola_procesos[0][2]=self.cola_procesos[0][2]-self.cola_procesos[0][2]
 
