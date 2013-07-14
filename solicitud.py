@@ -55,7 +55,7 @@ class SolicitudDatos(gtk.HBox):
         self.FCFS = gtk.CheckButton("Algoritmo Primero en llegar primero en servirse(FCFS)")
         self.table.attach(self.FCFS, 0, 1, 1, 2)
 
-        self.SRT = gtk.CheckButton("Algoritmo Mmenor tiempo restante(SRT)")
+        self.SRT = gtk.CheckButton("Algoritmo Mmenor tiempo restante(SJF)")
         self.table.attach(self.SRT, 0, 1, 2, 3)
 
         self.rr = gtk.CheckButton("Round Robin(RR)")
