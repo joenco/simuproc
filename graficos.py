@@ -41,8 +41,8 @@ class Graficar(gtk.Window):
 
     n = len(datos)
     for i in xrange(n):
-      x1.append(datos[i][0]+1)#Numero de proceso
-      y1.append(datos[i][1])#Tiempo de espera
+      x1.append(datos[i][0]) #Numero de proceso
+      y1.append(datos[i][1]) #Tiempo de espera
 
     self.win = gtk.Window()
     self.win.set_default_size(600,480)
