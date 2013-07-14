@@ -22,7 +22,7 @@ class Guardar():
       self.data.write(dat)
       self.data.write('\n')
       for i in xrange(n):
-        x1 = str(self.datos[i][0]) #Número de procesos
+        x1 = str(self.datos1[i][0]) #Número de procesos
         y1 = str(self.datos[i][1]) # tiempo de espera
         a1 = str(self.datos1[i][1]) # tiempo de cpu
         z1 = str(self.datos1[i][2]) # tiempo de llegada
