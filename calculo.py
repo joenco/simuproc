@@ -62,18 +62,18 @@ class Algoritmos():
         elif self.func_cpu == 'Uniforme':
           self.cola_procesos[i].append(round(r.uniform(self.tcpu[0], self.tcpu[1]), 3))
         elif self.func_cpu == 'Exponencial':
-          self.cola_procesos[i].append(round(np.random.exponential(self.tcpu), 3)
+          self.cola_procesos[i].append(round(np.random.exponential(self.tcpu), 3))
         elif self.func_cpu == 'Normal':
-          self.cola_procesos[i].append(round(st.norm.cdf(self.tcpu), 3)
+          self.cola_procesos[i].append(round(st.norm.cdf(self.tcpu), 3))
 
         if self.func_llegada == 'Constante':
           self.cola_procesos[i].append(self.te)
         elif self.func_llegada == 'Uniforme':
           self.cola_procesos[i].append(round(r.uniform(self.te[0], self.te[1]), 3))
         elif self.func_llegada == 'Exponencial':
-          self.cola_procesos[i].append(round(np.random.exponential(self.te), 3)
+          self.cola_procesos[i].append(round(np.random.exponential(self.te), 3))
         elif self.func_llegada == 'Normal':
-          self.cola_procesos[i].append(round(st.norm.cdf(self.te), 3)
+          self.cola_procesos[i].append(round(st.norm.cdf(self.te), 3))
 
       self.cola_procesos[0][2]=self.cola_procesos[0][2]-self.cola_procesos[0][2]
 
