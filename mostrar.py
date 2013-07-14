@@ -266,6 +266,8 @@ class MostrarResultados(gtk.HBox):
                 self.txtso3.set_text(str(CFG['psjf'][1]))
                 self.txtso4.set_text(str(CFG['psjf'][2]))
             CFG['w'].anterior.show()
+        CFG['w'].cancelar.show()
+        CFG['w'].acerca.show()
 
         pbobj.pbar.set_fraction(new_val)
 
