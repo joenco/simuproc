@@ -303,6 +303,8 @@ class Solicitud():
             return
 
         CFG['w'].anterior.hide()
+        CFG['w'].cancelar.hide()
+        CFG['w'].acerca.hide()
         CFG['w'].siguiente.hide()
         CFG['w'].next('Mostrar', Mostrar, (CFG), MostrarResultados(CFG))
 
