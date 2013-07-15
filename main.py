@@ -214,27 +214,32 @@ class Solicitud():
 
         if CFG['roundrobin'] == True:
           if CFG['trr'].strip() == '':
+              CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txtrr)
               message = "El campo del cuantum de tiempo para el Round Robin esta vacío, debe colocar un valor numérico."
               UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
               return
 
           if re.compile('^[0-9]{1,}(\.[0-9]{0,})?$').search(CFG['trr']) == None:
+              CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txtrr)
               message = "El cuantum de tiempo para el Round Robin es inválido, debe ser un valornumérico."
               UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
               return
 
         if CFG['tejecucion'].strip() == '':
+            CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txttejecucion)
             message = "El campo del tiempo de ejecución esta vacío, debe colocar un valor numérico."
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
 
         if CFG['ejecucion'] != 'Uniforme':
           if re.compile('^[0-9]{1,}(\.[0-9]{0,})?$').search(CFG['tejecucion']) == None:
+            CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txttejecucion)
             message = "El tiempo de llegada de los procesos es inválido, debe ser un valornumérico."
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
         else:
           if re.compile('^[0-9]{1,}(\.[0-9]{0,})?\s[0-9]{1,}(\.[0-9]{0,})?$').search(CFG['tejecucion']) == None:
+            CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txttejecucion)
             message = "El tiempo de llegada de los procesos es inválido, debe separar los valores con un espacio"
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
@@ -242,22 +247,26 @@ class Solicitud():
           separar = Separar()
           uniform = separar.Separar(CFG['tejecucion'])
           if uniform[0]>=uniform[1]:
+            CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txttejecucion)
             message = "El rango de valores para el tiempo de llegada es inválido, el 1er valor debe ser menor al 2do"
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
 
         if CFG['tcpu'].strip() == '':
+            CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txttcpu)
             message = "El campo del tiempo de uso del CPU esta vacío, debe colocar un valor numérico."
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
 
         if CFG['cpu'] != 'Uniforme':
           if re.compile('^[0-9]{1,}(\.[0-9]{0,})?$').search(CFG['tcpu']) == None:
+            CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txttcpu)
             message = "El tiempo del uso del CPU de los procesos es inválido, debe ser un valornumérico."
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
         else:
           if re.compile('^[0-9]{1,}(\.[0-9]{0,})?\s[0-9]{1,}(\.[0-9]{0,})?$').search(CFG['tcpu']) == None:
+            CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txttcpu)
             message = "El tiempo del uso de CPU de los procesos es inválido, debe separar los valores con un espacio"
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
@@ -265,22 +274,26 @@ class Solicitud():
           separar = Separar()
           uniform = separar.Separar(CFG['tcpu'])
           if uniform[0]>=uniform[1]:
+            CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txttcpu)
             message = "El rango de valores para el tiempo de CPU es inválido, el 1er valor debe ser menor al 2do"
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
 
         if CFG['tbloqueo'].strip() == '':
+            CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txttbloqueo)
             message = "El campo del tiempo del bloqueo esta vacío, debe colocar un valor numérico."
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
 
         if CFG['bloqueo'] != 'Uniforme':
           if re.compile('^[0-9]{1,}(\.[0-9]{0,})?$').search(CFG['tbloqueo']) == None:
+            CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txttbloqueo)
             message = "El tiempo de bloqeo de los procesos es inválido, debe ser un valornumérico."
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
         else:
           if re.compile('^[0-9]{1,}(\.[0-9]{0,})?\s[0-9]{1,}(\.[0-9]{0,})?$').search(CFG['tbloqueo']) == None:
+            CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txttbloqueo)
             message = "El tiempo de bloqeio de los procesos es inválido, debe separar los valores con un espacio"
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
@@ -288,17 +301,20 @@ class Solicitud():
           separar = Separar()
           uniform = separar.Separar(CFG['tbloqueo'])
           if uniform[0]>=uniform[1]:
+            CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txttbloqueo)
             message = "El rango de valores para el tiempo de bloqueo es inválido, el 1er valor debe ser menor al 2do"
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
 
         if CFG['nproceso'].strip() == '':
+            CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txtn)
             message = "El campo del número de procesos esta vacío, debe colocar un valor entero."
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
 
         if re.compile('^[1-9]+[\d]{0,}$').search(CFG['nproceso']) == None:
-            message = "El número de procesos es inválido, debe ser un valor entero."
+            CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txtn)
+            message = "El número de procesos es inválido, debe ser un valor entero y > 0"
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
 
