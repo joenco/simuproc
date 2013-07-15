@@ -96,9 +96,7 @@ class Algoritmos():
         self.t_espera[i].append(i)
 
       self.t_espera[0].append(0)
-      print 'Nombre del proceso\t\t Tiempo de espera \t \tTiempo de rafaga'
       for i in xrange(self.n):
-        print self.cola_procesos[i][0],'\t\t',self.cola_procesos[i][2],'\t\t',self.cola_procesos[i][1]
         for j in xrange(1, self.n):
           self.t_espera[j].append(round(self.t_espera[i][1]-self.cola_procesos[j][2]+self.cola_procesos[i][1]))
           if self.t_espera[j][1]<0:
@@ -110,13 +108,9 @@ class Algoritmos():
 
       guardar.Guardar(self.t_espera, self.cola_procesos, 0)
 
-      self.usocpu = round(1.0-self.wt1/(self.wt1+self.teje), 4)
+      self.usocpu = round(1.0-self.wt1/(self.wt1+self.wt), 4)
       self.tpe=round(self.wt/self.n, 4)
       self.tpeje= round(self.teje/self.n, 4)
-      print "\nel tiempo total de espera de los procesos es: ",self.wt
-      print "el tiempo total  de uso del CPU es: ",self.teje
-      print "el tiempo promedio de espera es: ",self.tpe
-      print "el tiempo promedio de uso es: ",self.tpeje
 
       return self.usocpu, self.tpeje, self.tpe, self.t_espera
 
@@ -138,9 +132,7 @@ class Algoritmos():
 
       self.cola_procesos.sort(key = lambda cola_procesos:cola_procesos[1])
       self.t_espera[0].append(0)
-      print 'Nombre del proceso\t\t Tiempo de espera \t \tTiempo de rafaga'
       for i in xrange(self.n):
-        print self.cola_procesos[i][0],'\t\t',self.cola_procesos[i][2],'\t\t',self.cola_procesos[i][1]
         for j in xrange(1, self.n):
           self.t_espera[j].append(round(self.t_espera[i][1]-self.cola_procesos[j][2]+self.cola_procesos[i][1]))
           if self.t_espera[j][1]<0:
@@ -151,7 +143,8 @@ class Algoritmos():
         self.teje += round(self.cola_procesos[i][1], 4)
 
       guardar.Guardar(self.t_espera, self.cola_procesos, 1)
-      self.usocpu = round(1 - self.wt1/(self.wt1+self.teje), 4)
+
+      self.usocpu = round(1 - self.wt1/(self.wt1+self.wt), 4)
       self.tpe=round(self.wt/self.n, 4)
       self.tpeje= round(self.teje/self.n, 4)
       print "\nel tiempo total de espera de los procesos es: ",self.wt
