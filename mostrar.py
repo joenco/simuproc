@@ -51,7 +51,7 @@ class MostrarResultados(gtk.HBox):
         table.attach(self.lbltitle1, 0, 2, 0, 1)
 
         self.n=int(CFG['nproceso'])
-        self.n1=int(CFG['nproceso'])/8
+        self.n1=self.n/8
         self.intervalo = 0.02
         if self.n1<100:
             self.n1=100
@@ -197,7 +197,7 @@ class MostrarResultados(gtk.HBox):
 
     def Ver(self, widget=None, event=None):
       if self.listaalgoritmo.get_active_text() == 'FCFS':
-        grafico = Graficar.graficar(self.datos, u'Gráfico FCFS')
+        grafico = Graficar.graficar(self.datos, self.cola, u'Gráfico FCFS')
       if self.listaalgoritmo.get_active_text() == 'SJF':
         grafico  = Graficar.graficar(self.datos1, u'Gráfico SJF')
 
