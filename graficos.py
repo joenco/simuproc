@@ -33,8 +33,9 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_gtkagg import FigureCanvasGTKAgg as FigureCanvas
 
 class Graficar(gtk.Window):
-  def graficar(self, datos, titulo):
+  def graficar(self, datos, datos1, titulo):
     datos = datos
+    datos1 = datos1
     titulo = titulo
     x1 = []
     y1 = []
