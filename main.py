@@ -34,7 +34,6 @@ from solicitud import SolicitudDatos
 from confirmar import ConfirmarDatos
 from calculo import Algoritmos
 from separar import Separar
-from progreso import Progreso
 from mostrar import MostrarResultados
 from common import UserMessage, AboutWindow, aconnect
 
