@@ -47,6 +47,7 @@ class Graficar(gtk.Window):
 
     self.win = gtk.Window()
     self.win.set_default_size(600,480)
+    self.win.set_position(gtk.WIN_POS_CENTER)
     self.win.set_title(titulo)
 
     f = Figure(figsize=(5,4), dpi=100)
