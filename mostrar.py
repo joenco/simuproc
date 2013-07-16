@@ -142,7 +142,7 @@ class MostrarResultados(gtk.HBox):
 
           self.txtrr2 = gtk.Label(' ')
           self.txtrr2.set_alignment(0, 0.5)
-          table.attach(self.txt2, 2, 3, 4, 5)
+          table.attach(self.txtrr2, 2, 3, 4, 5)
 
           self.txtrr3 = gtk.Label(' ')
           self.txtrr3.set_alignment(0, 0.5)
@@ -200,6 +200,9 @@ class MostrarResultados(gtk.HBox):
         grafico = Graficar.graficar(self.datos, self.cola, u'Gráfico FCFS')
       if self.listaalgoritmo.get_active_text() == 'SJF':
         grafico  = Graficar.graficar(self.datos1, u'Gráfico SJF')
+      if self.listaalgoritmo.get_active_text() == 'RR':
+        grafico = Graficar.graficar(self.datos2, self.cola, u'Gráfico RR')
+     
 
     def Simulacion(self, widget=None, event=None):
       gtk.gdk.threads_init()
@@ -259,6 +262,7 @@ class MostrarResultados(gtk.HBox):
                 self.txtrr2.set_text(str(CFG['calculorr'][0]))
                 self.txtrr3.set_text(str(CFG['calculorr'][1]))
                 self.txtrr4.set_text(str(CFG['calculorr'][2]))
+                self.datos2 = CFG['calculorr'][3]
             if CFG['soprtunidad']==True:
                 self.txtso.set_text("PSJF")
                 self.txtso1.set_text(str(self.n))

@@ -179,7 +179,11 @@ class Algoritmos():
           
       for k in xrange(self.n):
         self.ejecucion.append(self.cola_procesos[k][1])
-        self.esperado.append(0)
+        
+      for i in xrange(self.n):
+        self.esperado.append([])
+        self.esperado[i].append(i)
+        self.esperado[i].append(0)
 
       while(self.aux<self.n):
         self.aux=0;
@@ -192,7 +196,7 @@ class Algoritmos():
             for j in xrange(self.n):
               if (i!=j):
                 if(self.ejecucion[j]>0):
-                  self.esperado[j] += self.tiempo_parcial
+                  self.esperado[j][1] += self.tiempo_parcial
             self.ejecucion[i]=self.ejecucion[i]-self.q
             self.ncpu = self.ncpu+1
             self.total_servicio += self.tiempo_parcial
@@ -201,20 +205,26 @@ class Algoritmos():
 
       for i in xrange(self.n):
         self.total_llegada += round(self.cola_procesos[i][2], 4)
-        self.total_esperado += round(self.esperado[i], 4)
+        self.total_esperado += round(self.esperado[i][1], 4)
 
-      guardar.Guardar(self.cola_procesos, 3)
+      guardar.Guardar(self.esperado, self.cola_procesos, 3)
       self.promedio_llegada = round(self.total_llegada/self.n, 4)
       self.promedio_servicio = round(self.total_servicio/self.ncpu, 4)
       self.promedio_de_espera = round(self.total_esperado/self.n, 4)
       self.usocpu = round(1 - self.wt1/(self.wt1+self.total_servicio), 4)
+
+      print "tiempo de espera"
+      for i in xrange(self.n):
+        print "n: ",self.esperado[i][0]
+        print "espera: ",self.esperado[i][1]
       print "Round Robin"
       print "Tiempo total de proceso: ",self.total_servicio
       print "Tiempo promedio de proceso: ",(self.promedio_servicio)
       print "Tiempo total de espera: ",(self.total_esperado)
       print "Tiempo promedio esperado: ",(self.promedio_de_espera)
+      print "Uso de cpu: ",self.usocpu
 
-      return self.usocpu, self.promedio_servicio, self.promedio_de_espera, self.total_esperado
+      return self.usocpu, self.promedio_servicio, self.promedio_de_espera, self.esperado
 
 #Preemptive Shortest Job First(PSJF)
     def PSJF(self, cola_procesos):
