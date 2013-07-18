@@ -32,7 +32,6 @@ from config import APP_NAME, APP_COPYRIGHT, APP_DESCRIPTION, \
 def AboutWindow(widget=None):
     about = gtk.AboutDialog()
     about.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-    about.set_logo(gtk.gdk.pixbuf_new_from_file(ABOUT_IMAGE))
     about.set_name(APP_NAME)
     about.set_copyright(APP_COPYRIGHT)
     about.set_comments(APP_DESCRIPTION)
@@ -113,11 +112,19 @@ def UserMessage(
 
     return response
 
+def ayuda(widget=None):
+    error = None
+
+    try:
+      os.system('xdg-open docs/index.html')
+    except (IOError, OSError, ValueError, Error), e:
+      message = "Disculpe, la ayuda no esta disponible."
+      UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
+      return
+
 if __name__ == "__main__":
     print debug_list([1, 2])
     print debug_list({"casa":[1]})
     print debug_list("la casa")
     print debug_list(12.0)
     print debug_list(gtk)
-
-
