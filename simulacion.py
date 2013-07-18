@@ -1,5 +1,29 @@
-#! /usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+# ==============================================================================
+# Simulador de planificación de procesos.
+# ARCHIVO: simulacion.py
+# COPYRIGHT:
+#       (C) 2013 Jorge E. Ortega A. <joenco@esdebian.org>
+#       (C) 2013 
+# LICENCIA: GPL-3
+# ==============================================================================
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# COPYING file for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+# CODE IS POETRY
 
 import time
 import random
@@ -9,7 +33,7 @@ import gtk
 import gtk.gdk
 
 class Simulacion(Thread):
-    def __init__(self, label, label1, label2, label3, n, i, semaforo):
+    def __init__(self, label, label1, label2, label3, n, i, te, semaforo):
         Thread.__init__(self)
         self.setDaemon(True)
         self.label = label
@@ -19,13 +43,11 @@ class Simulacion(Thread):
         self.n = n
         self.test = i
         self.semaforo = semaforo
-        self.tiempo = float(0)
+        self.tiempo = float(te)
 
     def run(self):
         '''metodo principal del thread, duerme un self.tiempo aleatorio y despues
         cambia el Label'''
-
-        #while True:
 
         self.semaforo.acquire()
         texto = str(self.test+1)
@@ -54,7 +76,6 @@ class Simulacion(Thread):
           print texto5
           self.label3.set_text(texto5)
 
-        self.tiempo = random.random() * 5
         time.sleep(self.tiempo)
         texto2 = 'Proceso '+texto+' terminado'
         self.label.set_text(texto2)
