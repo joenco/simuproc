@@ -35,7 +35,7 @@ from confirmar import ConfirmarDatos
 from calculo import Algoritmos
 from separar import Separar
 from mostrar import MostrarResultados
-from common import UserMessage, AboutWindow, aconnect
+from common import UserMessage, AboutWindow, aconnect, ayuda
 
 class Ventana(gtk.Window):
     def __init__(self, ancho, alto, titulo):
@@ -97,6 +97,12 @@ class Ventana(gtk.Window):
         self.acerca.set_size_request(100, 30)
         self.acerca.connect('clicked', AboutWindow)
         self.botonera.put(self.acerca, 110, 10)
+
+        # Ayuda
+        self.ayuda = gtk.Button(stock=gtk.STOCK_HELP)
+        self.ayuda.set_size_request(100, 30)
+        self.ayuda.connect('clicked', ayuda)
+        self.botonera.put(self.ayuda, 110, 10)
 
         self.show_all()
 
