@@ -202,16 +202,22 @@ class MostrarResultados(gtk.HBox):
         grafico  = Graficar.graficar(self.datos1, u'Gráfico SJF')
       if self.listaalgoritmo.get_active_text() == 'RR':
         grafico = Graficar.graficar(self.datos2, self.cola, u'Gráfico RR')
-     
 
     def Simulacion(self, widget=None, event=None):
+      if self.n>10:
+        self.n=10
       gtk.gdk.threads_init()
       win = ventana()
       semaforo = Semaphore(1)
       if self.listaalgoritmo.get_active_text() == 'FCFS':
         win.set_title('Simulación del Algoritmo FCFS')
         for x in xrange(self.n):
-          hilo = Simulacion(win.label, win.label1, win.label3, win.label5, self.n, x, semaforo)
+          hilo = Simulacion(win.label, win.label1, win.label3, win.label5, 10, x, self.t_e, semaforo)
+          hilo.start()
+      if self.listaalgoritmo.get_active_text() == 'SJF':
+        win.set_title('Simulación del Algoritmo SJF')
+        for x in xrange(self.n):
+          hilo = Simulacion(win.label, win.label1, win.label3, win.label5, 10, x, self.t_e1, semaforo)
           hilo.start()
       win.show()
 
@@ -247,6 +253,7 @@ class MostrarResultados(gtk.HBox):
                 self.txtfifo1.set_text(str(self.n))
                 self.txtfifo2.set_text(str(CFG['calculofifo'][0]))
                 self.txtfifo3.set_text(str(CFG['calculofifo'][1]))
+                self.t_e = CFG['calculofifo'][2]
                 self.txtfifo4.set_text(str(CFG['calculofifo'][2]))
                 self.datos = CFG['calculofifo'][3]
             if CFG['menortiempo']==True:
@@ -255,6 +262,7 @@ class MostrarResultados(gtk.HBox):
                 self.txtmt2.set_text(str(CFG['mtiempo'][0]))
                 self.txtmt3.set_text(str(CFG['mtiempo'][1]))
                 self.txtmt4.set_text(str(CFG['mtiempo'][2]))
+                self.t_e1 = CFG['mtiempo'][2]
                 self.datos1 = CFG['mtiempo'][3]
             if CFG['roundrobin']==True:
                 self.txtrr.set_text("RR")
@@ -262,6 +270,7 @@ class MostrarResultados(gtk.HBox):
                 self.txtrr2.set_text(str(CFG['calculorr'][0]))
                 self.txtrr3.set_text(str(CFG['calculorr'][1]))
                 self.txtrr4.set_text(str(CFG['calculorr'][2]))
+                self.t_e2 = CFG['calculorr'][2]
                 self.datos2 = CFG['calculorr'][3]
             if CFG['soprtunidad']==True:
                 self.txtso.set_text("PSJF")
