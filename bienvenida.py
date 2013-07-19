@@ -35,8 +35,8 @@ class BienvenidaUsuario(gtk.Fixed):
         msg_intro = 'Con este programa podrá simular los algoritmos de:'
         msg_disco = '● Primero en llegar primero en servirse(FCFS) - Fisrt-come, First-serverd.'
         msg_memoria = '● Menor tiempo primero(SJF) - Shortest Job First.'
-        msg_mensaje1 = '● planificación por turno rotatorio(RR) - Round Robin.'
-        msg_mensaje2 = '● Preemptive Shortest Job First(PSJF)'
+        msg_mensaje1 = '● Planificación por turno rotatorio(RR) - Round Robin.'
+        msg_mensaje2 = '● Preemptive Shortest Job First (PSJF)'
         msg_fin = 'Para cualquier comentario o ayuda escriba a: joenco@esdebian.org'
 
         attr = pango.AttrList()

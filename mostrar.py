@@ -199,9 +199,11 @@ class MostrarResultados(gtk.HBox):
       if self.listaalgoritmo.get_active_text() == 'FCFS':
         grafico = Graficar.graficar(self.datos, self.cola, u'Gráfico FCFS')
       if self.listaalgoritmo.get_active_text() == 'SJF':
-        grafico  = Graficar.graficar(self.datos1, u'Gráfico SJF')
+        grafico  = Graficar.graficar(self.datos1,self.cola, u'Gráfico SJF')
       if self.listaalgoritmo.get_active_text() == 'RR':
         grafico = Graficar.graficar(self.datos2, self.cola, u'Gráfico RR')
+      if self.listaalgoritmo.get_active_text() == 'PSJF':
+        grafico = Graficar.graficar(self.datos3, self.cola, u'Gráfico PSJF')
 
     def Simulacion(self, widget=None, event=None):
       if self.n>10:
@@ -278,6 +280,7 @@ class MostrarResultados(gtk.HBox):
                 self.txtso2.set_text(str(CFG['psjf'][0]))
                 self.txtso3.set_text(str(CFG['psjf'][1]))
                 self.txtso4.set_text(str(CFG['psjf'][2]))
+                self.datos3 = CFG['psjf'][3]
             CFG['w'].anterior.show()
         CFG['w'].cancelar.show()
         CFG['w'].acerca.show()

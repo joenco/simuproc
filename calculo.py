@@ -172,37 +172,46 @@ class Algoritmos():
       self.tiempo_parcial = 0
       self.usocpu = float(0.0)
       self.wt1 = float(0.0)
+      self.llegaron=0
+      self.llegando=0
 
       for i in xrange(self.n-1):
         if self.cola_procesos[i][1]-self.cola_procesos[i+1][2]<0:
           self.wt1 += (self.cola_procesos[i][1]-self.cola_procesos[i+1][2])*(-1)
-          
-      for k in xrange(self.n):
-        self.ejecucion.append(self.cola_procesos[k][1])
-        
+               
       for i in xrange(self.n):
         self.esperado.append([])
         self.esperado[i].append(i)
         self.esperado[i].append(0)
 
-      while(self.aux<self.n):
-        self.aux=0;
-        for i in xrange(self.n):
-          if(self.ejecucion[i]>0):
-            if(self.ejecucion[i]-self.q > 0):
-              self.tiempo_parcial = self.q
+      #Llegadas
+      for i in xrange(self.n-1):
+        self.ejecucion.append(self.cola_procesos[i][1])
+        self.llego=0
+        while (self.aux<i):
+          self.aux=0
+          for j in xrange(len(self.ejecucion)):
+            if(self.ejecucion[j]>0):
+              if(self.cola_procesos[i+1][2]-self.q>0):
+                self.cola_procesos[i+1][2]-=self.q
+              else:
+                self.llego = 1
+              if (self.ejecucion[j]-self.q>0):
+                self.tiempo_parcial = self.q
+              else:
+                self.tiempo_parcial = self.ejecucion[j]
+              for k in xrange(len(self.ejecucion)):
+                if (k != j):
+                  if (self.ejecucion[k]>0):
+                    self.esperado[k][1]=self.tiempo_parcial 
+              self.ejecucion[j]-=self.tiempo_parcial 
+              self.total_servicio+=self.tiempo_parcial
+              self.ncpu+=1
             else:
-              self.tiempo_parcial = self.ejecucion[i]	
-            for j in xrange(self.n):
-              if (i!=j):
-                if(self.ejecucion[j]>0):
-                  self.esperado[j][1] += self.tiempo_parcial
-            self.ejecucion[i]=self.ejecucion[i]-self.q
-            self.ncpu = self.ncpu+1
-            self.total_servicio += self.tiempo_parcial
-          else:      
-            self.aux=self.aux+1
-
+              self.aux+=1
+            if (self.llego ==1):
+              self.aux=i+1
+      
       for i in xrange(self.n):
         self.total_llegada += round(self.cola_procesos[i][2], 4)
         self.total_esperado += round(self.esperado[i][1], 4)
@@ -249,18 +258,23 @@ class Algoritmos():
       for i in xrange(self.n-1):
         if self.cola_procesos[i][1]-self.cola_procesos[i+1][2]<0:
           self.wt1 += (self.cola_procesos[i][1]-self.cola_procesos[i+1][2])*(-1)
+
+      for i in xrange(self.n):
+        self.espera_procesos_actuales.append([])
+        self.espera_procesos_actuales[i].append(i)
+        self.espera_procesos_actuales[i].append(0)
           
       #Simulando las llegadas
       for i in xrange(self.n):
         if i != 0:
           self.procesos_actuales.append(self.cola_procesos[i][1])
-          self.espera_procesos_actuales.append(0)
+          #self.espera_procesos_actuales.append(0)
           self.tam += 1
           self.tparcial = self.procesos_actuales[self.actual]
           self.procesos_actuales[self.actual]-= self.cola_procesos[i][2]
           for k in xrange(self.tam):
             if(self.procesos_actuales[k]>0):
-              self.espera_procesos_actuales[k] += self.cola_procesos[i][2]
+              self.espera_procesos_actuales[k][1] += self.cola_procesos[i][2]
           if self.procesos_actuales [self.actual] > 0:
             self.teje += self.cola_procesos[i][2]
             if self.cola_procesos[i][1] < self.procesos_actuales[self.actual]:  
@@ -274,7 +288,7 @@ class Algoritmos():
             self.actual=self.pos    
         else:
           self.procesos_actuales.append(self.cola_procesos[0][1])
-          self.espera_procesos_actuales.append(0)
+          #self.espera_procesos_actuales.append(0)
 	  self.tam += 1
 
       self.procesos_actuales.sort(key = lambda procesos_actuales:procesos_actuales)  
@@ -290,15 +304,15 @@ class Algoritmos():
         self.procesos_actuales[h] -= self.procesos_actuales[h]
         for l in xrange(self.tam):
             if(self.procesos_actuales[l]>0):
-              self.espera_procesos_actuales[l] += self.procesos_actuales[h]
+              self.espera_procesos_actuales[l][1] += self.procesos_actuales[h]
   
       for h in xrange(self.tam):
-        self.wt += self.espera_procesos_actuales[h]
+        self.wt += self.espera_procesos_actuales[h][1]
 
       for i in xrange(self.n):
         self.total_llegada += round(self.cola_procesos[i][2], 4)
 
-      guardar.Guardar(self.cola_procesos, 2)
+      guardar.Guardar(self.espera_procesos_actuales, self.cola_procesos, 2)
       
       self.tpe=round(self.wt/self.n, 4)
       self.tpeje= round(self.teje/self.n, 4)
@@ -310,5 +324,5 @@ class Algoritmos():
       print "Tiempo promedio de espera es: ",self.tpe
       print "Tiempo promedio de uso del CPU es: ",self.tpeje
 
-      return self.usocpu, self.tpeje, self.tpe, self.wt
+      return self.usocpu, self.tpeje, self.tpe, self.espera_procesos_actuales
 

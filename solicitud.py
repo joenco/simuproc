@@ -52,13 +52,13 @@ class SolicitudDatos(gtk.HBox):
         self.lbltitle1.set_attributes(attr)
         self.table.attach(self.lbltitle1, 0, 2, 0, 1)
 
-        self.FCFS = gtk.CheckButton("Algoritmo Primero en llegar primero en servirse(FCFS)")
+        self.FCFS = gtk.CheckButton("Algoritmo Primero en llegar primero en servirse (FCFS)")
         self.table.attach(self.FCFS, 0, 1, 1, 2)
 
-        self.SRT = gtk.CheckButton("Algoritmo Mmenor tiempo restante(SJF)")
+        self.SRT = gtk.CheckButton("Algoritmo Menor tiempo restante (SJF)")
         self.table.attach(self.SRT, 0, 1, 2, 3)
 
-        self.rr = gtk.CheckButton("Round Robin(RR)")
+        self.rr = gtk.CheckButton("Round Robin (RR)")
         #actionrr.connect_proxy(self.rr)
         self.table.attach(self.rr, 0, 1, 3, 4)
 
@@ -66,7 +66,7 @@ class SolicitudDatos(gtk.HBox):
         self.txtrr.set_text('Coloque el cuantum de tiempo')
         self.table.attach(self.txtrr, 1, 2, 3, 4)
 
-        self.so = gtk.CheckButton("Reemplazo del reloj(segunda oportunidad)")
+        self.so = gtk.CheckButton("Preemptive Shortest Job First (PSJF)")
         self.table.attach(self.so, 0, 1, 4, 5)
 
         self.listafuncion = gtk.ListStore(str)
