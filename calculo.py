@@ -108,11 +108,11 @@ class Algoritmos():
 
       guardar.Guardar(self.t_espera, self.cola_procesos, 0)
 
+      self.tpe=round(self.wt/self.n, 4)
       if self.wt==0:
         self.wt=1
 
       self.usocpu = round(1.0-self.wt1/(self.wt1+self.wt), 4)
-      self.tpe=round(self.wt/self.n, 4)
       self.tpeje= round(self.teje/self.n, 4)
 
       return self.usocpu, self.tpeje, self.tpe, self.t_espera
@@ -147,16 +147,12 @@ class Algoritmos():
 
       guardar.Guardar(self.t_espera, self.cola_procesos, 1)
 
+      self.tpe=round(self.wt/self.n, 4)
       if self.wt==0:
         self.wt=1
 
       self.usocpu = round(1 - self.wt1/(self.wt1+self.wt), 4)
-      self.tpe=round(self.wt/self.n, 4)
       self.tpeje= round(self.teje/self.n, 4)
-      print "\nel tiempo total de espera de los procesos es: ",self.wt
-      print "el tiempo total  de uso del CPU es: ",self.teje
-      print "el tiempo promedio de espera es: ",self.tpe
-      print "el tiempo promedio de uso es: ",self.tpeje
 
       return self.usocpu, self.tpeje, self.tpe, self.t_espera, self.cola_procesos
 
