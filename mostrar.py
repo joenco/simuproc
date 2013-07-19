@@ -184,12 +184,10 @@ class MostrarResultados(gtk.HBox):
         table.attach(self.listaalgoritmo, 0, 1, 6, 7)
 
         self.ver = gtk.Button("Ver gráfica")
-        self.ver.hide()
         self.ver.connect('clicked', self.Ver)
         table.attach(self.ver, 2, 3, 6, 7)
 
         self.simulacion = gtk.Button("Ver Simulación")
-        self.simulacion.hide()
         self.simulacion.connect('clicked', self.Simulacion)
         table.attach(self.simulacion, 4, 5, 6, 7)
 
