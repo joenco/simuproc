@@ -108,6 +108,9 @@ class Algoritmos():
 
       guardar.Guardar(self.t_espera, self.cola_procesos, 0)
 
+      if self.wt==0:
+        self.wt=1
+
       self.usocpu = round(1.0-self.wt1/(self.wt1+self.wt), 4)
       self.tpe=round(self.wt/self.n, 4)
       self.tpeje= round(self.teje/self.n, 4)
@@ -144,6 +147,9 @@ class Algoritmos():
 
       guardar.Guardar(self.t_espera, self.cola_procesos, 1)
 
+      if self.wt==0:
+        self.wt=1
+
       self.usocpu = round(1 - self.wt1/(self.wt1+self.wt), 4)
       self.tpe=round(self.wt/self.n, 4)
       self.tpeje= round(self.teje/self.n, 4)
@@ -152,7 +158,7 @@ class Algoritmos():
       print "el tiempo promedio de espera es: ",self.tpe
       print "el tiempo promedio de uso es: ",self.tpeje
 
-      return self.usocpu, self.tpeje, self.tpe, self.t_espera
+      return self.usocpu, self.tpeje, self.tpe, self.t_espera, self.cola_procesos
 
 #Round Robin
     def RoundRobin(self, cola_procesos, q):
@@ -254,7 +260,7 @@ class Algoritmos():
       print "Tiempo promedio esperado: ",(self.promedio_de_espera)
       print "Uso de cpu: ",self.usocpu
 
-      return self.usocpu, self.promedio_servicio, self.promedio_de_espera, self.esperado
+      return self.usocpu, self.promedio_servicio, self.promedio_de_espera, self.esperado, self.cola_procesos
 
 #Preemptive Shortest Job First(PSJF)
     def PSJF(self, cola_procesos):
@@ -345,5 +351,5 @@ class Algoritmos():
       print "Tiempo promedio de espera es: ",self.tpe
       print "Tiempo promedio de uso del CPU es: ",self.tpeje
 
-      return self.usocpu, self.tpeje, self.tpe, self.espera_procesos_actuales
+      return self.usocpu, self.tpeje, self.tpe, self.espera_procesos_actuales, self.cola_procesos
 
