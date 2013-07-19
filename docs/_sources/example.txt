@@ -1,0 +1,127 @@
+SIMUPROC
+********
+Simulador de planificación de procesos
+
+.. _inicio:
+
+Introducción
+============
+La manera en como funciona el procesador corresponde a una serie de algoritmos que están descritos en el sistema operativo; esto genera un impacto teniendo en cuenta el tipo de computador y su uso especifico.
+
+El simulador de planificación de procesos '-' Simuproc, utiliza los siguientes algoritmos:
+
+ * Primero en llegar primero en servirse(FCFS) - Fisrt-come, First-serverd.
+ * Menor tiempo primero(SJF) - Shortest Job First.
+ 
+ * planificación por turno rotatorio(RR) - Round Robin.
+ * Preemptive Shortest Job First (PSJF).
+
+Subir al inicio_ del manual
+
+Requisitos
+==========
+Para poder ejecutar el Simuproc, debe tener las siguientes dependencias instaladas:
+
+ * python-imaging
+ * lshw
+ * GTK
+ * python-matplotlib
+ * python-symPy
+ * python-scipy
+
+Subir al inicio_ del manual
+
+Instalación de dependencias
+---------------------------
+Puede instalar las dependencias escribiendo en un terminal/consola lo siguiente:
+ aptitude install python-imaging lshw pyGTK python-matplotlib python-symPy python-scipy
+
+Subir al inicio_ del manual
+
+Ejecutar el programa
+====================
+Para ejecutar el programa, puede hacerlo de 2 formas:
+
+* Por consola:
+
+ #. Abra un terminal/consola.
+ #. Entrar a la carpeta "Simuproc", escribiendo: cd simuproc
+ #. Luego escribir: python simuproc.py
+ #. Listo, debería haber abierto el programa.
+
+* De forma gráfica:
+
+ #. Abrir el navegador de archivos.
+ #. Entrar en la carpeta "Simuproc"
+ #. Seleccionar el archivo "simuproc.py y pulsar enter.
+ #. Listo, debería haber abierto el programa.
+
+Subir al inicio_ del manual
+
+Uso
+===
+Ventana de Bienvenida
+---------------------
+En esta ventana, le saldrá lo siguiente:
+
+    .. image:: /imagenes/bienvenida.png
+
+dandole la bienvenida al usuario al programa y en la cual le aparecerán 3 botones: "Salir", "Acerca" y "Adelante".
+
+Para salir del programa, presione el botón "Salir", le saldrá una ventana como la siguiente, donde se le preguntará si desea salir de la aplicación:
+
+    .. image:: /imagenes/salir.png
+
+y seleccione la opción deseada: "No"o "Sí".
+Para continuar con el programa, presione el botón "Adelante"
+
+Ventana de Solicitud de datos
+-----------------------------
+En esta ventana le saldrá lo siguiente:
+
+    .. image:: /imagenes/solicitud.png
+
+donde se le solicitarán los siguientes datos.
+
+1. Seleccionar al menos 1 de los siguientes algoritmos:
+
+ * Primero en llegar primero en servirse(FCFS) - Fisrt-come, First-serverd.
+ * Menor tiempo primero(SJF) - Shortest Job First.
+ * planificación por turno rotatorio(RR) - Round Robin.
+ * Preemptive Shortest Job First (PSJF).
+
+marcando su casilla correspondiente, puede marcar varias si lo desea.
+
+2. Seleccionar la función para el tiempo de llegada y escribir en el cuadro de texto el valor, puede ser un valor entero o flotante.
+#. Seleccionar la función para el tiempo de uso del CPU y escribir en el cuadro de texto el valor, puede ser un valor entero o flotante.
+#. Seleccionar la función para el tiempo de bloqueo y escribir en el cuadro de texto el valor, puede ser un valor entero o flotante.
+#. Escribir en el cuadro de texto, el número de procesos a ejecutar, debe ser un valor entero y positivo.
+
+**Nota:** si ha seleccionado el algoritmo de Round Robin (RR), debe colocar en el cuadro de texto el valor del cuantum de tiempo, puede ser un valor entero o flotante.
+
+Para que el programa realice los calculos presione el botón "Adelante".
+
+Ventana de resultados
+---------------------
+Antes de mostrar los resultados, mientras se hacen los calculos, le saldrá una barra de progreso, como la siguiente:
+
+    .. image:: /imagenes/progreso.png
+
+al terminar, se mostrara la siguiente ventana:
+
+    .. image:: /imagenes/resultados.png
+
+donde se muestran los resultados de la corrida.
+
+Subir al inicio_ del manual
+
+Las gráficas
+============
+Para ver las gráficas generadas, haga lo siguiente:
+
+ #. En la ventana de resultados, seleccione del cuadro combinado, la grafica del algoritmo que desea ver.
+ #. Presione el botón "Ver gráfica", le saldrá una ventana como la siguiente:
+
+    .. image:: /imagenes/grafica.png
+
+**Nota:** se recomienda cerrar la ventana antes de ver otra gráfica.

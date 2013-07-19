@@ -1,0 +1,203 @@
+********
+SIMUPROC
+********
+Simulador de planificación de procesos
+
+.. _inicio:
+
+Introducción
+============
+La manera en como funciona el procesador corresponde a una serie de algoritmos que están descritos en el sistema operativo; esto genera un impacto teniendo en cuenta el tipo de computador y su uso especifico.
+
+El simulador de planificación de procesos '-' Simuproc, utiliza los siguientes algoritmos:
+
+ * Primero en llegar primero en servirse(FCFS) - Fisrt-come, First-serverd.
+ * Menor tiempo primero(SJF) - Shortest Job First.
+ 
+ * planificación por turno rotatorio(RR) - Round Robin.
+ * Preemptive Shortest Job First (PSJF).
+
+los algoritmos pueden ser simulados con las siguientes funciones:
+
+ * Constante.
+ * Uniforme.
+ * Exponencial.
+ * Normal.
+
+.. note:: La función "Uniforme" recive 2 valores, minímo y maxímo .
+
+Subir al inicio_ del manual
+
+Requisitos
+==========
+Para poder ejecutar el Simuproc, debe tener las siguientes dependencias instaladas:
+
+ * python-imaging
+ * lshw
+ * GTK
+ * python-matplotlib
+ * python-symPy
+ * python-scipy
+
+Subir al inicio_ del manual
+
+Instalación de dependencias
+---------------------------
+Puede instalar las dependencias escribiendo en un terminal/consola lo siguiente:
+ aptitude install python-imaging lshw pyGTK python-matplotlib python-symPy python-scipy
+
+Subir al inicio_ del manual
+
+Ejecutar el programa
+====================
+Para ejecutar el programa, puede hacerlo de 2 formas:
+
+* Por consola:
+
+ #. Abra un terminal/consola.
+ #. Entrar a la carpeta "Simuproc", escribiendo: cd simuproc
+ #. Luego escribir: python simuproc.py
+ #. Listo, debería haber abierto el programa.
+
+* De forma gráfica:
+
+ #. Abrir el navegador de archivos.
+ #. Entrar en la carpeta "Simuproc"
+ #. Seleccionar el archivo "simuproc.py y pulsar enter.
+ #. Listo, debería haber abierto el programa.
+
+Subir al inicio_ del manual
+
+Uso
+===
+Ventana de Bienvenida
+---------------------
+En esta ventana, le saldrá lo siguiente:
+
+    .. image:: /imagenes/bienvenida.png
+
+dandole la bienvenida al usuario.
+
+Para continuar con el programa, presione el botón "Adelante"
+
+Ventana de Solicitud de datos
+-----------------------------
+En esta ventana le saldrá lo siguiente:
+
+    .. image:: /imagenes/solicitud.png
+
+donde se le solicitarán los siguientes datos.
+
+1. Seleccionar al menos 1 de los siguientes algoritmos:
+
+ * Primero en llegar primero en servirse(FCFS) - Fisrt-come, First-serverd.
+ * Menor tiempo primero(SJF) - Shortest Job First.
+ * planificación por turno rotatorio(RR) - Round Robin.
+ * Preemptive Shortest Job First (PSJF).
+
+marcando su casilla correspondiente, puede marcar varias si lo desea.
+
+2. Seleccionar la función para el tiempo de llegada y escribir en el cuadro de texto el valor, puede ser un valor entero o flotante.
+#. Seleccionar la función para el tiempo de uso del CPU y escribir en el cuadro de texto el valor, puede ser un valor entero o flotante.
+#. Seleccionar la función para el tiempo de bloqueo y escribir en el cuadro de texto el valor, puede ser un valor entero o flotante.
+#. Escribir en el cuadro de texto, el número de procesos a ejecutar, debe ser un valor entero y positivo.
+
+.. note:: si ha seleccionado el algoritmo de Round Robin (RR), debe colocar en el cuadro de texto el valor del cuantum de tiempo, puede ser un valor entero o flotante.
+
+.. note:: para los flotantes, debe separar los decimales con un punto "." (ej: 15.25)
+
+.. note:: si ha colocado un valor negativo, un caracter o un simbolo en alguno de los campos de texto, le saldrá un error como el siguiente:
+
+    .. image:: /imagenes/error.png
+
+el mensaje puede cambiar, según el tipo de error, el de la imagen es  cuando se deja vacío un campo.
+
+Para que el programa realice los calculos presione el botón "Adelante".
+
+Ventana de resultados
+---------------------
+Antes de mostrar los resultados, mientras se hacen los calculos, le saldrá una barra de progreso, como la siguiente:
+
+    .. image:: /imagenes/progreso.png
+
+al terminar, se mostrara la siguiente ventana:
+
+    .. image:: /imagenes/resultados.png
+
+donde se muestran los resultados de la corrida.
+
+Subir al inicio_ del manual
+
+Ver gráficas
+============
+Para ver las gráficas generadas, haga lo siguiente:
+
+ #. En la ventana de resultados, seleccione del cuadro combinado, la grafica del algoritmo que desea ver.
+ #. Presione el botón "Ver gráfica", le saldrá una ventana como la siguiente:
+
+    .. image:: /imagenes/grafica1.png
+
+.. note:: se recomienda cerrar la ventana antes de ver otra gráfica.
+
+Subir al inicio_ del manual
+
+Ver Simulaciónes
+================
+Para ver las simulaciones de los procesos según el algoritmo, haga lo siguiente:
+
+ #. En la ventana de resultados, seleccione del cuadro combinado, el algoritmo que desea simular.
+ #. Presione el botón "Ver Simulación", le saldrá una ventana como la siguiente:
+
+    .. image:: /imagenes/simulacion.png
+    .. :align: center
+    .. :alt: Una imagen de la simulación del algoritmo FCFS
+
+.. note:: se recomienda esperar a que termine la simulación para cerrar la ventana y hacer otra simulación.
+
+.. note:: para la simulación se toman un maxímo de 10 procesos y el tiempo medio de espera
+
+Subir al inicio_ del manual
+
+Misceláneos
+===========
+Estas son las funciones de los diferentes botones que tiene la aplicación
+
+ * *Botón Salir:* permite al usuario cerrar el programa., al presionar el mismo, le saldrá un aviso como el siguiente:
+
+ *¿Está seguro que desea salir del programa?*
+
+ debe presionar "No" o "Sí", para cerrar o no la aplicación.
+
+ * *Botón Acerca:* le permite revisar quién desarrollo el programa, la versión, sitio web, entre otras, le saldrá una ventana como la siguiente:
+
+    .. image:: /imagenes/acerca.png
+
+ * *Botón Atrás:* permite ir a la ventana anterior a la que tiene el foco actualmente.
+
+ * *Botón Adelante:* permite ir a la ventana siguiente de la que tiene el foco.
+
+ * *Botón Ver Gráfica:* permite ver la gráfica del algoritmo seleccionado.
+
+ * *Botón Ver Simulación:* permite ver una simulación del algoritmo seleccionado, como si se estuvieran ejecutando.
+
+Subir al inicio_ del manual
+
+Archivos de datos generados
+===========================
+El Simuproc genera en la carpeta "data", según la selección del usuario, los siguientes archivos:
+
+ * FCFS.dat
+ * SJF.dat
+ * RR.dat
+ * PSJF.dat
+
+los cuales contiene en cada columna:
+
+ * **N:** Número de procesos.
+ * **T.E:** Tiempo de espera.
+ * **T.CPU:** Tiempo de Uso del CPU.
+ * **T.L:** Tiempo de llegada.
+
+los cuales pueden ayudar al usuario a una mejor interpretación de los resultados.
+
+Subir al inicio_ del manual

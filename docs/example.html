@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>SIMUPROC &mdash; Simulador de planificación de procesos - SIMUPROC</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Simulador de planificación de procesos - SIMUPROC" href="index.html" />
+    <link rel="prev" title="Bienvenido a la documentación del SiMuProc" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Bienvenido a la documentación del SiMuProc"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Simulador de planificación de procesos - SIMUPROC</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="simuproc">
+<h1>SIMUPROC<a class="headerlink" href="#simuproc" title="Permalink to this headline">¶</a></h1>
+<p>Simulador de planificación de procesos</p>
+<div class="section" id="introduccion">
+<span id="inicio"></span><h2>Introducción<a class="headerlink" href="#introduccion" title="Permalink to this headline">¶</a></h2>
+<p>La manera en como funciona el procesador corresponde a una serie de algoritmos que están descritos en el sistema operativo; esto genera un impacto teniendo en cuenta el tipo de computador y su uso especifico.</p>
+<p>El simulador de planificación de procesos &#8216;-&#8216; Simuproc, utiliza los siguientes algoritmos:</p>
+<blockquote>
+<ul class="simple">
+<li>Primero en llegar primero en servirse(FCFS) - Fisrt-come, First-serverd.</li>
+<li>Menor tiempo primero(SJF) - Shortest Job First.</li>
+<li>planificación por turno rotatorio(RR) - Round Robin.</li>
+<li>Preemptive Shortest Job First (PSJF).</li>
+</ul>
+</blockquote>
+<p>Subir al <a class="reference internal" href="#inicio">inicio</a> del manual</p>
+</div>
+<div class="section" id="requisitos">
+<h2>Requisitos<a class="headerlink" href="#requisitos" title="Permalink to this headline">¶</a></h2>
+<p>Para poder ejecutar el Simuproc, debe tener las siguientes dependencias instaladas:</p>
+<blockquote>
+<ul class="simple">
+<li>python-imaging</li>
+<li>lshw</li>
+<li>GTK</li>
+<li>python-matplotlib</li>
+<li>python-symPy</li>
+<li>python-scipy</li>
+</ul>
+</blockquote>
+<p>Subir al <a class="reference internal" href="#inicio">inicio</a> del manual</p>
+<div class="section" id="instalacion-de-dependencias">
+<h3>Instalación de dependencias<a class="headerlink" href="#instalacion-de-dependencias" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>Puede instalar las dependencias escribiendo en un terminal/consola lo siguiente:</dt>
+<dd>aptitude install python-imaging lshw pyGTK python-matplotlib python-symPy python-scipy</dd>
+</dl>
+<p>Subir al <a class="reference internal" href="#inicio">inicio</a> del manual</p>
+</div>
+</div>
+<div class="section" id="ejecutar-el-programa">
+<h2>Ejecutar el programa<a class="headerlink" href="#ejecutar-el-programa" title="Permalink to this headline">¶</a></h2>
+<p>Para ejecutar el programa, puede hacerlo de 2 formas:</p>
+<ul class="simple">
+<li>Por consola:</li>
+</ul>
+<blockquote>
+<ol class="arabic simple">
+<li>Abra un terminal/consola.</li>
+<li>Entrar a la carpeta &#8220;Simuproc&#8221;, escribiendo: cd simuproc</li>
+<li>Luego escribir: python simuproc.py</li>
+<li>Listo, debería haber abierto el programa.</li>
+</ol>
+</blockquote>
+<ul class="simple">
+<li>De forma gráfica:</li>
+</ul>
+<blockquote>
+<ol class="arabic simple">
+<li>Abrir el navegador de archivos.</li>
+<li>Entrar en la carpeta &#8220;Simuproc&#8221;</li>
+<li>Seleccionar el archivo &#8220;simuproc.py y pulsar enter.</li>
+<li>Listo, debería haber abierto el programa.</li>
+</ol>
+</blockquote>
+<p>Subir al <a class="reference internal" href="#inicio">inicio</a> del manual</p>
+</div>
+<div class="section" id="uso">
+<h2>Uso<a class="headerlink" href="#uso" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="ventana-de-bienvenida">
+<h3>Ventana de Bienvenida<a class="headerlink" href="#ventana-de-bienvenida" title="Permalink to this headline">¶</a></h3>
+<p>En esta ventana, le saldrá lo siguiente:</p>
+<blockquote>
+<img alt="_images/bienvenida.png" src="_images/bienvenida.png" />
+</blockquote>
+<p>dandole la bienvenida al usuario al programa y en la cual le aparecerán 3 botones: &#8220;Salir&#8221;, &#8220;Acerca&#8221; y &#8220;Adelante&#8221;.</p>
+<p>Para salir del programa, presione el botón &#8220;Salir&#8221;, le saldrá una ventana como la siguiente, donde se le preguntará si desea salir de la aplicación:</p>
+<blockquote>
+<img alt="_images/salir.png" src="_images/salir.png" />
+</blockquote>
+<p>y seleccione la opción deseada: &#8220;No&#8221;o &#8220;Sí&#8221;.
+Para continuar con el programa, presione el botón &#8220;Adelante&#8221;</p>
+</div>
+<div class="section" id="ventana-de-solicitud-de-datos">
+<h3>Ventana de Solicitud de datos<a class="headerlink" href="#ventana-de-solicitud-de-datos" title="Permalink to this headline">¶</a></h3>
+<p>En esta ventana le saldrá lo siguiente:</p>
+<blockquote>
+<img alt="_images/solicitud.png" src="_images/solicitud.png" />
+</blockquote>
+<p>donde se le solicitarán los siguientes datos.</p>
+<ol class="arabic simple">
+<li>Seleccionar al menos 1 de los siguientes algoritmos:</li>
+</ol>
+<blockquote>
+<ul class="simple">
+<li>Primero en llegar primero en servirse(FCFS) - Fisrt-come, First-serverd.</li>
+<li>Menor tiempo primero(SJF) - Shortest Job First.</li>
+<li>planificación por turno rotatorio(RR) - Round Robin.</li>
+<li>Preemptive Shortest Job First (PSJF).</li>
+</ul>
+</blockquote>
+<p>marcando su casilla correspondiente, puede marcar varias si lo desea.</p>
+<ol class="arabic simple" start="2">
+<li>Seleccionar la función para el tiempo de llegada y escribir en el cuadro de texto el valor, puede ser un valor entero o flotante.</li>
+<li>Seleccionar la función para el tiempo de uso del CPU y escribir en el cuadro de texto el valor, puede ser un valor entero o flotante.</li>
+<li>Seleccionar la función para el tiempo de bloqueo y escribir en el cuadro de texto el valor, puede ser un valor entero o flotante.</li>
+<li>Escribir en el cuadro de texto, el número de procesos a ejecutar, debe ser un valor entero y positivo.</li>
+</ol>
+<p><strong>Nota:</strong> si ha seleccionado el algoritmo de Round Robin (RR), debe colocar en el cuadro de texto el valor del cuantum de tiempo, puede ser un valor entero o flotante.</p>
+<p>Para que el programa realice los calculos presione el botón &#8220;Adelante&#8221;.</p>
+</div>
+<div class="section" id="ventana-de-resultados">
+<h3>Ventana de resultados<a class="headerlink" href="#ventana-de-resultados" title="Permalink to this headline">¶</a></h3>
+<p>Antes de mostrar los resultados, mientras se hacen los calculos, le saldrá una barra de progreso, como la siguiente:</p>
+<blockquote>
+<img alt="_images/progreso.png" src="_images/progreso.png" />
+</blockquote>
+<p>al terminar, se mostrara la siguiente ventana:</p>
+<blockquote>
+<img alt="_images/resultados.png" src="_images/resultados.png" />
+</blockquote>
+<p>donde se muestran los resultados de la corrida.</p>
+<p>Subir al <a class="reference internal" href="#inicio">inicio</a> del manual</p>
+</div>
+</div>
+<div class="section" id="las-graficas">
+<h2>Las gráficas<a class="headerlink" href="#las-graficas" title="Permalink to this headline">¶</a></h2>
+<p>Para ver las gráficas generadas, haga lo siguiente:</p>
+<blockquote>
+<ol class="arabic">
+<li><p class="first">En la ventana de resultados, seleccione del cuadro combinado, la grafica del algoritmo que desea ver.</p>
+</li>
+<li><p class="first">Presione el botón &#8220;Ver gráfica&#8221;, le saldrá una ventana como la siguiente:</p>
+<img alt="_images/grafica.png" src="_images/grafica.png" />
+</li>
+</ol>
+</blockquote>
+<p><strong>Nota:</strong> se recomienda cerrar la ventana antes de ver otra gráfica.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">SIMUPROC</a><ul>
+<li><a class="reference external" href="#introduccion">Introducción</a></li>
+<li><a class="reference external" href="#requisitos">Requisitos</a><ul>
+<li><a class="reference external" href="#instalacion-de-dependencias">Instalación de dependencias</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#ejecutar-el-programa">Ejecutar el programa</a></li>
+<li><a class="reference external" href="#uso">Uso</a><ul>
+<li><a class="reference external" href="#ventana-de-bienvenida">Ventana de Bienvenida</a></li>
+<li><a class="reference external" href="#ventana-de-solicitud-de-datos">Ventana de Solicitud de datos</a></li>
+<li><a class="reference external" href="#ventana-de-resultados">Ventana de resultados</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#las-graficas">Las gráficas</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="index.html"
+                                  title="previous chapter">Bienvenido a la documentación del SiMuProc</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/example.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Bienvenido a la documentación del SiMuProc"
+             >previous</a> |</li>
+        <li><a href="index.html">Simulador de planificación de procesos - SIMUPROC</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2013, Jorge Ortega.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
+    </div>
+  </body>
+</html>
