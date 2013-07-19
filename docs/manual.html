@@ -57,6 +57,7 @@
 <li><a class="reference external" href="#ver-simulaciones">Ver Simulaciónes</a></li>
 <li><a class="reference external" href="#miscelaneos">Misceláneos</a></li>
 <li><a class="reference external" href="#archivos-de-datos-generados">Archivos de datos generados</a></li>
+<li><a class="reference external" href="#bibliografia">Bibliografía</a></li>
 </ul>
 </li>
 </ul>
@@ -91,10 +92,35 @@
           <div class="body">
             
   <div class="section" id="simuproc">
-<h1>SIMUPROC<a class="headerlink" href="#simuproc" title="Enlazar permanentemente con este título">¶</a></h1>
+<h1><a class="toc-backref" href="#id1">SIMUPROC</a><a class="headerlink" href="#simuproc" title="Enlazar permanentemente con este título">¶</a></h1>
 <p>Simulador de planificación de procesos</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#simuproc" id="id1">SIMUPROC</a><ul>
+<li><a class="reference internal" href="#introduccion" id="id2">Introducción</a></li>
+<li><a class="reference internal" href="#requisitos" id="id3">Requisitos</a><ul>
+<li><a class="reference internal" href="#instalacion-de-dependencias" id="id4">Instalación de dependencias</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ejecutar-el-programa" id="id5">Ejecutar el programa</a></li>
+<li><a class="reference internal" href="#uso" id="id6">Uso</a><ul>
+<li><a class="reference internal" href="#ventana-de-bienvenida" id="id7">Ventana de Bienvenida</a></li>
+<li><a class="reference internal" href="#ventana-de-solicitud-de-datos" id="id8">Ventana de Solicitud de datos</a></li>
+<li><a class="reference internal" href="#ventana-de-resultados" id="id9">Ventana de resultados</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ver-graficas" id="id10">Ver gráficas</a></li>
+<li><a class="reference internal" href="#ver-simulaciones" id="id11">Ver Simulaciónes</a></li>
+<li><a class="reference internal" href="#miscelaneos" id="id12">Misceláneos</a></li>
+<li><a class="reference internal" href="#archivos-de-datos-generados" id="id13">Archivos de datos generados</a></li>
+<li><a class="reference internal" href="#bibliografia" id="id14">Bibliografía</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <div class="section" id="introduccion">
-<span id="inicio"></span><h2>Introducción<a class="headerlink" href="#introduccion" title="Enlazar permanentemente con este título">¶</a></h2>
+<span id="inicio"></span><h2><a class="toc-backref" href="#id2">Introducción</a><a class="headerlink" href="#introduccion" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>La manera en como funciona el procesador corresponde a una serie de algoritmos que están descritos en el sistema operativo; esto genera un impacto teniendo en cuenta el tipo de computador y su uso especifico.</p>
 <p>El simulador de planificación de procesos &#8216;-&#8216; Simuproc, utiliza los siguientes algoritmos:</p>
 <blockquote>
@@ -121,13 +147,14 @@
 <p>Subir al <a class="reference internal" href="#inicio">inicio</a> del manual</p>
 </div>
 <div class="section" id="requisitos">
-<h2>Requisitos<a class="headerlink" href="#requisitos" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2><a class="toc-backref" href="#id3">Requisitos</a><a class="headerlink" href="#requisitos" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>Para poder ejecutar el Simuproc, debe tener las siguientes dependencias instaladas:</p>
 <blockquote>
 <ul class="simple">
 <li>python-imaging</li>
 <li>lshw</li>
 <li>GTK</li>
+<li>Python-gtk2</li>
 <li>python-matplotlib</li>
 <li>python-symPy</li>
 <li>python-scipy</li>
@@ -135,16 +162,16 @@
 </blockquote>
 <p>Subir al <a class="reference internal" href="#inicio">inicio</a> del manual</p>
 <div class="section" id="instalacion-de-dependencias">
-<h3>Instalación de dependencias<a class="headerlink" href="#instalacion-de-dependencias" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3><a class="toc-backref" href="#id4">Instalación de dependencias</a><a class="headerlink" href="#instalacion-de-dependencias" title="Enlazar permanentemente con este título">¶</a></h3>
 <dl class="docutils">
 <dt>Puede instalar las dependencias escribiendo en un terminal/consola lo siguiente:</dt>
-<dd>aptitude install python-imaging lshw pyGTK python-matplotlib python-symPy python-scipy</dd>
+<dd>aptitude install python-imaging lshw python-gtk2 python-matplotlib python-symPy python-scipy</dd>
 </dl>
 <p>Subir al <a class="reference internal" href="#inicio">inicio</a> del manual</p>
 </div>
 </div>
 <div class="section" id="ejecutar-el-programa">
-<h2>Ejecutar el programa<a class="headerlink" href="#ejecutar-el-programa" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">Ejecutar el programa</a><a class="headerlink" href="#ejecutar-el-programa" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>Para ejecutar el programa, puede hacerlo de 2 formas:</p>
 <ul class="simple">
 <li>Por consola:</li>
@@ -171,21 +198,21 @@
 <p>Subir al <a class="reference internal" href="#inicio">inicio</a> del manual</p>
 </div>
 <div class="section" id="uso">
-<h2>Uso<a class="headerlink" href="#uso" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">Uso</a><a class="headerlink" href="#uso" title="Enlazar permanentemente con este título">¶</a></h2>
 <div class="section" id="ventana-de-bienvenida">
-<h3>Ventana de Bienvenida<a class="headerlink" href="#ventana-de-bienvenida" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3><a class="toc-backref" href="#id7">Ventana de Bienvenida</a><a class="headerlink" href="#ventana-de-bienvenida" title="Enlazar permanentemente con este título">¶</a></h3>
 <p>En esta ventana, le saldrá lo siguiente:</p>
 <blockquote>
-<img alt="_images/bienvenida.png" src="_images/bienvenida.png" />
+<img alt="Imagen de la ventana de bienvenida." class="align-center" src="_images/bienvenida.png" />
 </blockquote>
 <p>dandole la bienvenida al usuario.</p>
 <p>Para continuar con el programa, presione el botón &#8220;Adelante&#8221;</p>
 </div>
 <div class="section" id="ventana-de-solicitud-de-datos">
-<h3>Ventana de Solicitud de datos<a class="headerlink" href="#ventana-de-solicitud-de-datos" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3><a class="toc-backref" href="#id8">Ventana de Solicitud de datos</a><a class="headerlink" href="#ventana-de-solicitud-de-datos" title="Enlazar permanentemente con este título">¶</a></h3>
 <p>En esta ventana le saldrá lo siguiente:</p>
 <blockquote>
-<img alt="_images/solicitud.png" src="_images/solicitud.png" />
+<img alt="Imagen de la ventana de solicitud de datos para la corrida." class="align-center" src="_images/solicitud.png" />
 </blockquote>
 <p>donde se le solicitarán los siguientes datos.</p>
 <ol class="arabic simple">
@@ -206,78 +233,91 @@
 <li>Seleccionar la función para el tiempo de bloqueo y escribir en el cuadro de texto el valor, puede ser un valor entero o flotante.</li>
 <li>Escribir en el cuadro de texto, el número de procesos a ejecutar, debe ser un valor entero y positivo.</li>
 </ol>
-<div class="admonition note">
-<p class="first admonition-title">Nota</p>
-<p class="last">si ha seleccionado el algoritmo de Round Robin (RR), debe colocar en el cuadro de texto el valor del cuantum de tiempo, puede ser un valor entero o flotante.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Advertencia</p>
+<p class="last">si ha seleccionado el algoritmo de Round Robin (RR), debe colocar obligatoriamente en el cuadro de texto el valor del cuantum de tiempo, puede ser un valor entero o flotante.</p>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">Nota</p>
+<div class="admonition warning">
+<p class="first admonition-title">Advertencia</p>
 <p class="last">para los flotantes, debe separar los decimales con un punto &#8220;.&#8221; (ej: 15.25)</p>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">Nota</p>
+<div class="admonition warning">
+<p class="first admonition-title">Advertencia</p>
 <p>si ha colocado un valor negativo, un caracter o un simbolo en alguno de los campos de texto, le saldrá un error como el siguiente:</p>
-<img alt="_images/error.png" class="last" src="_images/error.png" />
+<img alt="Imagen de la ventana de error al dejar el campo del cuantum de tiempo vacío." class="last align-center" src="_images/error.png" />
 </div>
-<p>el mensaje puede cambiar, según el tipo de error, el de la imagen es  cuando se deja vacío un campo.</p>
+<p>el mensaje será diferente, según sea el error.</p>
 <p>Para que el programa realice los calculos presione el botón &#8220;Adelante&#8221;.</p>
 </div>
 <div class="section" id="ventana-de-resultados">
-<h3>Ventana de resultados<a class="headerlink" href="#ventana-de-resultados" title="Enlazar permanentemente con este título">¶</a></h3>
+<h3><a class="toc-backref" href="#id9">Ventana de resultados</a><a class="headerlink" href="#ventana-de-resultados" title="Enlazar permanentemente con este título">¶</a></h3>
 <p>Antes de mostrar los resultados, mientras se hacen los calculos, le saldrá una barra de progreso, como la siguiente:</p>
 <blockquote>
-<img alt="_images/progreso.png" src="_images/progreso.png" />
+<img alt="Imagen de la barra de progreso." class="align-center" src="_images/progreso.png" />
 </blockquote>
 <p>al terminar, se mostrara la siguiente ventana:</p>
 <blockquote>
-<img alt="_images/resultados.png" src="_images/resultados.png" />
+<img alt="Imagen de la ventana de resultados." class="align-center" src="_images/resultados.png" />
 </blockquote>
-<p>donde se muestran los resultados de la corrida.</p>
+<p>donde se muestran los resultados de la corrida, que son:</p>
+<blockquote>
+<ul class="simple">
+<li>Algoritmo.</li>
+<li>Número de procesos.</li>
+<li>Uso del CPU (va entre 0 y 1)</li>
+<li>Tiempo promedio de uso de CPU.</li>
+<li>Tiempo promedio de espera.</li>
+</ul>
+</blockquote>
 <p>Subir al <a class="reference internal" href="#inicio">inicio</a> del manual</p>
 </div>
 </div>
 <div class="section" id="ver-graficas">
-<h2>Ver gráficas<a class="headerlink" href="#ver-graficas" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2><a class="toc-backref" href="#id10">Ver gráficas</a><a class="headerlink" href="#ver-graficas" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>Para ver las gráficas generadas, haga lo siguiente:</p>
 <blockquote>
 <ol class="arabic">
 <li><p class="first">En la ventana de resultados, seleccione del cuadro combinado, la grafica del algoritmo que desea ver.</p>
 </li>
 <li><p class="first">Presione el botón &#8220;Ver gráfica&#8221;, le saldrá una ventana como la siguiente:</p>
-<img alt="_images/grafica1.png" src="_images/grafica1.png" />
+<img alt="Imagen de la ventana de la gráfica del algoritmo Round Robin." class="align-center" src="_images/grafica1.png" />
 </li>
 </ol>
+<ol class="arabic simple" start="3">
+<li>En el eje X estan los procesos.</li>
+<li>En el eje Y están los tiempos de espera.</li>
+</ol>
 </blockquote>
-<div class="admonition note">
-<p class="first admonition-title">Nota</p>
+<div class="admonition warning">
+<p class="first admonition-title">Advertencia</p>
 <p class="last">se recomienda cerrar la ventana antes de ver otra gráfica.</p>
 </div>
 <p>Subir al <a class="reference internal" href="#inicio">inicio</a> del manual</p>
 </div>
 <div class="section" id="ver-simulaciones">
-<h2>Ver Simulaciónes<a class="headerlink" href="#ver-simulaciones" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">Ver Simulaciónes</a><a class="headerlink" href="#ver-simulaciones" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>Para ver las simulaciones de los procesos según el algoritmo, haga lo siguiente:</p>
 <blockquote>
 <ol class="arabic">
 <li><p class="first">En la ventana de resultados, seleccione del cuadro combinado, el algoritmo que desea simular.</p>
 </li>
 <li><p class="first">Presione el botón &#8220;Ver Simulación&#8221;, le saldrá una ventana como la siguiente:</p>
-<img alt="_images/simulacion.png" src="_images/simulacion.png" />
+<img alt="Imagen de la ventana de simulación del algoritmo FCFS" class="align-center" src="_images/simulacion.png" />
 </li>
 </ol>
 </blockquote>
 <div class="admonition note">
 <p class="first admonition-title">Nota</p>
-<p class="last">se recomienda esperar a que termine la simulación para cerrar la ventana y hacer otra simulación.</p>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Nota</p>
 <p class="last">para la simulación se toman un maxímo de 10 procesos y el tiempo medio de espera</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Advertencia</p>
+<p class="last">se recomienda esperar a que termine la simulación para cerrar la ventana y hacer otra simulación.</p>
 </div>
 <p>Subir al <a class="reference internal" href="#inicio">inicio</a> del manual</p>
 </div>
 <div class="section" id="miscelaneos">
-<h2>Misceláneos<a class="headerlink" href="#miscelaneos" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2><a class="toc-backref" href="#id12">Misceláneos</a><a class="headerlink" href="#miscelaneos" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>Estas son las funciones de los diferentes botones que tiene la aplicación</p>
 <blockquote>
 <ul class="simple">
@@ -288,7 +328,7 @@
 <ul>
 <li><p class="first"><em>Botón Acerca:</em> le permite revisar quién desarrollo el programa, la versión, sitio web, entre otras, le saldrá una ventana como la siguiente:</p>
 <blockquote>
-<img alt="_images/acerca.png" src="_images/acerca.png" />
+<img alt="Imagen de la ventana &quot;Acerca de&quot;" class="align-center" src="_images/acerca.png" />
 </blockquote>
 </li>
 <li><p class="first"><em>Botón Atrás:</em> permite ir a la ventana anterior a la que tiene el foco actualmente.</p>
@@ -304,7 +344,7 @@
 <p>Subir al <a class="reference internal" href="#inicio">inicio</a> del manual</p>
 </div>
 <div class="section" id="archivos-de-datos-generados">
-<h2>Archivos de datos generados<a class="headerlink" href="#archivos-de-datos-generados" title="Enlazar permanentemente con este título">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">Archivos de datos generados</a><a class="headerlink" href="#archivos-de-datos-generados" title="Enlazar permanentemente con este título">¶</a></h2>
 <p>El Simuproc genera en la carpeta &#8220;data&#8221;, según la selección del usuario, los siguientes archivos:</p>
 <blockquote>
 <ul class="simple">
@@ -323,8 +363,33 @@
 <li><strong>T.L:</strong> Tiempo de llegada.</li>
 </ul>
 </blockquote>
-<p>los cuales pueden ayudar al usuario a una mejor interpretación de los resultados.</p>
+<p>que pueden ayudar al usuario a una mejor interpretación de los resultados.</p>
 <p>Subir al <a class="reference internal" href="#inicio">inicio</a> del manual</p>
+</div>
+<div class="section" id="bibliografia">
+<h2><a class="toc-backref" href="#id14">Bibliografía</a><a class="headerlink" href="#bibliografia" title="Enlazar permanentemente con este título">¶</a></h2>
+<p>La documentación consultada para el desarrollo del &#8220;Simuproc&#8221; fue:</p>
+<blockquote>
+<ul>
+<li><p class="first"><a class="reference external" href="https://pybonacci.wordpress.com/2012/04/21/estadistica-en-python-con-scipy/">https://pybonacci.wordpress.com/2012/04/21/estadistica-en-python-con-scipy/</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="http://python.org.ar/Recetario/Gui/Gtk/MultiThread">http://python.org.ar/Recetario/Gui/Gtk/MultiThread</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="http://python.org.ar/Recetario">http://python.org.ar/Recetario</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="http://chuwiki.chuidiang.org/index.php?title=Hilos_en_python">http://chuwiki.chuidiang.org/index.php?title=Hilos_en_python</a></p>
+<blockquote>
+<div class="admonition-ver-tambien admonition seealso">
+<p class="first last admonition-title">Ver también</p>
+</div>
+</blockquote>
+</li>
+<li><p class="first"><a class="reference external" href="http://pybonacci.wordpress.com/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/">http://pybonacci.wordpress.com/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/</a></p>
+</li>
+<li><p class="first"><a class="reference external" href="https://github.com/matplotlib/matplotlib/blob/master/examples/user_interfaces/embedding_in_gtk2.py">https://github.com/matplotlib/matplotlib/blob/master/examples/user_interfaces/embedding_in_gtk2.py</a></p>
+</li>
+</ul>
+</blockquote>
 </div>
 </div>
 

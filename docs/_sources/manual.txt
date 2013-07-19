@@ -3,6 +3,9 @@ SIMUPROC
 ********
 Simulador de planificación de procesos
 
+.. contents::
+   :depth: 4
+
 .. _inicio:
 
 Introducción
@@ -13,7 +16,6 @@ El simulador de planificación de procesos '-' Simuproc, utiliza los siguientes 
 
  * Primero en llegar primero en servirse(FCFS) - Fisrt-come, First-serverd.
  * Menor tiempo primero(SJF) - Shortest Job First.
- 
  * planificación por turno rotatorio(RR) - Round Robin.
  * Preemptive Shortest Job First (PSJF).
 
@@ -24,7 +26,8 @@ los algoritmos pueden ser simulados con las siguientes funciones:
  * Exponencial.
  * Normal.
 
-.. note:: La función "Uniforme" recive 2 valores, minímo y maxímo .
+.. note::
+   La función "Uniforme" recive 2 valores, minímo y maxímo .
 
 Subir al inicio_ del manual
 
@@ -35,6 +38,7 @@ Para poder ejecutar el Simuproc, debe tener las siguientes dependencias instalad
  * python-imaging
  * lshw
  * GTK
+ * Python-gtk2
  * python-matplotlib
  * python-symPy
  * python-scipy
@@ -44,7 +48,7 @@ Subir al inicio_ del manual
 Instalación de dependencias
 ---------------------------
 Puede instalar las dependencias escribiendo en un terminal/consola lo siguiente:
- aptitude install python-imaging lshw pyGTK python-matplotlib python-symPy python-scipy
+ aptitude install python-imaging lshw python-gtk2 python-matplotlib python-symPy python-scipy
 
 Subir al inicio_ del manual
 
@@ -75,6 +79,8 @@ Ventana de Bienvenida
 En esta ventana, le saldrá lo siguiente:
 
     .. image:: /imagenes/bienvenida.png
+        :align: center
+        :alt: Imagen de la ventana de bienvenida.
 
 dandole la bienvenida al usuario.
 
@@ -85,6 +91,8 @@ Ventana de Solicitud de datos
 En esta ventana le saldrá lo siguiente:
 
     .. image:: /imagenes/solicitud.png
+        :align: center
+        :alt: Imagen de la ventana de solicitud de datos para la corrida.
 
 donde se le solicitarán los siguientes datos.
 
@@ -102,15 +110,23 @@ marcando su casilla correspondiente, puede marcar varias si lo desea.
 #. Seleccionar la función para el tiempo de bloqueo y escribir en el cuadro de texto el valor, puede ser un valor entero o flotante.
 #. Escribir en el cuadro de texto, el número de procesos a ejecutar, debe ser un valor entero y positivo.
 
-.. note:: si ha seleccionado el algoritmo de Round Robin (RR), debe colocar en el cuadro de texto el valor del cuantum de tiempo, puede ser un valor entero o flotante.
+.. warning::
 
-.. note:: para los flotantes, debe separar los decimales con un punto "." (ej: 15.25)
+    si ha seleccionado el algoritmo de Round Robin (RR), debe colocar obligatoriamente en el cuadro de texto el valor del cuantum de tiempo, puede ser un valor entero o flotante.
 
-.. note:: si ha colocado un valor negativo, un caracter o un simbolo en alguno de los campos de texto, le saldrá un error como el siguiente:
+.. warning::
+
+    para los flotantes, debe separar los decimales con un punto "." (ej: 15.25)
+
+.. warning::
+
+    si ha colocado un valor negativo, un caracter o un simbolo en alguno de los campos de texto, le saldrá un error como el siguiente:
 
     .. image:: /imagenes/error.png
+        :align: center
+        :alt: Imagen de la ventana de error al dejar el campo del cuantum de tiempo vacío.
 
-el mensaje puede cambiar, según el tipo de error, el de la imagen es  cuando se deja vacío un campo.
+el mensaje será diferente, según sea el error.
 
 Para que el programa realice los calculos presione el botón "Adelante".
 
@@ -119,12 +135,22 @@ Ventana de resultados
 Antes de mostrar los resultados, mientras se hacen los calculos, le saldrá una barra de progreso, como la siguiente:
 
     .. image:: /imagenes/progreso.png
+        :align: center
+        :alt: Imagen de la barra de progreso.
 
 al terminar, se mostrara la siguiente ventana:
 
     .. image:: /imagenes/resultados.png
+        :align: center
+        :alt: Imagen de la ventana de resultados.
 
-donde se muestran los resultados de la corrida.
+donde se muestran los resultados de la corrida, que son:
+
+ * Algoritmo.
+ * Número de procesos.
+ * Uso del CPU (va entre 0 y 1)
+ * Tiempo promedio de uso de CPU.
+ * Tiempo promedio de espera.
 
 Subir al inicio_ del manual
 
@@ -136,8 +162,15 @@ Para ver las gráficas generadas, haga lo siguiente:
  #. Presione el botón "Ver gráfica", le saldrá una ventana como la siguiente:
 
     .. image:: /imagenes/grafica1.png
+        :align: center
+        :alt: Imagen de la ventana de la gráfica del algoritmo Round Robin.
 
-.. note:: se recomienda cerrar la ventana antes de ver otra gráfica.
+ 3. En el eje X estan los procesos.
+ #. En el eje Y están los tiempos de espera.
+
+.. warning::
+
+    se recomienda cerrar la ventana antes de ver otra gráfica.
 
 Subir al inicio_ del manual
 
@@ -149,12 +182,15 @@ Para ver las simulaciones de los procesos según el algoritmo, haga lo siguiente
  #. Presione el botón "Ver Simulación", le saldrá una ventana como la siguiente:
 
     .. image:: /imagenes/simulacion.png
-    .. :align: center
-    .. :alt: Una imagen de la simulación del algoritmo FCFS
+        :align: center
+        :alt: Imagen de la ventana de simulación del algoritmo FCFS
 
-.. note:: se recomienda esperar a que termine la simulación para cerrar la ventana y hacer otra simulación.
+.. note::
+   para la simulación se toman un maxímo de 10 procesos y el tiempo medio de espera
 
-.. note:: para la simulación se toman un maxímo de 10 procesos y el tiempo medio de espera
+.. warning::
+
+    se recomienda esperar a que termine la simulación para cerrar la ventana y hacer otra simulación.
 
 Subir al inicio_ del manual
 
@@ -171,6 +207,8 @@ Estas son las funciones de los diferentes botones que tiene la aplicación
  * *Botón Acerca:* le permite revisar quién desarrollo el programa, la versión, sitio web, entre otras, le saldrá una ventana como la siguiente:
 
     .. image:: /imagenes/acerca.png
+        :align: center
+        :alt: Imagen de la ventana "Acerca de"
 
  * *Botón Atrás:* permite ir a la ventana anterior a la que tiene el foco actualmente.
 
@@ -198,6 +236,19 @@ los cuales contiene en cada columna:
  * **T.CPU:** Tiempo de Uso del CPU.
  * **T.L:** Tiempo de llegada.
 
-los cuales pueden ayudar al usuario a una mejor interpretación de los resultados.
+que pueden ayudar al usuario a una mejor interpretación de los resultados.
 
 Subir al inicio_ del manual
+
+Bibliografía
+============
+La documentación consultada para el desarrollo del "Simuproc" fue:
+
+ * https://pybonacci.wordpress.com/2012/04/21/estadistica-en-python-con-scipy/
+ * http://python.org.ar/Recetario/Gui/Gtk/MultiThread
+ * http://python.org.ar/Recetario
+ * http://chuwiki.chuidiang.org/index.php?title=Hilos_en_python
+
+      .. seealso::
+ * http://pybonacci.wordpress.com/2012/05/14/manual-de-introduccion-a-matplotlib-pyplot-i/
+ * https://github.com/matplotlib/matplotlib/blob/master/examples/user_interfaces/embedding_in_gtk2.py
