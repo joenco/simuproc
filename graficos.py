@@ -34,16 +34,18 @@ from matplotlib.backends.backend_gtkagg import FigureCanvasGTKAgg as FigureCanva
 
 class Graficar(gtk.Window):
   def graficar(self, datos, datos1, titulo):
-    datos = datos
-    datos1 = datos1
+    datos = datos # valores del tiempo de espera.
+    datos1 = datos1 # valores de tiempo de cpu, tiempo de llegada y numeró de procesos.
     titulo = titulo
     x1 = []
     y1 = []
+    y2 = []
 
     n = len(datos)
     for i in xrange(n):
-      x1.append(datos[i][0]) #Numero de proceso
+      x1.append(datos1[i][0]) #Numero de proceso
       y1.append(datos[i][1]) #Tiempo de espera
+      y2.append(datos1[i][1]) #tiempo de uso del cpu
 
     self.win = gtk.Window()
     self.win.set_default_size(600,480)
@@ -56,13 +58,23 @@ class Graficar(gtk.Window):
     a.legend(loc = 2)
     a.set_title(titulo, color='red', size=14)
     a.set_xlabel(u'Número de procesos', color='red', size=14)
-    a.set_ylabel('Tiempo de espera', color='red', size=14)
+    a.set_ylabel('Tiempo de espera ', color='red', size=14)
 
+    # gráfica procesos vs tiempo de cpu
+    g = Figure(figsize=(5,4), dpi=100)
+    b = g.add_subplot(111)
+    b.plot(x1, y2, color='red', label='(Procesos, Tiempo de CPU)')
+    b.set_xlabel(u'Número de procesos', color='red', size=14)
+    b.set_ylabel('Tiempo de CPU ', color='red', size=14)
     vbox = gtk.VBox(False, 5)
 
-    canvas = FigureCanvas(f)  # a gtk.Draself.wingArea
+    canvas = FigureCanvas(f)
     canvas.show()
+    canvas1 = FigureCanvas(g)
+    canvas1.show()
+
     vbox.pack_start(canvas, True, True, 0)
+    vbox.pack_start(canvas1, True, True, 0)
 
     cerrar = gtk.Button(stock=gtk.STOCK_CLOSE)
     cerrar.connect("activate", self.close)
