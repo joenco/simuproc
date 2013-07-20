@@ -110,7 +110,7 @@ class Algoritmos():
 
       self.tpe=round(self.wt/self.n, 4)
       if self.wt1+self.wt==0:
-        self.usocpu = round(1.0-self.wt1), 4)
+        self.usocpu = round(1.0-self.wt1, 4)
       else:
         self.usocpu = round(1.0-self.wt1/(self.wt1+self.wt), 4)
       self.tpeje= round(self.teje/self.n, 4)
@@ -149,7 +149,7 @@ class Algoritmos():
 
       self.tpe=round(self.wt/self.n, 4)
       if self.wt1+self.wt==0:
-        self.usocpu = round(1.0-self.wt1), 4)
+        self.usocpu = round(1.0-self.wt1, 4)
       else:
         self.usocpu = round(1.0-self.wt1/(self.wt1+self.wt), 4)
       self.tpeje= round(self.teje/self.n, 4)
