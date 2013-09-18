@@ -66,6 +66,7 @@ class MostrarResultados(gtk.HBox):
             self.intervalo=0.03
 
         self.pbar = gtk.ProgressBar()
+        self.pbar.set_size_request(60, 0)
         self.pbar.show()
         table.attach(self.pbar, 0, 6, 6, 7)
         self.timer = gobject.timeout_add (self.n1, self.progress_timeout, CFG, self)
@@ -187,15 +188,18 @@ class MostrarResultados(gtk.HBox):
           self.listafuncion.append(["PSJF"])
 
         self.listaalgoritmo = gtk.combo_box_new_text()
+        self.listaalgoritmo.set_size_request(60, 0)
         self.listaalgoritmo.set_model(self.listafuncion)
         self.listaalgoritmo.set_active(0)
         table.attach(self.listaalgoritmo, 0, 1, 6, 7)
 
         self.ver = gtk.Button("Ver gráfica")
+        self.ver.set_size_request(60, 0)
         self.ver.connect('clicked', self.Ver)
         table.attach(self.ver, 2, 3, 6, 7)
 
         self.simulacion = gtk.Button("Ver Simulación")
+        self.simulacion.set_size_request(60, 0)
         self.simulacion.connect('clicked', self.Simulacion)
         table.attach(self.simulacion, 4, 5, 6, 7)
 
