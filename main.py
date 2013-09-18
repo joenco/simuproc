@@ -196,7 +196,7 @@ class Solicitud():
 
     def siguiente(self, CFG):
         CFG['fifo'] = CFG['w'].formulario('Solicitud').FCFS.get_active() #guarda la selección del algoritmo fifo. (false o true)
-        CFG['menortiempo'] = CFG['w'].formulario('Solicitud').SRT.get_active() #guarda la selección del algoritmo con menor tiempo (false o true).
+        CFG['menortiempo'] = CFG['w'].formulario('Solicitud').SJF.get_active() #guarda la selección del algoritmo con menor tiempo (false o true).
         CFG['roundrobin'] = CFG['w'].formulario('Solicitud').rr.get_active() #guarda la selección del algoritmo roundrobin (false o true)
         CFG['soprtunidad'] = CFG['w'].formulario('Solicitud').so.get_active() #guarda la selección del algoritmo de la segunda oportunidad (false o true)
         CFG['ejecucion'] = CFG['w'].formulario('Solicitud').tiempoejecucion.get_active_text() #guarda la función para el tiempo de llegada
