@@ -23,3 +23,4 @@ manuales de hilos:
 
 - Este programa está distribuido bajo la GPL3 o superior
 - no es necesario instalarlo, solo hay que ejecutar el archivo simuproc.py
+- Para ver la ayuda, abra el archivo index.html, que se encuentra en la carpeta docs.
