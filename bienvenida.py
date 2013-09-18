@@ -28,6 +28,9 @@
 import gtk, pango
 
 class BienvenidaUsuario(gtk.Fixed):
+
+    """ Muestra al usuario una ventana dandole la bienvenida al sistema."""
+
     def __init__(self, CFG):
         gtk.Fixed.__init__(self)
 
