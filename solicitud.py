@@ -28,19 +28,12 @@
 import gtk, pango
 
 class SolicitudDatos(gtk.HBox):
+
+    """ pide al usuario que algoritmos desea simular, cuantos procesos, el tipo de función y su tiempo"""
+
     def __init__(self, CFG):
         gtk.HBox.__init__(self)
-        """
-        # Grupo de acciones
-        accelgroup = gtk.AccelGroup()
-        CFG['w'].add_accel_group(accelgroup)
-        actionrr = gtk.Action('rr', None, None, None)
-        actionrr.connect('activate', self.rrchecked)
-        actiongroup = gtk.ActionGroup('SimpleAction')
-        actiongroup.add_action_with_accel(actionrr, None)
-        actionrr.set_accel_group(accelgroup)
-        actionrr.connect_accelerator()
-        """
+
         self.table = gtk.Table(20, 3)
 
         attr = pango.AttrList()
@@ -53,12 +46,15 @@ class SolicitudDatos(gtk.HBox):
         self.table.attach(self.lbltitle1, 0, 2, 0, 1)
 
         self.FCFS = gtk.CheckButton("Algoritmo Primero en llegar primero en servirse (FCFS)")
+        """Chekbutton que permite al usuario elejir el algoritmo FCFS"""
         self.table.attach(self.FCFS, 0, 1, 1, 2)
 
-        self.SRT = gtk.CheckButton("Algoritmo Menor tiempo restante (SJF)")
-        self.table.attach(self.SRT, 0, 1, 2, 3)
+        self.SJF = gtk.CheckButton("Algoritmo Menor tiempo restante (SJF)")
+        """Chekbutton que permite al usuario elejir el algoritmo SJF"""
+        self.table.attach(self.SJF, 0, 1, 2, 3)
 
         self.rr = gtk.CheckButton("Round Robin (RR)")
+        """Chekbutton que permite al usuario elejir el algoritmo RR"""
         #actionrr.connect_proxy(self.rr)
         self.table.attach(self.rr, 0, 1, 3, 4)
 
@@ -67,6 +63,7 @@ class SolicitudDatos(gtk.HBox):
         self.table.attach(self.txtrr, 1, 2, 3, 4)
 
         self.so = gtk.CheckButton("Preemptive Shortest Job First (PSJF)")
+        """Chekbutton que permite al usuario elejir el algoritmo PSJF"""
         self.table.attach(self.so, 0, 1, 4, 5)
 
         self.listafuncion = gtk.ListStore(str)
