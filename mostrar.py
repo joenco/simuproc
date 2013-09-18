@@ -33,9 +33,17 @@ from simulacion import Simulacion, ventana
 from graficos import Graficar
 
 calculo = Algoritmos()
+
+"""creamos el objeto calculo para usarlo."""
+
 Graficar = Graficar()
 
+"""creamos el objeto graficar, para poder graficar."""
+
 class MostrarResultados(gtk.HBox):
+
+    """ ventana que muestra los resultados al usuario en una tabla"""
+
     def __init__(self, CFG):
         gtk.HBox.__init__(self)
 
@@ -194,6 +202,9 @@ class MostrarResultados(gtk.HBox):
         self.pack_start(table, padding=40)
 
     def Ver(self, widget=None, event=None):
+
+      """Función que permite abrir la grafica del algoritmo seleccionado."""
+
       if self.listaalgoritmo.get_active_text() == 'FCFS':
         grafico = Graficar.graficar(self.datos, self.cola, u'Gráfico FCFS')
       if self.listaalgoritmo.get_active_text() == 'SJF':
@@ -204,6 +215,9 @@ class MostrarResultados(gtk.HBox):
         grafico = Graficar.graficar(self.datos3, self.cola, u'Gráfico PSJF')
 
     def Simulacion(self, widget=None, event=None):
+
+      """Función que permite abrir la simulación del algoritmo seleccionado."""
+
       if self.n>10:
         self.n=10
       gtk.gdk.threads_init()
@@ -222,6 +236,9 @@ class MostrarResultados(gtk.HBox):
       win.show()
 
     def progress_timeout(pbobj, CFG, self):
+
+        """Función que va verificando el progreso de los calculos, cuando termina, muestra los resultados."""
+
         new_val = pbobj.pbar.get_fraction() + self.intervalo
 
         if new_val < 0.2:
