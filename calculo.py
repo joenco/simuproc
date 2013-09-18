@@ -34,7 +34,11 @@ from guardardatos import Guardar
 guardar = Guardar()
 
 class Algoritmos():
+    """ Clase que permite calcular los diferentes algoritmos."""
     def Cola_Procesos(self, n, te, tcpu, f1, f2):
+      """ Función que mete en una cola el número de procesos.
+
+      Esta función mete en una cola cada proceso y le asigna según la seleccion del usuario, un tiempo de llegada y de ejecución."""
       self.cola_procesos = []
       self.n = int(n) #número de procesos a ejecutar
       self.func_llegada = f1
@@ -81,6 +85,9 @@ class Algoritmos():
 
 #First Come First Served(FCFS)
     def FCFS(self, cola_procesos):
+      """First Come First Served(FCFS).
+
+      Función que permite hacer los calculos del algoritmo Primero en llegar, primero en ser servido, retorna los promedios de: tiempo de espera, rendimiento del CPu, promedio de ejecución."""
       self.cola_procesos = cola_procesos
       self.t_espera = []
       self.wt=float(0.0) #tiempo total de espera
@@ -119,9 +126,13 @@ class Algoritmos():
 
 #Shortest Job First(SJF)
     def SJF(self, cola_procesos):
+      """Shortest Job First(SJF).
+
+      Función que permite calcular el algoritmo del menor tiempo, retorna:
+      Promedio del tiempo de espera, Rendimiento del CPU y promedio del uso del CPU."""
       self.cola_procesos = cola_procesos
       self.t_espera = []
-      self.n = len(self.cola_procesos)
+      self.n = len(self.cola_procesos) #Almacena los tiempo de espera de cada proceso.
       self.wt=float(0.0) #tiempo total de espera
       self.tpe  = float(0.0) #tiempo promedio de espera.
       self.teje = float(0.0) #tiempo total de ejecucion
