@@ -201,10 +201,12 @@ class Solicitud():
         CFG['soprtunidad'] = CFG['w'].formulario('Solicitud').so.get_active() #guarda la selección del algoritmo de la segunda oportunidad (false o true)
         CFG['ejecucion'] = CFG['w'].formulario('Solicitud').tiempoejecucion.get_active_text() #guarda la función para el tiempo de llegada
         CFG['cpu'] = CFG['w'].formulario('Solicitud').tiempocpu.get_active_text() #guarda la función para el tiempo de uso del CPU
+        CFG['bloqueocpu'] = CFG['w'].formulario('Solicitud').tiempobloqueocpu.get_active_text() #guarda la función del tiempo de bloqueo. del CPU
         CFG['bloqueo'] = CFG['w'].formulario('Solicitud').tiempobloqueo.get_active_text() #guarda la función del tiempo de bloqueo.
         CFG['trr'] = CFG['w'].formulario('Solicitud').txtrr.get_text() #guarda el valor del cuantum de tiempo para el algoritmo roundrobin
         CFG['tejecucion'] = CFG['w'].formulario('Solicitud').txttejecucion.get_text() #guarda el valor del tiempo de llegada de los procesos.
         CFG['tcpu'] = CFG['w'].formulario('Solicitud').txttcpu.get_text() #guarda el valor del tiempo de uso del CPU
+        CFG['tbloqueocpu'] = CFG['w'].formulario('Solicitud').txttbloqueocpu.get_text() #guarda el valor de tiempo de bloqueo.
         CFG['tbloqueo'] = CFG['w'].formulario('Solicitud').txttbloqueo.get_text() #guarda el valor de tiempo de bloqueo.
         CFG['nproceso'] = CFG['w'].formulario('Solicitud').txtn.get_text() #guarda el valor de la cantidad de procesos a ejecutar.
 
@@ -226,7 +228,7 @@ class Solicitud():
 
           if re.compile('^[0-9]{1,}(\.[0-9]{0,})?$').search(CFG['trr']) == None:
               CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txtrr)
-              message = "El cuantum de tiempo para el Round Robin es inválido, debe ser un valornumérico."
+              message = "El cuantum de tiempo para el Round Robin es inválido, debe ser un entero."
               UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
               return
 
@@ -239,7 +241,7 @@ class Solicitud():
         if CFG['ejecucion'] != 'Uniforme':
           if re.compile('^[0-9]{1,}(\.[0-9]{0,})?$').search(CFG['tejecucion']) == None:
             CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txttejecucion)
-            message = "El tiempo de llegada de los procesos es inválido, debe ser un valornumérico."
+            message = "El tiempo de llegada de los procesos es inválido, debe ser un entero."
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
         else:
@@ -266,7 +268,7 @@ class Solicitud():
         if CFG['cpu'] != 'Uniforme':
           if re.compile('^[0-9]{1,}(\.[0-9]{0,})?$').search(CFG['tcpu']) == None:
             CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txttcpu)
-            message = "El tiempo del uso del CPU de los procesos es inválido, debe ser un valornumérico."
+            message = "El tiempo del uso del CPU de los procesos es inválido, debe ser un entero."
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
         else:
@@ -284,6 +286,33 @@ class Solicitud():
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
 
+        if CFG['tbloqueocpu'].strip() == '':
+            CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txttbloqueo)
+            message = "El campo del tiempo del bloqueo de CPU esta vacío, debe colocar un valor numérico."
+            UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
+            return
+
+        if CFG['bloqueocpu'] != 'Uniforme':
+          if re.compile('^[0-9]{1,}(\.[0-9]{0,})?$').search(CFG['tbloqueocpu']) == None:
+            CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txttbloqueocpu)
+            message = "El tiempo de bloqeo del CPU es inválido, debe ser un valor numérico."
+            UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
+            return
+        else:
+          if re.compile('^[0-9]{1,}(\.[0-9]{0,})?\s[0-9]{1,}(\.[0-9]{0,})?$').search(CFG['tbloqueocpu']) == None:
+            CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txttbloqueocpu)
+            message = "El tiempo de bloqeio del CPU es inválido, debe separar los valores con un espacio"
+            UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
+            return
+
+          separar = Separar()
+          uniform = separar.Separar(CFG['tbloqueocpu'])
+          if uniform[0]>=uniform[1]:
+            CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txttbloqueo)
+            message = "El rango de valores para el tiempo de bloqueo de CPU es inválido, el 1er valor debe ser menor al 2do"
+            UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
+            return
+
         if CFG['tbloqueo'].strip() == '':
             CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txttbloqueo)
             message = "El campo del tiempo del bloqueo esta vacío, debe colocar un valor numérico."
@@ -293,7 +322,7 @@ class Solicitud():
         if CFG['bloqueo'] != 'Uniforme':
           if re.compile('^[0-9]{1,}(\.[0-9]{0,})?$').search(CFG['tbloqueo']) == None:
             CFG['w'].set_focus(CFG['w'].formulario('Solicitud').txttbloqueo)
-            message = "El tiempo de bloqeo de los procesos es inválido, debe ser un valornumérico."
+            message = "El tiempo de bloqeo de los procesos es inválido, debe ser un entero."
             UserMessage(message, 'ERROR', gtk.MESSAGE_ERROR, gtk.BUTTONS_OK)
             return
         else:
