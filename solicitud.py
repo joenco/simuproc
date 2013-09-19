@@ -96,23 +96,35 @@ class SolicitudDatos(gtk.HBox):
         self.txttcpu = gtk.Entry()
         self.table.attach(self.txttcpu, 1, 2, 8, 9)
 
-        self.tbloqueo = gtk.Label("Elija el algoritmo y escriba el valor para el tiempo de bloqueo para los procesos:")
+        self.tbloqueocpu = gtk.Label("Elija el algoritmo y escriba el valor para el tiempo de bloqueo del CPU:")
+        self.tbloqueocpu.set_alignment(0, 0.5)
+        self.table.attach(self.tbloqueocpu, 0, 1, 9, 10)
+
+        self.tiempobloqueocpu = gtk.combo_box_new_text()
+        self.tiempobloqueocpu.set_model(self.listafuncion)
+        self.tiempobloqueocpu.set_active(0)
+        self.table.attach(self.tiempobloqueocpu, 0, 1, 10, 11)
+
+        self.txttbloqueocpu = gtk.Entry()
+        self.table.attach(self.txttbloqueocpu, 1, 2, 10, 11)
+
+        self.tbloqueo = gtk.Label("Elija el algoritmo y escriba el valor para el tiempo de bloqueo de los procesos:")
         self.tbloqueo.set_alignment(0, 0.5)
-        self.table.attach(self.tbloqueo, 0, 1, 9, 10)
+        self.table.attach(self.tbloqueo, 0, 1, 11, 12)
 
         self.tiempobloqueo = gtk.combo_box_new_text()
         self.tiempobloqueo.set_model(self.listafuncion)
         self.tiempobloqueo.set_active(0)
-        self.table.attach(self.tiempobloqueo, 0, 1, 10, 11)
+        self.table.attach(self.tiempobloqueo, 0, 1, 12, 13)
 
         self.txttbloqueo = gtk.Entry()
-        self.table.attach(self.txttbloqueo, 1, 2, 10, 11)
+        self.table.attach(self.txttbloqueo, 1, 2, 12, 13)
 
         self.lbln = gtk.Label("Número de procesos a ejecutar:")
         self.lbln.set_alignment(0, 0.5)
-        self.table.attach(self.lbln, 0, 1, 13, 14)
+        self.table.attach(self.lbln, 0, 1, 14, 15)
 
         self.txtn = gtk.Entry()
-        self.table.attach(self.txtn, 1, 2, 13, 14)
+        self.table.attach(self.txtn, 1, 2, 14, 15)
 
         self.pack_start(self.table, padding=40)
