@@ -30,7 +30,7 @@ import os
 class Guardar():
     def Guardar(self, datos, datos1, a):
       self.datos = datos #datos de tiempo de espera.
-      self.datos1 = datos1 # datos de tiempo del cpu y tiempo de llegada.
+      self.datos1 = datos1 # datos de tiempo del cpu,  tiempo de llegada, bloqueo de cpu, bloqueo de procesos.
       self.a = int(a)
 
       os.system('mkdir data')
@@ -46,7 +46,7 @@ class Guardar():
 
       n = len(self.datos)
 
-      dat = 'N  |  T.E  |  T.CPU  |  T.L  |'
+      dat = 'N  |  T.E  |  T.CPU  |  T.L  |  TBCPU  |  TB  |'
       self.data.write(dat)
       self.data.write('\n')
       for i in xrange(n):
@@ -54,7 +54,9 @@ class Guardar():
         y1 = str(self.datos[i][1]) # tiempo de espera
         a1 = str(self.datos1[i][1]) # tiempo de cpu
         z1 = str(self.datos1[i][2]) # tiempo de llegada
-        dat = x1+'  |  '+y1+'  |  '+a1+'  |  '+z1+'  |'
+        z2 = str(self.datos1[i][3]) # tiempo de bloqueo de cpu
+        z3 = str(self.datos1[i][4]) # tiempo de bloqueo de los procesos.
+        dat = x1+'  |  '+y1+'  |  '+a1+'  |  '+z1+'  |  '+z2+'  |  '+z3+'  |'
         self.data.write(dat)
         self.data.write('\n')
 
