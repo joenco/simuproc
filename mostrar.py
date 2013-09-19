@@ -246,7 +246,7 @@ class MostrarResultados(gtk.HBox):
         new_val = pbobj.pbar.get_fraction() + self.intervalo
 
         if new_val < 0.2:
-            self.cola = calculo.Cola_Procesos(self.n, CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
+            self.cola = calculo.Cola_Procesos(self.n, CFG['tejecucion'], CFG['tcpu'], CFG['tbloqueocpu'], CFG['tbloqueo'], CFG['ejecucion'], CFG['cpu'], CFG['bloqueocpu'], CFG['bloqueo'])
             self.intervalo=0.05
         if new_val > 0.3 and new_val < 0.35:
           if CFG['fifo'] == True:
