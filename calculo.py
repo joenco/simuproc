@@ -35,16 +35,20 @@ guardar = Guardar()
 
 class Algoritmos():
     """ Clase que permite calcular los diferentes algoritmos."""
-    def Cola_Procesos(self, n, te, tcpu, f1, f2):
+    def Cola_Procesos(self, n, te, tcpu, tbcpu, tb, f1, f2, f3, f4):
       """ Función que mete en una cola el número de procesos.
 
-      Esta función mete en una cola cada proceso y le asigna según la seleccion del usuario, un tiempo de llegada y de ejecución."""
+      Esta función mete en una cola cada proceso y le asigna según la seleccion del usuario, un tiempo de llegada, de ejecución, tiempo de bloqueo de cpu y bloqueo de procesos."""
       self.cola_procesos = []
       self.n = int(n) #número de procesos a ejecutar
       self.func_llegada = f1
       self.func_cpu = f2
+      self.func_bloqueocpu = f3
+      self.func_bloqueo = f4
       self.te = te
       self.tcpu = tcpu
+      self.tbcpu = tbcpu
+      self.tb = tb
       separar = Separar()
 
       if self.func_llegada == 'Uniforme':
@@ -56,6 +60,16 @@ class Algoritmos():
         self.tcpu = separar.Separar(self.tcpu)
       else:
         self.tcpu = float(tcpu)
+
+      if self.func_bloqueocpu == 'Uniforme':
+        self.tbcpu = separar.Separar(self.tbcpu)
+      else:
+        self.tbcpu = float(tbcpu)
+
+      if self.func_bloqueo == 'Uniforme':
+        self.tb = separar.Separar(self.tb)
+      else:
+        self.tb = float(tb)
 
       for i in xrange(self.n):
         self.cola_procesos.append([]) #agregamos un objeto de tipo lista a la cola
@@ -78,6 +92,24 @@ class Algoritmos():
           self.cola_procesos[i].append(round(np.random.exponential(self.te), 3))
         elif self.func_llegada == 'Normal':
           self.cola_procesos[i].append(round(st.norm.cdf(self.te), 3))
+
+        if self.func_bloqueocpu == 'Constante':
+          self.cola_procesos[i].append(self.tbcpu)
+        elif self.func_bloqueocpu == 'Uniforme':
+          self.cola_procesos[i].append(round(r.uniform(self.tbcpu[0], self.tbcpu[1]), 3))
+        elif self.func_bloqueocpu == 'Exponencial':
+          self.cola_procesos[i].append(round(np.random.exponential(self.tbcpu), 3))
+        elif self.func_bloqueocpu == 'Normal':
+          self.cola_procesos[i].append(round(st.norm.cdf(self.tbcpu), 3))
+
+        if self.func_bloqueo == 'Constante':
+          self.cola_procesos[i].append(self.tb)
+        elif self.func_bloqueo == 'Uniforme':
+          self.cola_procesos[i].append(round(r.uniform(self.tb[0], self.tb[1]), 3))
+        elif self.func_bloqueo == 'Exponencial':
+          self.cola_procesos[i].append(round(np.random.exponential(self.tb), 3))
+        elif self.func_bloqueo == 'Normal':
+          self.cola_procesos[i].append(round(st.norm.cdf(self.tb), 3))
 
       self.cola_procesos[0][2]=self.cola_procesos[0][2]-self.cola_procesos[0][2]
 
