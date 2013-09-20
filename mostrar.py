@@ -47,16 +47,17 @@ class MostrarResultados(gtk.HBox):
     def __init__(self, CFG):
         gtk.HBox.__init__(self)
 
-        table = gtk.Table(20, 5)
+        table = gtk.Table(20, 5, True)
 
         attr = pango.AttrList()
         size = pango.AttrSize(18000, 0, -1)
         attr.insert(size)
 
         self.lbltitle1 = gtk.Label("Espere mientras hacemos los calculos")
+        self.lbltitle1.set_size_request(70, 20)
         self.lbltitle1.set_alignment(0, 0.5)
         self.lbltitle1.set_attributes(attr)
-        table.attach(self.lbltitle1, 0, 2, 0, 1)
+        table.attach(self.lbltitle1, 0, 3, 0, 1)
 
         self.n=int(CFG['nproceso'])
         self.n1=self.n/8
@@ -66,7 +67,7 @@ class MostrarResultados(gtk.HBox):
             self.intervalo=0.03
 
         self.pbar = gtk.ProgressBar()
-        self.pbar.set_size_request(60, 0)
+        self.pbar.set_size_request(70, 20)
         self.pbar.show()
         table.attach(self.pbar, 0, 6, 6, 7)
         self.timer = gobject.timeout_add (self.n1, self.progress_timeout, CFG, self)
@@ -188,18 +189,18 @@ class MostrarResultados(gtk.HBox):
           self.listafuncion.append(["PSJF"])
 
         self.listaalgoritmo = gtk.combo_box_new_text()
-        self.listaalgoritmo.set_size_request(60, 0)
+        self.listaalgoritmo.set_size_request(40, 10)
         self.listaalgoritmo.set_model(self.listafuncion)
         self.listaalgoritmo.set_active(0)
         table.attach(self.listaalgoritmo, 0, 1, 6, 7)
 
         self.ver = gtk.Button("Ver gráfica")
-        self.ver.set_size_request(60, 0)
+        self.ver.set_size_request(100, 20)
         self.ver.connect('clicked', self.Ver)
         table.attach(self.ver, 2, 3, 6, 7)
 
         self.simulacion = gtk.Button("Ver Simulación")
-        self.simulacion.set_size_request(60, 0)
+        self.simulacion.set_size_request(100, 20)
         self.simulacion.connect('clicked', self.Simulacion)
         table.attach(self.simulacion, 4, 5, 6, 7)
 
