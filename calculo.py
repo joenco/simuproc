@@ -28,6 +28,7 @@
 import numpy as np
 import scipy.stats as st
 import random as r
+import math
 from separar import Separar
 from guardardatos import Guardar
 from rafaga import Rafaga
@@ -139,13 +140,16 @@ class Algoritmos():
       for i in xrange(self.n):
         for j in xrange(1, self.n):
           self.t_espera[j].append(round(self.t_espera[i][1]-self.cola_procesos[j][2]+self.cola_procesos[i][3]))
-          if self.cola_procesos[i][1]-self.cola_procesos[i][4]>0:
-            self.t_espera[i][1]= self.t_espera[i][1]+(self.cola_procesos[i][1]-self.cola_procesos[i][3])/self.cola_procesos[i][3]*self.cola_procesos[i][4]
-          if self.t_espera[j][1]<0:
-            self.wt1 += self.t_espera[j][1]*-1
-            self.t_espera[j][1]=self.t_espera[j][1]*-1*0
+        if self.cola_procesos[i][1]-self.cola_procesos[i][3]>0:
+          if (self.cola_procesos[i][1]-self.cola_procesos[i][3])/self.cola_procesos[i][3]<1:
+            self.t_espera[i][1]= self.t_espera[i][1]+self.cola_procesos[i][4]
           else:
-            self.wt += self.t_espera[j][1]
+            self.t_espera[i][1]= self.t_espera[i][1]+math.trunc((self.cola_procesos[i][1]-self.cola_procesos[i][3])/self.cola_procesos[i][3])*self.cola_procesos[i][4]+self.cola_procesos[i][4]
+        if self.t_espera[i][1]<0:
+          self.wt1 += self.t_espera[i][1]*-1
+          self.t_espera[i][1]=self.t_espera[i][1]*-1*0
+        else:
+          self.wt += self.t_espera[i][1]
         self.teje += round(self.cola_procesos[i][1], 4)
 
       guardar.Guardar(self.t_espera, self.cola_procesos, 0)
@@ -184,13 +188,16 @@ class Algoritmos():
       for i in xrange(self.n):
         for j in xrange(1, self.n):
           self.t_espera[j].append(round(self.t_espera[i][1]-self.cola_procesos[j][2]+self.cola_procesos[i][3]))
-          if self.cola_procesos[i][1]-self.cola_procesos[i][4]>0:
-            self.t_espera[i][1]= self.t_espera[i][1]+(self.cola_procesos[i][1]-self.cola_procesos[i][3])/self.cola_procesos[i][3]*self.cola_procesos[i][4]
-          if self.t_espera[j][1]<0:
-            self.wt1 += self.t_espera[j][1]*-1
-            self.t_espera[j][1]=self.t_espera[j][1]*-1*0
+        if self.cola_procesos[i][1]-self.cola_procesos[i][3]>0:
+          if (self.cola_procesos[i][1]-self.cola_procesos[i][3])/self.cola_procesos[i][3]<1:
+            self.t_espera[i][1]= self.t_espera[i][1]+self.cola_procesos[i][4]
           else:
-            self.wt += self.t_espera[j][1]
+            self.t_espera[i][1]= self.t_espera[i][1]+math.trunc((self.cola_procesos[i][1]-self.cola_procesos[i][3])/self.cola_procesos[i][3])*self.cola_procesos[i][4]+self.cola_procesos[i][4]
+        if self.t_espera[i][1]<0:
+          self.wt1 += self.t_espera[i][1]*-1
+          self.t_espera[i][1]=self.t_espera[i][1]*-1*0
+        else:
+          self.wt += self.t_espera[i][1]
         self.teje += round(self.cola_procesos[i][1], 4)
 
       self.t_espera.sort(key = lambda t_espera:t_espera[1])
