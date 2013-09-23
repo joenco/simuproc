@@ -54,7 +54,6 @@ class MostrarResultados(gtk.HBox):
         attr.insert(size)
 
         self.lbltitle1 = gtk.Label("Espere mientras hacemos los calculos")
-        self.lbltitle1.set_size_request(70, 20)
         self.lbltitle1.set_alignment(0, 0.5)
         self.lbltitle1.set_attributes(attr)
         table.attach(self.lbltitle1, 0, 3, 0, 1)
@@ -265,10 +264,10 @@ class MostrarResultados(gtk.HBox):
             self.lbltitle1.set_text('Resultados de la corrida')
             self.pbar.hide()
             self.txt1.set_text("Algoritmos")
-            self.txt2.set_text(u"Número de procesos")
+            self.txt2.set_text(u"Nº de procesos")
             self.txt3.set_text("Uso del CPU")
-            self.txt4.set_text("Tiempo promedio del CPU")
-            self.txt5.set_text("Tiempo promedio de espera")
+            self.txt4.set_text("T. p. CPU")
+            self.txt5.set_text("T. p. espera")
 
             if CFG['fifo']==True:
                 self.txtfifo.set_text("FCFS")
