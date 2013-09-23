@@ -61,3 +61,4 @@ class Guardar():
         self.data.write('\n')
 
       self.data.close()
+

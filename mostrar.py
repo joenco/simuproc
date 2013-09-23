@@ -257,7 +257,7 @@ class MostrarResultados(gtk.HBox):
             CFG['mtiempo'] = calculo.SJF(self.cola)
         if new_val > 0.6 and new_val < 0.65:
           if CFG['roundrobin'] == True:
-            CFG['calculorr'] = calculo.RoundRobin(self.cola, CFG['trr'])
+            CFG['calculorr'] = calculo.RoundRobin(self.cola, CFG['trr'],CFG['tbloqueocpu'], CFG['tbloqueo'],  CFG['bloqueocpu'], CFG['bloqueo'])
         if new_val > 0.8 and new_val < 0.85:
           if CFG['soprtunidad'] == True:
             CFG['psjf'] = calculo.PSJF(self.cola)

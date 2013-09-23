@@ -30,6 +30,7 @@ import scipy.stats as st
 import random as r
 from separar import Separar
 from guardardatos import Guardar
+from rafaga import Rafaga
 
 guardar = Guardar()
 
@@ -41,10 +42,10 @@ class Algoritmos():
       Esta función mete en una cola cada proceso y le asigna según la seleccion del usuario, un tiempo de llegada, de ejecución, tiempo de bloqueo de cpu y bloqueo de procesos."""
       self.cola_procesos = []
       self.n = int(n) #número de procesos a ejecutar
-      self.func_llegada = f1
-      self.func_cpu = f2
-      self.func_bloqueocpu = f3
-      self.func_bloqueo = f4
+      self.func_llegada = f1 #tiempo de llegada entre procesos
+      self.func_cpu = f2 #tiempo de procesos en cpu
+      self.func_bloqueocpu = f3 #rafaga de cpu
+      self.func_bloqueo = f4 #bloqueo de cpu
       self.te = te
       self.tcpu = tcpu
       self.tbcpu = tbcpu
@@ -114,7 +115,7 @@ class Algoritmos():
       self.cola_procesos[0][2]=self.cola_procesos[0][2]-self.cola_procesos[0][2]
 
       return self.cola_procesos
-
+    
 #First Come First Served(FCFS)
     def FCFS(self, cola_procesos):
       """First Come First Served(FCFS).
@@ -205,11 +206,10 @@ class Algoritmos():
       return self.usocpu, self.tpeje, self.tpe, self.t_espera, self.cola_procesos
 
 #Round Robin
-    def RoundRobin(self, cola_procesos, q):
+    def RoundRobin(self, cola_procesos, q,tbcpu, tb, f3, f4):
       self.cola_procesos = cola_procesos
       self.ejecucion = []
       self.esperado = []
-      self.total_llegada = float(0.0)
       self.total_servicio=float(0.0)
       self.total_esperado=float(0.0)
       self.promedio_llegada=float(0.0)
@@ -219,91 +219,112 @@ class Algoritmos():
       self.aux = 0
       self.q = float(q)
       self.ncpu = 0
-      self.tiempo_parcial = 0
       self.usocpu = float(0.0)
-      self.wt1 = float(0.0)
-      self.llegaron=0
-      self.llegando=0
-
-      for i in xrange(self.n-1):
-        if self.cola_procesos[i][1]-self.cola_procesos[i+1][2]<0:
-          self.wt1 += (self.cola_procesos[i][1]-self.cola_procesos[i+1][2])*(-1)
-               
+      self.rafaga = []
+      self.tbcpu = tbcpu
+      self.tb = tb
+      self.f3 = f3
+      self.f4 = f4
+      rafagacpu = Rafaga()
+                                
       for i in xrange(self.n):
         self.esperado.append([])
         self.esperado[i].append(i)
         self.esperado[i].append(0)
 
       #Llegadas
+      self.rafaga = rafagacpu.rafaga_bloqueo(self.tbcpu,self.tb,self.f3,self.f4)
+      self.ncpu +=1
+      self.quantum = self.q
+      self.iterador = 0
       for i in xrange(self.n-1):
         self.ejecucion.append(self.cola_procesos[i][1])
+        self.iterador = i
         self.llego=0
-        self.aux=0
-        while (self.aux<i):
-          self.aux=0
-          for j in xrange(len(self.ejecucion)):
-            if(self.ejecucion[j]>0):
-              if (self.ejecucion[j]-self.q>0):
-                self.tiempo_parcial = self.q
-              else:
-                self.tiempo_parcial = self.ejecucion[j]
-              if(self.cola_procesos[i+1][2]-self.tiempo_parcial>0):
-                self.cola_procesos[i+1][2]-=self.tiempo_parcial
-              else:
-                self.llego = 1
-              for k in xrange(len(self.ejecucion)):
-                if ((k != j)and(k!=0)):
-                  if (self.ejecucion[k]>0):
-                    self.esperado[k][1]+=self.tiempo_parcial 
-              self.ejecucion[j]-=self.tiempo_parcial 
-              self.total_servicio+=self.tiempo_parcial
-              self.ncpu+=1
-            else:
-              self.aux+=1
-            if (self.llego ==1):
-              self.aux=i+1
-      
-      self.ejecucion.append(self.cola_procesos[self.n-1][1])
-      self.aux=0
-      while (self.aux<len(self.ejecucion)):
-        self.aux=0
-        for j in xrange(len(self.ejecucion)):
-          if(self.ejecucion[j]>0):
-            if (self.ejecucion[j]-self.q>0):
-              self.tiempo_parcial = self.q
-            else:
-              self.tiempo_parcial = self.ejecucion[j]
-            for k in xrange(len(self.ejecucion)):
-              if ((k != j)and(k!=0)):
-                if (self.ejecucion[k]>0):
-                  self.esperado[k][1]+=self.tiempo_parcial 
-            self.ejecucion[j]-=self.tiempo_parcial 
-            self.total_servicio+=self.tiempo_parcial
-            self.ncpu+=1
+        self.quantum=self.q
+        while(self.llego == 0):
+          self.rafaga[0] -= 1
+          self.quantum -= 1
+          self.cola_procesos[i+1][2] -= 1
+          #Espera
+          for j in xrange(i):
+            if (self.ejecucion[j]>0)and(j!=i):
+              self.esperado[j][1] +=1
+          if (self.ejecucion[self.iterador]<=0):
+            self.iterador = rafagacpu.siguiente_turno(self.ejecucion,self.iterador)
           else:
-            self.aux+=1
-          
+             self.ejecucion[self.iterador]-=1
+          if(self.rafaga[0]<=0):
+            self.cola_procesos[i+1][2]-= self.rafaga[1]
+            #Espera
+            for j in xrange(i):
+              if (self.ejecucion[j]>0)and(j!=i):
+                self.esperado[j][1] +=self.rafaga[1]
+            self.rafaga = rafagacpu.rafaga_bloqueo(self.tbcpu,self.tb,self.f3,self.f4)
+            self.ncpu += 1
+          if(self.cola_procesos[i+1][2]<=0)and(self.quantum<=0):
+            self.llego = 1
+          if(self.quantum<=0):
+            self.quantum = self.q
+            self.iterador = rafagacpu.siguiente_turno(self.ejecucion,self.iterador)
+      """
+      print"TIEMPO DE ESPERA PARCIAL" 
+      for i in xrange(self.n-1):
+        print "Proceso:",i
+        print "Tiempo restante de ejecucion:",self.ejecucion[i]
+        print "Tiempo de espera parcial:",self.esperado[i][1]"""
+
+      self.ejecucion.append(self.cola_procesos[self.n-1][1])
+      #Luego de que llegaron todos
+      self.rafaga = rafagacpu.rafaga_bloqueo(self.tbcpu,self.tb,self.f3,self.f4)
+      self.ncpu +=1
+      self.quantum = self.q
+      self.iterador = self.n-1
+      self.aux = 0
+      while(self.aux < self.n):
+        self.rafaga[0] -= 1
+        self.quantum -= 1
+        #Espera
+        for j in xrange(self.n):
+          if (self.ejecucion[j]>0)and(j!=self.iterador):
+            self.esperado[j][1] += 1
+        if (self.ejecucion[self.iterador]<=0):
+          self.iterador = rafagacpu.siguiente_turno(self.ejecucion,self.iterador)
+          self.aux+=1
+        else:
+           self.ejecucion[self.iterador]-=1
+        if(self.rafaga[0]<=0):
+          #Espera
+          for j in xrange(self.n):
+            if (self.ejecucion[j]>0)and(j!=self.iterador):
+              self.esperado[j][1] +=self.rafaga[1]
+          self	.rafaga = rafagacpu.rafaga_bloqueo(self.tbcpu,self.tb,self.f3,self.f4)
+          self.ncpu += 1
+        if(self.quantum<=0):
+          self.quantum = self.q
+          self.iterador = rafagacpu.siguiente_turno(self.ejecucion,self.iterador)
+      """ 
+      print"TIEMPO DE ESPERA TOTAL"
       for i in xrange(self.n):
-        self.total_llegada += round(self.cola_procesos[i][2], 4)
+        print "Proceso:",i
+        print "Tiempo restante de ejecucion:",self.ejecucion[i]
+        print "Tiempo de espera total:",self.esperado[i][1]"""
+
+      #Calculos finales          
+      for i in xrange(self.n):
+        self.total_servicio += round(self.cola_procesos[i][1], 4)
         self.total_esperado += round(self.esperado[i][1], 4)
 
       guardar.Guardar(self.esperado, self.cola_procesos, 3)
-      self.promedio_llegada = round(self.total_llegada/self.n, 4)
       self.promedio_servicio = round(self.total_servicio/self.ncpu, 4)
       self.promedio_de_espera = round(self.total_esperado/self.n, 4)
-      self.usocpu = round(1 - self.wt1/(self.wt1+self.total_servicio), 4)
+      self.usocpu = round(1 - self.total_esperado/(self.total_esperado+self.total_servicio), 4)
 
-      #print "tiempo de espera"
-      #for i in xrange(self.n):
-      #  print "n: ",self.esperado[i][0]
-      #  print "espera: ",self.esperado[i][1]
-      print "Round Robin"
-      print "Tiempo total de proceso: ",self.total_servicio
-      print "Tiempo promedio de proceso: ",(self.promedio_servicio)
-      print "Tiempo total de espera: ",(self.total_esperado)
-      print "Tiempo promedio esperado: ",(self.promedio_de_espera)
-      print "Uso de cpu: ",self.usocpu
-
+      print"ROUND ROBIN"
+      print"Uso de cpu: ",self.usocpu
+      print"Tiempo promedio de servicio: ",self.promedio_servicio
+      print"Tiempo promedio de espera: ",self.promedio_de_espera
+      
       return self.usocpu, self.promedio_servicio, self.promedio_de_espera, self.esperado, self.cola_procesos
 
 #Preemptive Shortest Job First(PSJF)
