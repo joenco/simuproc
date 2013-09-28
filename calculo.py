@@ -157,9 +157,8 @@ class Algoritmos():
         self.t_espera[i].append(i)
         self.p_ejecucion[i].append(self.cola_procesos[i][1])
         self.t_espera[i].append(0)
-        self.teje= self.teje+self.p_ejecucion[i][0]
+        tproc= tproc+self.p_ejecucion[i][0]
 
-      tproc=self.teje
       while (self.k==self.n):
         tproc=0.0
         i=0
@@ -168,6 +167,7 @@ class Algoritmos():
           if self.p_ejecucion[i][0]-self.rafagabloqueo[0]>0:
             self.t_espera[i][1]=self.t_espera[i][1]+self.rafagabloqueo[1]
             self.p_ejecucion[i][0]=self.p_ejecucion[i][0]-self.rafagabloqueo[0]
+            self.cola_procesos[i][1]=self.cola_procesos[i][1]+self.rafagabloqueo[1]
           elif self.p_ejecucion[i][0]-self.rafagabloqueo[0]==0:
             self.t_espera[i][1]=self.t_espera[i][1]
             self.p_ejecucion[i][0]=self.p_ejecucion[i][0]-self.p_ejecucion[i][0]
@@ -193,6 +193,7 @@ class Algoritmos():
             print "dentro del primer if"
             self.t_espera[i][1]=self.t_espera[i][1]-self.cola_procesos[i][2]+self.rafagabloqueo[0]
             self.p_ejecucion[j][0]=self.p_ejecucion[j][0]-self.rafagabloqueo[0]
+            self.cola_procesos[j][1]=self.cola_procesos[j][1]+self.rafagabloqueo[1]
           elif self.p_ejecucion[j][0]-self.rafagabloqueo[0]==0:
             print "dentro del segundo if"
             self.t_espera[i][1]=self.t_espera[i][1]-self.cola_procesos[i][2]
@@ -213,6 +214,7 @@ class Algoritmos():
           j=j+1
 
       for i in xrange(self.n):
+        self.teje=self.teje+self.cola_procesos[i][1]
         if self.t_espera[i][1]>=0:
           self.wt=self.wt+self.t_espera[i][1]
         else:
@@ -262,9 +264,8 @@ class Algoritmos():
         self.t_espera[i].append(i)
         self.p_ejecucion[i].append(self.cola_procesos[i][1])
         self.t_espera[i].append(0)
-        self.teje= self.teje+self.p_ejecucion[i][0]
+        tproc= tproc+self.p_ejecucion[i][0]
 
-      tproc=self.teje
       while (self.k==self.n):
         tproc=0.0
         i=0
@@ -273,6 +274,7 @@ class Algoritmos():
           if self.p_ejecucion[i][0]-self.rafagabloqueo[0]>0:
             self.t_espera[i][1]=self.t_espera[i][1]+self.rafagabloqueo[1]
             self.p_ejecucion[i][0]=self.p_ejecucion[i][0]-self.rafagabloqueo[0]
+            self.cola_procesos[i][1]=self.cola_procesos[i][1]+self.rafagabloqueo[1]
           elif self.p_ejecucion[i][0]-self.rafagabloqueo[0]==0:
             self.t_espera[i][1]=self.t_espera[i][1]
             self.p_ejecucion[i][0]=self.p_ejecucion[i][0]-self.p_ejecucion[i][0]
@@ -296,10 +298,12 @@ class Algoritmos():
             j=0
           print "dentro del for ", i, j
           self.rafagabloqueo = self.rafaga_bloqueo(tbcpu, tb, f3, f4) # rafaga de bloqueo del proceso anterior
+          self.p_ejecucion.sort(key = lambda p_ejecucion:p_ejecucion[0])
           if self.p_ejecucion[j][0]-self.rafagabloqueo[0]>0:
             print "dentro del primer if"
             self.t_espera[i][1]=self.t_espera[i][1]-self.cola_procesos[i][2]+self.rafagabloqueo[0]
             self.p_ejecucion[j][0]=self.p_ejecucion[j][0]-self.rafagabloqueo[0]
+            self.cola_procesos[j][1]=self.cola_procesos[j][1]+self.rafagabloqueo[1]
           elif self.p_ejecucion[j][0]-self.rafagabloqueo[0]==0:
             print "dentro del segundo if"
             self.t_espera[i][1]=self.t_espera[i][1]-self.cola_procesos[i][2]
@@ -316,11 +320,11 @@ class Algoritmos():
           print "p ejecucion ", self.p_ejecucion[j][0]
 
           self.cola_procesos[i][2]=self.cola_procesos[i][2]-self.cola_procesos[i][2]
-          self.p_ejecucion.sort(key = lambda p_ejecucion:p_ejecucion[0])
           tproc=tproc+self.p_ejecucion[j][0]
           j=j+1
 
       for i in xrange(self.n):
+        self.teje=self.teje+self.cola_procesos[i][1]
         if self.t_espera[i][1]>=0:
           self.wt=self.wt+self.t_espera[i][1]
         else:
