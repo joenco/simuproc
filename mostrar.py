@@ -230,7 +230,7 @@ class MostrarResultados(gtk.HBox):
       if self.listaalgoritmo.get_active_text() == 'FCFS':
         win.set_title('Simulación del Algoritmo FCFS')
         for x in xrange(self.n):
-          hilo = Simulacion(win.label, win.label1, win.label3, win.label5, 10, x, self.t_e, semaforo)
+          hilo = Simulacion(win.label, win.label1, win.label3, win.label5, self.n, x, self.t_e, semaforo)
           hilo.start()
       if self.listaalgoritmo.get_active_text() == 'SJF':
         win.set_title('Simulación del Algoritmo SJF')
