@@ -56,7 +56,7 @@ class MostrarResultados(gtk.HBox):
         self.lbltitle1 = gtk.Label("Espere mientras hacemos los calculos")
         self.lbltitle1.set_alignment(0, 0.5)
         self.lbltitle1.set_attributes(attr)
-        table.attach(self.lbltitle1, 0, 3, 0, 1)
+        table.attach(self.lbltitle1, 0, 4, 0, 1)
 
         self.n=int(CFG['nproceso'])
         self.n1=self.n/8
@@ -246,14 +246,14 @@ class MostrarResultados(gtk.HBox):
         new_val = pbobj.pbar.get_fraction() + self.intervalo
 
         if new_val < 0.2:
-            self.cola = calculo.Cola_Procesos(self.n, CFG['tejecucion'], CFG['tcpu'], CFG['tbloqueocpu'], CFG['tbloqueo'], CFG['ejecucion'], CFG['cpu'], CFG['bloqueocpu'], CFG['bloqueo'])
+            self.cola = calculo.Cola_Procesos(self.n, CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
             self.intervalo=0.05
         if new_val > 0.3 and new_val < 0.35:
           if CFG['fifo'] == True:
-            CFG['calculofifo'] = calculo.FCFS(self.cola)
+            CFG['calculofifo'] = calculo.FCFS(self.cola, CFG['tbloqueocpu'], CFG['tbloqueo'], CFG['bloqueocpu'], CFG['bloqueo'])
         if new_val > 0.4 and new_val < 0.45:
           if CFG['menortiempo'] == True:
-            CFG['mtiempo'] = calculo.SJF(self.cola)
+            CFG['mtiempo'] = calculo.SJF(self.cola, CFG['tbloqueocpu'], CFG['tbloqueo'], CFG['bloqueocpu'], CFG['bloqueo'])
         if new_val > 0.6 and new_val < 0.65:
           if CFG['roundrobin'] == True:
             CFG['calculorr'] = calculo.RoundRobin(self.cola, CFG['trr'],CFG['tbloqueocpu'], CFG['tbloqueo'],  CFG['bloqueocpu'], CFG['bloqueo'])
