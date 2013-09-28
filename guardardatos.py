@@ -46,7 +46,7 @@ class Guardar():
 
       n = len(self.datos)
 
-      dat = 'N  |  T.E  |  T.CPU  |  T.L  |  TBCPU  |  TB  |'
+      dat = 'N  |  T.E  |  T.CPU  |  T.L  |'
       self.data.write(dat)
       self.data.write('\n')
       for i in xrange(n):
@@ -54,9 +54,8 @@ class Guardar():
         y1 = str(self.datos[i][1]) # tiempo de espera
         a1 = str(self.datos1[i][1]) # tiempo de cpu
         z1 = str(self.datos1[i][2]) # tiempo de llegada
-        z2 = str(self.datos1[i][3]) # tiempo de bloqueo de cpu
-        z3 = str(self.datos1[i][4]) # tiempo de bloqueo de los procesos.
-        dat = x1+'  |  '+y1+'  |  '+a1+'  |  '+z1+'  |  '+z2+'  |  '+z3+'  |'
+
+        dat = x1+'  |  '+y1+'  |  '+a1+'  |  '+z1+'  |'
         self.data.write(dat)
         self.data.write('\n')
 
