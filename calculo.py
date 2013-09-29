@@ -174,26 +174,25 @@ class Algoritmos():
             print "proceso ",i," a lista de bloqueados"
             self.t_espera[j][1]=self.t_espera[j][1]+self.rafagabloqueo[1]
             self.p_bloqueados[j].append(self.rafagabloqueo[1])
-            self.p_ejecucion[j][1]=self.p_ejecucion[j][1]-self.rafagabloqueo[0]
             tejecutado=self.rafagabloqueo[0]
           elif self.p_ejecucion[j][1]-self.rafagabloqueo[0]==0:
             print "las rafagas son iguales a la jecucion del proceso ", j
             self.t_espera[j][1]=self.t_espera[j][1]
-            self.p_ejecucion[j][1]=self.p_ejecucion[j][1]-self.p_ejecucion[j][1]
             tejecutado=self.rafagabloqueo[0]
           elif self.p_ejecucion[j][1]-self.rafagabloqueo[0]<0:
             print "la rafagas son menores al proceso ", j
             self.t_espera[j][1]=self.t_espera[j][1]
-            self.p_ejecucion[j][1]=self.p_ejecucion[j][1]-self.p_ejecucion[j][1]
             tejecutado=self.p_ejecucion[j][1]
 
           if self.n>1:
             for i in xrange(1, self.n):
+              if self.tllegada-self.p_bloqueados[j][1]>0:
+                #if self.p_ejecucion[i][1]-self.rafagabloqueo[0]>0:
+                self.t_espera[j][1]=self.t_espera[j][1]-self.cola_procesos[i][2]+self.p_ejecucion[i][1]-self.p_bloqueados[j][1]
               self.cola_procesos[i][2]=self.cola_procesos[i][2]-tejecutado
               self.tllegada=self.tllegada+self.cola_procesos[i][2]
-              if self.tllegada-self.p_bloqueados[j][1]>0:
-                if self.p_ejecucion[i][1]-self.rafagabloqueo[0]>0:
-                  self.t_espera[j][1]=self.t_espera[j][1]-self.cola_procesos[i][2]+self.p_ejecucion[i][1]-self.p_bloqueados[j][1]
+
+          self.p_ejecucion[j][1]=self.p_ejecucion[j][1]-tejecutado
 
           if self.cola_procesos[j][2]<0:
             self.cola_procesos[j][2]=self.cola_procesos[j][2]-self.cola_procesos[j][2]
