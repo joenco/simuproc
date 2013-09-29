@@ -47,7 +47,7 @@ class MostrarResultados(gtk.HBox):
     def __init__(self, CFG):
         gtk.HBox.__init__(self)
 
-        table = gtk.Table(20, 5, True)
+        table = gtk.Table(20, 7, True)
 
         attr = pango.AttrList()
         size = pango.AttrSize(18000, 0, -1)
@@ -91,6 +91,14 @@ class MostrarResultados(gtk.HBox):
         self.txt5.set_alignment(0, 0.5)
         table.attach(self.txt5, 4, 5, 1, 2)
 
+        self.txt6 = gtk.Label(' ')
+        self.txt6.set_alignment(0, 0.5)
+        table.attach(self.txt6, 5, 6, 1, 2)
+
+        self.txt7 = gtk.Label(' ')
+        self.txt7.set_alignment(0, 0.5)
+        table.attach(self.txt7, 7, 8, 1, 2)
+
         self.listafuncion = gtk.ListStore(str)
 
         if CFG['fifo']==True:
@@ -113,6 +121,14 @@ class MostrarResultados(gtk.HBox):
           self.txtfifo4 = gtk.Label(' ')
           self.txtfifo4.set_alignment(0, 0.5)
           table.attach(self.txtfifo4, 4, 5, 2, 3)
+
+          self.txtfifo5 = gtk.Label(' ')
+          self.txtfifo5.set_alignment(0, 0.5)
+          table.attach(self.txtfifo5, 5, 6, 2, 3)
+
+          self.txtfifo6 = gtk.Label(' ')
+          self.txtfifo6.set_alignment(0, 0.5)
+          table.attach(self.txtfifo6, 6, 7, 2, 3)
 
           self.listafuncion.append(["FCFS"])
 
@@ -138,6 +154,14 @@ class MostrarResultados(gtk.HBox):
           self.txtmt4.set_alignment(0, 0.5)
           table.attach(self.txtmt4, 4, 5, 3, 4)
 
+          self.txtmt5 = gtk.Label(' ')
+          self.txtmt5.set_alignment(0, 0.5)
+          table.attach(self.txtmt5, 5, 6, 3, 4)
+
+          self.txtmt6 = gtk.Label(' ')
+          self.txtmt6.set_alignment(0, 0.5)
+          table.attach(self.txtmt6, 6, 7, 3, 4)
+
           self.listafuncion.append(["SJF"])
         # Round Robin
         if CFG['roundrobin']==True:
@@ -160,6 +184,14 @@ class MostrarResultados(gtk.HBox):
           self.txtrr4 = gtk.Label(' ')
           self.txtrr4.set_alignment(0, 0.5)
           table.attach(self.txtrr4, 4, 5, 4, 5)
+
+          self.txtrr5 = gtk.Label(' ')
+          self.txtrr5.set_alignment(0, 0.5)
+          table.attach(self.txtrr5, 5, 6, 4, 5)
+
+          self.txtrr6 = gtk.Label(' ')
+          self.txtrr6.set_alignment(0, 0.5)
+          table.attach(self.txtrr6, 6, 7, 4, 5)
 
           self.listafuncion.append(["RR"])
 
@@ -184,6 +216,14 @@ class MostrarResultados(gtk.HBox):
           self.txtso4 = gtk.Label(' ')
           self.txtso4.set_alignment(0, 0.5)
           table.attach(self.txtso4, 4, 5, 5, 6)
+
+          self.txtso5 = gtk.Label(' ')
+          self.txtso5.set_alignment(0, 0.5)
+          table.attach(self.txtso5, 5, 6, 5, 6)
+
+          self.txtso6 = gtk.Label(' ')
+          self.txtso6.set_alignment(0, 0.5)
+          table.attach(self.txtso6, 6, 7, 5, 6)
 
           self.listafuncion.append(["PSJF"])
 
@@ -267,7 +307,9 @@ class MostrarResultados(gtk.HBox):
             self.txt2.set_text(u"Nº de procesos")
             self.txt3.set_text("Uso del CPU")
             self.txt4.set_text("T. p. CPU")
-            self.txt5.set_text("T. p. espera")
+            self.txt5.set_text("T. Espera minímo")
+            self.txt6.set_text("T. Espera Maximo")
+            self.txt7.set_text("T. p. espera")
 
             if CFG['fifo']==True:
                 self.txtfifo.set_text("FCFS")
@@ -275,14 +317,18 @@ class MostrarResultados(gtk.HBox):
                 self.txtfifo2.set_text(str(CFG['calculofifo'][0]))
                 self.txtfifo3.set_text(str(CFG['calculofifo'][1]))
                 self.t_e = CFG['calculofifo'][2]
-                self.txtfifo4.set_text(str(CFG['calculofifo'][2]))
+                self.txtfifo4.set_text(str(CFG['calculofifo'][4]))
+                self.txtfifo5.set_text(str(CFG['calculofifo'][5]))
+                self.txtfifo6.set_text(str(CFG['calculofifo'][2]))
                 self.datos = CFG['calculofifo'][3]
             if CFG['menortiempo']==True:
                 self.txtmt.set_text("SJF")
                 self.txtmt1.set_text(str(self.n))
                 self.txtmt2.set_text(str(CFG['mtiempo'][0]))
                 self.txtmt3.set_text(str(CFG['mtiempo'][1]))
-                self.txtmt4.set_text(str(CFG['mtiempo'][2]))
+                self.txtmt4.set_text(str(CFG['mtiempo'][4]))
+                self.txtmt5.set_text(str(CFG['mtiempo'][5]))
+                self.txtmt6.set_text(str(CFG['mtiempo'][2]))
                 self.t_e1 = CFG['mtiempo'][2]
                 self.datos1 = CFG['mtiempo'][3]
             if CFG['roundrobin']==True:
