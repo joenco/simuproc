@@ -134,6 +134,7 @@ class Algoritmos():
       Función que permite hacer los calculos del algoritmo Primero en llegar, primero en ser servido, retorna los promedios de: tiempo de espera, rendimiento del CPu, promedio de ejecución."""
       self.cola_procesos = cola_procesos
       self.t_espera = []
+      self.p_bloqueados = []
       self.p_ejecucion= []
       self.tllegada= float(0.0)
       self.wt=float(0.0) #tiempo total de espera
@@ -149,69 +150,49 @@ class Algoritmos():
       f4 = f4
       tproc=float(0.0)
       t=int(0)
-      self.k=int(1)
 
       for i in xrange(self.n):
         self.t_espera.append([])
+        self.p_bloqueados.append([])
         self.p_ejecucion.append([])
         self.t_espera[i].append(i)
-        self.p_ejecucion[i].append(self.cola_procesos[i][1])
         self.t_espera[i].append(0)
-        tproc= tproc+self.p_ejecucion[i][0]
+        self.p_bloqueados[i].append(i)
+        self.p_ejecucion[i].append(i)
+        self.p_ejecucion[i].append(self.cola_procesos[i][1])
+        tproc= tproc+self.p_ejecucion[i][1]
 
-      while (self.k==self.n):
+      while tproc!=0:
         tproc=0.0
-        i=0
-        for i in xrange(self.n):
-          self.rafagabloqueo = self.rafaga_bloqueo(tbcpu, tb, f3, f4)
-          if self.p_ejecucion[i][0]-self.rafagabloqueo[0]>0:
-            self.t_espera[i][1]=self.t_espera[i][1]+self.rafagabloqueo[1]
-            self.p_ejecucion[i][0]=self.p_ejecucion[i][0]-self.rafagabloqueo[0]
-            self.cola_procesos[i][1]=self.cola_procesos[i][1]+self.rafagabloqueo[1]
-          elif self.p_ejecucion[i][0]-self.rafagabloqueo[0]==0:
-            self.t_espera[i][1]=self.t_espera[i][1]
-            self.p_ejecucion[i][0]=self.p_ejecucion[i][0]-self.p_ejecucion[i][0]
-          elif self.p_ejecucion[i][0]-self.rafagabloqueo[0]<0:
-            self.t_espera[i][1]=self.t_espera[i][1]
-            self.p_ejecucion[i][0]=self.p_ejecucion[i][0]-self.p_ejecucion[i][0]
-
-          tproc=tproc+self.p_ejecucion[i][0]
-          if tproc==0:
-            self.k=0
-
-      j=int(0)
-      while tproc>0:
-        tproc=0.0
-        for i in xrange(1, self.n):
-          if j==i:
-            i=0
-          if j>self.n-1:
-            j=0
-          print "dentro del for ", i, j
+        for j in xrange(self.n):
+          print "dentro del for ", j
           self.rafagabloqueo = self.rafaga_bloqueo(tbcpu, tb, f3, f4) # rafaga de bloqueo del proceso anterior
-          if self.p_ejecucion[j][0]-self.rafagabloqueo[0]>0:
-            print "dentro del primer if"
-            self.t_espera[i][1]=self.t_espera[i][1]-self.cola_procesos[i][2]+self.rafagabloqueo[0]
-            self.p_ejecucion[j][0]=self.p_ejecucion[j][0]-self.rafagabloqueo[0]
-            self.cola_procesos[j][1]=self.cola_procesos[j][1]+self.rafagabloqueo[1]
-          elif self.p_ejecucion[j][0]-self.rafagabloqueo[0]==0:
-            print "dentro del segundo if"
-            self.t_espera[i][1]=self.t_espera[i][1]-self.cola_procesos[i][2]
-            self.p_ejecucion[j][0]=self.p_ejecucion[j][0]-self.p_ejecucion[j][0]
-          elif self.p_ejecucion[j][0]-self.rafagabloqueo[0]<0:
-            print "dentro del tercer if"
-            self.t_espera[i][1]=self.t_espera[i][1]-self.cola_procesos[i][2]+self.p_ejecucion[j][0]
-            self.p_ejecucion[j][0]=self.p_ejecucion[j][0]-self.p_ejecucion[j][0]
+          if self.p_ejecucion[j][1]-self.rafagabloqueo[0]>0:
+            print "proceso ",i," a lista de bloqueados"
+            self.t_espera[j][1]=self.t_espera[j][1]+self.rafagabloqueo[1]
+            self.p_bloqueados[j].append(self.rafagabloqueo[1])
+            self.p_ejecucion[j][1]=self.p_ejecucion[j][1]-self.rafagabloqueo[0]
+            self.cola_procesos[j][2]=self.cola_procesos[j][2]-self.rafagabloqueo[0]
+          elif self.p_ejecucion[j][1]-self.rafagabloqueo[0]==0:
+            print "las rafagas son iguales a la jecucion del proceso ", j
+            self.t_espera[j][1]=self.t_espera[j][1]
+            self.p_ejecucion[j][1]=self.p_ejecucion[j][1]-self.p_ejecucion[j][1]
+          elif self.p_ejecucion[j][1]-self.rafagabloqueo[0]<0:
+            print "la rafagas son menores al proceso ", j
+            self.t_espera[j][1]=self.t_espera[j][1]
+            self.p_ejecucion[j][1]=self.p_ejecucion[j][1]-self.p_ejecucion[j][1]
 
-          self.tllegada=self.tllegada+self.cola_procesos[i][2]
-          if self.tllegada-self.rafagabloqueo[1]>0:
-            self.t_espera[j][1]=self.t_espera[j][1]+self.p_ejecucion[i][0]-self.rafagabloqueo[0]
+          if self.cola_procesos[j][2]<0:
+            self.cola_procesos[j][2]=self.cola_procesos[j][2]-self.cola_procesos[j][2]
+          if self.n>1:
+            for i in xrange(self.n):
+              self.t_espera[i][1]=self.t_espera[i][1]-self.cola_procesos[i][2]+self.p_ejecucion[j][0]
 
-          print "p ejecucion ", self.p_ejecucion[j][0]
+          t=t+1
+          print"el valor de t = ", t
+          tproc=tproc+self.p_ejecucion[j][1]
 
-          self.cola_procesos[i][2]=self.cola_procesos[i][2]-self.cola_procesos[i][2]
-          tproc=tproc+self.p_ejecucion[j][0]
-          j=j+1
+
 
       for i in xrange(self.n):
         self.teje=self.teje+self.cola_procesos[i][1]
@@ -229,7 +210,7 @@ class Algoritmos():
         self.usocpu = round(1.0-self.wt1, 4)
       else:
         self.usocpu = round(1.0-self.wt1/(self.wt1+self.wt), 4)
-      self.tpeje= round(self.teje/self.n, 4)
+      self.tpeje= round(self.teje/t, 4)
 
       return self.usocpu, self.tpeje, self.tpe, self.t_espera
 
