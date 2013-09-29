@@ -150,6 +150,7 @@ class Algoritmos():
       f4 = f4
       tproc=float(0.0)
       t=int(0)
+      tejecutado=float(0.0)
 
       for i in xrange(self.n):
         self.t_espera.append([])
@@ -162,6 +163,8 @@ class Algoritmos():
         self.p_ejecucion[i].append(self.cola_procesos[i][1])
         tproc= tproc+self.p_ejecucion[i][1]
 
+      self.min=float(self.t_espera[0][1])
+      self.max=float(self.t_espera[0][1])
       while tproc!=0:
         tproc=0.0
         for j in xrange(self.n):
@@ -172,27 +175,32 @@ class Algoritmos():
             self.t_espera[j][1]=self.t_espera[j][1]+self.rafagabloqueo[1]
             self.p_bloqueados[j].append(self.rafagabloqueo[1])
             self.p_ejecucion[j][1]=self.p_ejecucion[j][1]-self.rafagabloqueo[0]
-            self.cola_procesos[j][2]=self.cola_procesos[j][2]-self.rafagabloqueo[0]
+            tejecutado=self.rafagabloqueo[0]
           elif self.p_ejecucion[j][1]-self.rafagabloqueo[0]==0:
             print "las rafagas son iguales a la jecucion del proceso ", j
             self.t_espera[j][1]=self.t_espera[j][1]
             self.p_ejecucion[j][1]=self.p_ejecucion[j][1]-self.p_ejecucion[j][1]
+            tejecutado=self.rafagabloqueo[0]
           elif self.p_ejecucion[j][1]-self.rafagabloqueo[0]<0:
             print "la rafagas son menores al proceso ", j
             self.t_espera[j][1]=self.t_espera[j][1]
             self.p_ejecucion[j][1]=self.p_ejecucion[j][1]-self.p_ejecucion[j][1]
+            tejecutado=self.p_ejecucion[j][1]
+
+          if self.n>1:
+            for i in xrange(1, self.n):
+              self.cola_procesos[i][2]=self.cola_procesos[i][2]-tejecutado
+              self.tllegada=self.tllegada+self.cola_procesos[i][2]
+              if self.tllegada-self.p_bloqueados[j][1]>0:
+                if self.p_ejecucion[i][1]-self.rafagabloqueo[0]>0:
+                  self.t_espera[j][1]=self.t_espera[j][1]-self.cola_procesos[i][2]+self.p_ejecucion[i][1]-self.p_bloqueados[j][1]
 
           if self.cola_procesos[j][2]<0:
             self.cola_procesos[j][2]=self.cola_procesos[j][2]-self.cola_procesos[j][2]
-          if self.n>1:
-            for i in xrange(self.n):
-              self.t_espera[i][1]=self.t_espera[i][1]-self.cola_procesos[i][2]+self.p_ejecucion[j][0]
 
           t=t+1
           print"el valor de t = ", t
           tproc=tproc+self.p_ejecucion[j][1]
-
-
 
       for i in xrange(self.n):
         self.teje=self.teje+self.cola_procesos[i][1]
@@ -201,6 +209,13 @@ class Algoritmos():
         else:
           self.wt1=self.wt1+self.t_espera[i][1]*-1
           self.t_espera[i][1]=self.t_espera[i][1]*-1*0
+        if self.min>self.t_espera[i][1]:
+          self.min=self.t_espera[i][1]
+        if self.max<self.t_espera[i][1]:
+          self.max=self.t_espera[i][1]
+        print " t espera ", i," es = ", self.t_espera[i][1]
+      print "el t de espera minimo es = ", self.min
+      print "el t de espera maximo es = ", self.max
 
       guardar.Guardar(self.t_espera, self.cola_procesos, 0)
       print " wt ", self.wt
@@ -212,7 +227,7 @@ class Algoritmos():
         self.usocpu = round(1.0-self.wt1/(self.wt1+self.wt), 4)
       self.tpeje= round(self.teje/t, 4)
 
-      return self.usocpu, self.tpeje, self.tpe, self.t_espera
+      return self.usocpu, self.tpeje, self.tpe, self.t_espera, self.min, self.max
 
 #Shortest Job First(SJF)
     def SJF(self, cola_procesos, tbcpu, tb, f3, f4):
