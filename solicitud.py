@@ -59,7 +59,8 @@ class SolicitudDatos(gtk.HBox):
         self.table.attach(self.rr, 0, 1, 3, 4)
 
         self.txtrr = gtk.Entry()
-        self.txtrr.set_text('Coloque el cuantum de tiempo')
+        #self.txtrr.set_text('Coloque el cuantum de tiempo')
+        
         self.table.attach(self.txtrr, 1, 2, 3, 4)
 
         self.so = gtk.CheckButton("Preemptive Shortest Job First (PSJF)")

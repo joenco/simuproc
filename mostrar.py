@@ -336,7 +336,9 @@ class MostrarResultados(gtk.HBox):
                 self.txtrr1.set_text(str(self.n))
                 self.txtrr2.set_text(str(CFG['calculorr'][0]))
                 self.txtrr3.set_text(str(CFG['calculorr'][1]))
-                self.txtrr4.set_text(str(CFG['calculorr'][2]))
+                self.txtrr4.set_text(str(CFG['calculorr'][4]))
+                self.txtrr5.set_text(str(CFG['calculorr'][5]))
+                self.txtrr6.set_text(str(CFG['calculorr'][2]))
                 self.t_e2 = CFG['calculorr'][2]
                 self.datos2 = CFG['calculorr'][3]
             if CFG['soprtunidad']==True:
@@ -344,7 +346,9 @@ class MostrarResultados(gtk.HBox):
                 self.txtso1.set_text(str(self.n))
                 self.txtso2.set_text(str(CFG['psjf'][0]))
                 self.txtso3.set_text(str(CFG['psjf'][1]))
-                self.txtso4.set_text(str(CFG['psjf'][2]))
+                self.txtso4.set_text(str(CFG['psjf'][4]))
+ 		self.txtso5.set_text(str(CFG['psjf'][5]))
+                self.txtso6.set_text(str(CFG['psjf'][2]))
                 self.datos3 = CFG['psjf'][3]
             CFG['w'].anterior.show()
         CFG['w'].cancelar.show()
