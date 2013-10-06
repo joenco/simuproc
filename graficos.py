@@ -59,22 +59,24 @@ class Graficar(gtk.Window):
     a.set_title(titulo, color='red', size=14)
     a.set_xlabel(u'Número de procesos', color='red', size=14)
     a.set_ylabel('Tiempo de espera ', color='red', size=14)
-
+    """
     # gráfica procesos vs tiempo de cpu
-    g = Figure(figsize=(5,4), dpi=100)
-    b = g.add_subplot(111)
+    #g = Figure(figsize=(5,4), dpi=100)
+    b = f.add_subplot(111)
     b.plot(x1, y2, color='red', label='(Procesos, Tiempo de CPU)')
     b.set_xlabel(u'Número de procesos', color='red', size=14)
     b.set_ylabel('Tiempo de CPU ', color='red', size=14)
+    """
+
     vbox = gtk.VBox(False, 5)
 
     canvas = FigureCanvas(f)
     canvas.show()
-    canvas1 = FigureCanvas(g)
-    canvas1.show()
+    #canvas1 = FigureCanvas(g)
+    #canvas1.show()
 
     vbox.pack_start(canvas, True, True, 0)
-    vbox.pack_start(canvas1, True, True, 0)
+    #vbox.pack_start(canvas1, True, True, 0)
 
     cerrar = gtk.Button(stock=gtk.STOCK_CLOSE)
     cerrar.connect("activate", self.close)
