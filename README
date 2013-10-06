@@ -3,9 +3,6 @@ Simulador de un planificador de procesos con diferentes algoritmos.
 Realizado por Jorge Ortega <joenco@esdebian.org>
 
 - Dependencias
-	- python-imaging
-	- lshw
-	- GTK
 	- python-matplotlib
 	- python-symPy
 	- python-scipy
