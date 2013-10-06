@@ -286,14 +286,14 @@ class MostrarResultados(gtk.HBox):
         new_val = pbobj.pbar.get_fraction() + self.intervalo
 
         if new_val < 0.2:
-            self.cola = calculo.Cola_Procesos(self.n, CFG['tejecucion'], CFG['tcpu'], CFG['ejecucion'], CFG['cpu'])
+            self.cola = calculo.Cola_Procesos(self.n, CFG['tejecucion'], CFG['tcpu'], CFG['tbloqueocpu'], CFG['tbloqueo'], CFG['ejecucion'], CFG['cpu'], CFG['bloqueocpu'], CFG['bloqueo'])
             self.intervalo=0.05
         if new_val > 0.3 and new_val < 0.35:
           if CFG['fifo'] == True:
-            CFG['calculofifo'] = calculo.FCFS(self.cola, CFG['tbloqueocpu'], CFG['tbloqueo'], CFG['bloqueocpu'], CFG['bloqueo'])
+            CFG['calculofifo'] = calculo.FCFS(self.cola)
         if new_val > 0.4 and new_val < 0.45:
           if CFG['menortiempo'] == True:
-            CFG['mtiempo'] = calculo.SJF(self.cola, CFG['tbloqueocpu'], CFG['tbloqueo'], CFG['bloqueocpu'], CFG['bloqueo'])
+            CFG['mtiempo'] = calculo.SJF(self.cola)
         if new_val > 0.6 and new_val < 0.65:
           if CFG['roundrobin'] == True:
             CFG['calculorr'] = calculo.RoundRobin(self.cola, CFG['trr'],CFG['tbloqueocpu'], CFG['tbloqueo'],  CFG['bloqueocpu'], CFG['bloqueo'])
