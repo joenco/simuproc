@@ -28,7 +28,7 @@
 import gtk, pango, gobject
 import gtk.gdk
 from threading import Thread, Semaphore
-from calculo import Algoritmos
+from calculo import Algoritmos, FCFS
 from simulacion import Simulacion, ventana
 from graficos import Graficar
 
@@ -288,9 +288,12 @@ class MostrarResultados(gtk.HBox):
         if new_val < 0.2:
             self.cola = calculo.Cola_Procesos(self.n, CFG['tejecucion'], CFG['tcpu'], CFG['tbloqueocpu'], CFG['tbloqueo'], CFG['ejecucion'], CFG['cpu'], CFG['bloqueocpu'], CFG['bloqueo'])
             self.intervalo=0.05
+
+        fifo = FCFS(self.cola) # creamos el hilo
         if new_val > 0.3 and new_val < 0.35:
           if CFG['fifo'] == True:
-            CFG['calculofifo'] = calculo.FCFS(self.cola)
+            #CFG['calculofifo'] = calculo.FCFS(self.cola)
+            fifo.start() #iniciamos el hilo
         if new_val > 0.4 and new_val < 0.45:
           if CFG['menortiempo'] == True:
             CFG['mtiempo'] = calculo.SJF(self.cola)
@@ -300,6 +303,10 @@ class MostrarResultados(gtk.HBox):
         if new_val > 0.8 and new_val < 0.85:
           if CFG['soprtunidad'] == True:
             CFG['psjf'] = calculo.PSJF(self.cola,CFG['tbloqueocpu'], CFG['tbloqueo'],  CFG['bloqueocpu'], CFG['bloqueo'])
+
+        if CFG['fifo'] == True || new_val>0.1 || new_val>0.1:
+          CFG['calculofifo'] = fifo.resultados
+          fifo.join() #esperamos a que termine
         if new_val > 1.0:
             self.lbltitle1.set_text('Resultados de la corrida')
             self.pbar.hide()
