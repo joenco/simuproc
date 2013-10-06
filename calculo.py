@@ -605,3 +605,118 @@ class Algoritmos():
       
       return self.usocpu, self.promedio_servicio, self.promedio_de_espera, self.esperado,  self.min, self.max
 
+
+#First Come First Served(FCFS)
+class FCFS(Thread):
+    def __init__(self, cola_procesos):
+      Thread.__init__(self)
+      self.cola_procesos = cola_procesos
+      self.t_espera = []
+      self.p_bloqueados = []
+      self.p_ejecucion= []
+      self.tllegada= float(0.0)
+      self.wt=float(0.0) #tiempo total de espera
+      self.tpe  = float(0.0) #tiempo promedio de espera.
+      self.teje = float(0.0) #tiempo total de ejecucion
+      self.tpeje = float(0.0) #tiempo promedio de ejecucion.
+      self.wt1=float(0.0)
+      self.usocpu = float(0.0)
+      self.n = len(self.cola_procesos)
+      tproc=float(0.0)
+      t=int(0)
+      tejecutado=float(0.0)
+      self.resultados = []
+
+    def run(self):
+
+      for i in xrange(self.n):
+        self.t_espera.append([])
+        self.p_bloqueados.append([])
+        self.p_ejecucion.append([])
+        self.t_espera[i].append(i)
+        self.t_espera[i].append(0)
+        self.p_bloqueados[i].append(i)
+        self.p_bloqueados[i].append(0)
+        self.p_ejecucion[i].append(i)
+        self.p_ejecucion[i].append(self.cola_procesos[i][1])
+        tproc= tproc+self.p_ejecucion[i][1]
+
+      self.min=float(self.t_espera[0][1])
+      self.max=float(self.t_espera[0][1])
+      i=int(1)
+      while tproc!=0:
+        tproc=0.0
+        for j in xrange(self.n):
+          if i<self.n-1:
+            i=0
+          print "dentro del for ", j
+          if self.p_ejecucion[j][1]-self.cola_procesos[j][3]>0:
+            print "proceso ",i," a lista de bloqueados"
+            self.t_espera[j][1]=self.t_espera[j][1]+self.cola_procesos[j][4]
+            self.p_bloqueados[j][1]=self.cola_procesos[j][4]
+            tejecutado=self.cola_procesos[j][3]
+          elif self.p_ejecucion[j][1]-self.cola_procesos[j][3]==0:
+            print "las rafagas son iguales a la jecucion del proceso ", j
+            self.t_espera[j][1]=self.t_espera[j][1]
+            tejecutado=self.cola_procesos[j][3]
+            self.p_bloqueados[j][1]=self.p_bloqueados[j][1]-self.p_bloqueados[j][1]
+          elif self.p_ejecucion[j][1]-self.cola_procesos[j][3]<0:
+            print "la rafagas son menores al proceso ", j
+            self.t_espera[j][1]=self.t_espera[j][1]
+            tejecutado=self.p_ejecucion[j][1]
+            self.p_bloqueados[j][1]=self.p_bloqueados[j][1]-self.p_bloqueados[j][1]
+
+          if self.n>1:
+            aux=int(0)
+            aux1=int(0)
+            if self.p_bloqueados[j][1]>0:
+              aux=-self.cola_procesos[i][2]+self.cola_procesos[j][3]+self.p_bloqueados[j][1]
+              print "aux = ", aux
+              aux=-+self.cola_procesos[i][3]+aux
+              print "aux = ", aux
+              self.t_espera[j][1]=self.t_espera[j][1]+aux
+            else:
+              self.t_espera[j][1]=self.t_espera[j][1]-self.cola_procesos[i][2]+self.p_ejecucion[i][1]
+
+          if j>0:
+            self.t_espera[j][1]=self.t_espera[j][1]-self.cola_procesos[j][2]+tejecutado+self.p_bloqueados[j][1]
+          elif j==0:
+            self.t_espera[j][1]=self.t_espera[j][1]-self.cola_procesos[j][2]-self.p_bloqueados[j][1]
+          self.p_bloqueados[j][1]=self.p_bloqueados[j][1]-self.p_bloqueados[j][1]
+          self.p_ejecucion[j][1]=self.p_ejecucion[j][1]-tejecutado
+
+          if self.cola_procesos[j][2]<0:
+            self.cola_procesos[j][2]=self.cola_procesos[j][2]-self.cola_procesos[j][2]
+
+          t=t+1
+          i=i+1
+          print"el valor de t = ", t
+          tproc=tproc+self.p_ejecucion[j][1]
+
+      for i in xrange(self.n):
+        self.teje=self.teje+self.cola_procesos[i][1]
+        if self.t_espera[i][1]>=0:
+          self.wt=self.wt+self.t_espera[i][1]
+        else:
+          self.wt1=self.wt1+self.t_espera[i][1]*-1
+          self.t_espera[i][1]=self.t_espera[i][1]*-1*0
+        if self.min>self.t_espera[i][1]:
+          self.min=self.t_espera[i][1]
+        if self.max<self.t_espera[i][1]:
+          self.max=self.t_espera[i][1]
+        print " t espera ", i," es = ", self.t_espera[i][1]
+      print "el t de espera minimo es = ", self.min
+      print "el t de espera maximo es = ", self.max
+
+      guardar.Guardar(self.t_espera, self.cola_procesos, 0)
+      print " wt ", self.wt
+
+      self.tpe=round(self.wt/self.n, 4)
+      if self.wt1+self.wt==0:
+        self.usocpu = round(1.0-self.wt1, 4)
+      else:
+        self.usocpu = round(1.0-self.wt1/(self.wt1+self.wt), 4)
+      self.tpeje= round(self.teje/t, 4)
+
+      self.resultados =  self.usocpu, self.tpeje, self.tpe, self.t_espera, self.min, self.max
+
