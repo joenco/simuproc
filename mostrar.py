@@ -79,25 +79,25 @@ class MostrarResultados(gtk.HBox):
         self.txt2.set_alignment(0, 0.5)
         table.attach(self.txt2, 1, 2, 1, 2)
 
-        self.txt3 = gtk.Label(' ')
-        self.txt3.set_alignment(0, 0.5)
-        table.attach(self.txt3, 2, 3, 1, 2)
+        #self.txt3 = gtk.Label(' ')
+        #self.txt3.set_alignment(0, 0.5)
+        #table.attach(self.txt3, 2, 3, 1, 2)
 
         self.txt4 = gtk.Label(' ')
         self.txt4.set_alignment(0, 0.5)
-        table.attach(self.txt4, 3, 4, 1, 2)
+        table.attach(self.txt4, 2, 3, 1, 2)
 
         self.txt5 = gtk.Label(' ')
         self.txt5.set_alignment(0, 0.5)
-        table.attach(self.txt5, 4, 5, 1, 2)
+        table.attach(self.txt5, 3, 4, 1, 2)
 
         self.txt6 = gtk.Label(' ')
         self.txt6.set_alignment(0, 0.5)
-        table.attach(self.txt6, 5, 6, 1, 2)
+        table.attach(self.txt6, 4, 5, 1, 2)
 
         self.txt7 = gtk.Label(' ')
         self.txt7.set_alignment(0, 0.5)
-        table.attach(self.txt7, 7, 8, 1, 2)
+        table.attach(self.txt7, 5, 7, 1, 2)
 
         self.listafuncion = gtk.ListStore(str)
 
@@ -110,25 +110,25 @@ class MostrarResultados(gtk.HBox):
           self.txtfifo1.set_alignment(0, 0.5)
           table.attach(self.txtfifo1, 1, 2, 2, 3)
 
-          self.txtfifo2 = gtk.Label(' ')
-          self.txtfifo2.set_alignment(0, 0.5)
-          table.attach(self.txtfifo2, 2, 3, 2, 3)
+          #self.txtfifo2 = gtk.Label(' ')
+          #self.txtfifo2.set_alignment(0, 0.5)
+          #table.attach(self.txtfifo2, 2, 3, 2, 3)
 
           self.txtfifo3 = gtk.Label(' ')
           self.txtfifo3.set_alignment(0, 0.5)
-          table.attach(self.txtfifo3, 3, 4, 2, 3)
+          table.attach(self.txtfifo3, 2, 3, 2, 3)
 
           self.txtfifo4 = gtk.Label(' ')
           self.txtfifo4.set_alignment(0, 0.5)
-          table.attach(self.txtfifo4, 4, 5, 2, 3)
+          table.attach(self.txtfifo4, 3, 4, 2, 3)
 
           self.txtfifo5 = gtk.Label(' ')
           self.txtfifo5.set_alignment(0, 0.5)
-          table.attach(self.txtfifo5, 5, 6, 2, 3)
+          table.attach(self.txtfifo5, 4, 5, 2, 3)
 
           self.txtfifo6 = gtk.Label(' ')
           self.txtfifo6.set_alignment(0, 0.5)
-          table.attach(self.txtfifo6, 6, 7, 2, 3)
+          table.attach(self.txtfifo6, 5, 6, 2, 3)
 
           self.listafuncion.append(["FCFS"])
 
@@ -142,25 +142,25 @@ class MostrarResultados(gtk.HBox):
           self.txtmt1.set_alignment(0, 0.5)
           table.attach(self.txtmt1, 1, 2, 3, 4)
 
-          self.txtmt2 = gtk.Label(' ')
-          self.txtmt2.set_alignment(0, 0.5)
-          table.attach(self.txtmt2, 2, 3, 3, 4)
+          #self.txtmt2 = gtk.Label(' ')
+          #self.txtmt2.set_alignment(0, 0.5)
+          #table.attach(self.txtmt2, 2, 3, 3, 4)
 
           self.txtmt3 = gtk.Label(' ')
           self.txtmt3.set_alignment(0, 0.5)
-          table.attach(self.txtmt3, 3, 4, 3, 4)
+          table.attach(self.txtmt3, 2, 3, 3, 4)
 
           self.txtmt4 = gtk.Label(' ')
           self.txtmt4.set_alignment(0, 0.5)
-          table.attach(self.txtmt4, 4, 5, 3, 4)
+          table.attach(self.txtmt4, 3, 4, 3, 4)
 
           self.txtmt5 = gtk.Label(' ')
           self.txtmt5.set_alignment(0, 0.5)
-          table.attach(self.txtmt5, 5, 6, 3, 4)
+          table.attach(self.txtmt5, 4, 5, 3, 4)
 
           self.txtmt6 = gtk.Label(' ')
           self.txtmt6.set_alignment(0, 0.5)
-          table.attach(self.txtmt6, 6, 7, 3, 4)
+          table.attach(self.txtmt6, 5, 6, 3, 4)
 
           self.listafuncion.append(["SJF"])
         # Round Robin
@@ -173,25 +173,25 @@ class MostrarResultados(gtk.HBox):
           self.txtrr1.set_alignment(0, 0.5)
           table.attach(self.txtrr1, 1, 2, 4, 5)
 
-          self.txtrr2 = gtk.Label(' ')
-          self.txtrr2.set_alignment(0, 0.5)
-          table.attach(self.txtrr2, 2, 3, 4, 5)
+          #self.txtrr2 = gtk.Label(' ')
+          #self.txtrr2.set_alignment(0, 0.5)
+          #table.attach(self.txtrr2, 2, 3, 4, 5)
 
           self.txtrr3 = gtk.Label(' ')
           self.txtrr3.set_alignment(0, 0.5)
-          table.attach(self.txtrr3, 3, 4, 4, 5)
+          table.attach(self.txtrr3, 2, 3, 4, 5)
 
           self.txtrr4 = gtk.Label(' ')
           self.txtrr4.set_alignment(0, 0.5)
-          table.attach(self.txtrr4, 4, 5, 4, 5)
+          table.attach(self.txtrr4, 3, 4, 4, 5)
 
           self.txtrr5 = gtk.Label(' ')
           self.txtrr5.set_alignment(0, 0.5)
-          table.attach(self.txtrr5, 5, 6, 4, 5)
+          table.attach(self.txtrr5, 4, 5, 4, 5)
 
           self.txtrr6 = gtk.Label(' ')
           self.txtrr6.set_alignment(0, 0.5)
-          table.attach(self.txtrr6, 6, 7, 4, 5)
+          table.attach(self.txtrr6, 5, 6, 4, 5)
 
           self.listafuncion.append(["RR"])
 
@@ -205,25 +205,25 @@ class MostrarResultados(gtk.HBox):
           self.txtso1.set_alignment(0, 0.5)
           table.attach(self.txtso1, 1, 2, 5, 6)
 
-          self.txtso2 = gtk.Label(' ')
-          self.txtso2.set_alignment(0, 0.5)
-          table.attach(self.txtso2, 2, 3, 5, 6)
+          #self.txtso2 = gtk.Label(' ')
+          #self.txtso2.set_alignment(0, 0.5)
+          #table.attach(self.txtso2, 2, 3, 5, 6)
 
           self.txtso3 = gtk.Label(' ')
           self.txtso3.set_alignment(0, 0.5)
-          table.attach(self.txtso3, 3, 4,5, 6)
+          table.attach(self.txtso3, 2, 3,5, 6)
 
           self.txtso4 = gtk.Label(' ')
           self.txtso4.set_alignment(0, 0.5)
-          table.attach(self.txtso4, 4, 5, 5, 6)
+          table.attach(self.txtso4, 3, 4, 5, 6)
 
           self.txtso5 = gtk.Label(' ')
           self.txtso5.set_alignment(0, 0.5)
-          table.attach(self.txtso5, 5, 6, 5, 6)
+          table.attach(self.txtso5, 4, 5, 5, 6)
 
           self.txtso6 = gtk.Label(' ')
           self.txtso6.set_alignment(0, 0.5)
-          table.attach(self.txtso6, 6, 7, 5, 6)
+          table.attach(self.txtso6, 5, 6, 5, 6)
 
           self.listafuncion.append(["PSJF"])
 
@@ -233,13 +233,13 @@ class MostrarResultados(gtk.HBox):
         self.listaalgoritmo.set_active(0)
         table.attach(self.listaalgoritmo, 0, 1, 6, 7)
 
-        self.ver = gtk.Button("Ver gráfica")
+        self.ver = gtk.Button("Gráfica")
         self.ver.set_size_request(100, 20)
         self.ver.connect('clicked', self.Ver)
         table.attach(self.ver, 2, 3, 6, 7)
 
-        self.simulacion = gtk.Button("Ver Simulación")
-        self.simulacion.set_size_request(100, 20)
+        self.simulacion = gtk.Button("Simulación")
+        self.simulacion.set_size_request(120, 20)
         self.simulacion.connect('clicked', self.Simulacion)
         table.attach(self.simulacion, 4, 5, 6, 7)
 
@@ -289,11 +289,11 @@ class MostrarResultados(gtk.HBox):
             self.cola = calculo.Cola_Procesos(self.n, CFG['tejecucion'], CFG['tcpu'], CFG['tbloqueocpu'], CFG['tbloqueo'], CFG['ejecucion'], CFG['cpu'], CFG['bloqueocpu'], CFG['bloqueo'])
             self.intervalo=0.05
 
-        fifo = FCFS(self.cola) # creamos el hilo
+        #fifo = FCFS(self.cola) # creamos el hilo
         if new_val > 0.3 and new_val < 0.35:
           if CFG['fifo'] == True:
-            #CFG['calculofifo'] = calculo.FCFS(self.cola)
-            fifo.start() #iniciamos el hilo
+            CFG['calculofifo'] = calculo.FCFS(self.cola)
+            #fifo.start() #iniciamos el hilo
         if new_val > 0.4 and new_val < 0.45:
           if CFG['menortiempo'] == True:
             CFG['mtiempo'] = calculo.SJF(self.cola)
@@ -304,24 +304,25 @@ class MostrarResultados(gtk.HBox):
           if CFG['soprtunidad'] == True:
             CFG['psjf'] = calculo.PSJF(self.cola,CFG['tbloqueocpu'], CFG['tbloqueo'],  CFG['bloqueocpu'], CFG['bloqueo'])
 
-        if CFG['fifo'] == True || new_val>0.1 || new_val>0.1:
-          CFG['calculofifo'] = fifo.resultados
-          fifo.join() #esperamos a que termine
+        #if CFG['fifo'] == True || new_val>0.1 || new_val>0.1:
+        #if CFG['fifo'] == True:
+          #CFG['calculofifo'] = fifo.resultados
+          #fifo.join() #esperamos a que termine
         if new_val > 1.0:
             self.lbltitle1.set_text('Resultados de la corrida')
             self.pbar.hide()
             self.txt1.set_text("Algoritmos")
-            self.txt2.set_text(u"Nº de procesos")
-            self.txt3.set_text("Uso del CPU")
-            self.txt4.set_text("T. p. CPU")
-            self.txt5.set_text("T. Espera minímo")
-            self.txt6.set_text("T. Espera Maximo")
-            self.txt7.set_text("T. p. espera")
+            self.txt2.set_text("Procesos")
+            #self.txt3.set_text("Uso del CPU")
+            self.txt4.set_text("CPU promedio")
+            self.txt5.set_text("Espera min")
+            self.txt6.set_text("Espera max")
+            self.txt7.set_text("Espera promedio")
 
             if CFG['fifo']==True:
                 self.txtfifo.set_text("FCFS")
                 self.txtfifo1.set_text(str(self.n))
-                self.txtfifo2.set_text(str(CFG['calculofifo'][0]))
+                #self.txtfifo2.set_text(str(CFG['calculofifo'][0]))
                 self.txtfifo3.set_text(str(CFG['calculofifo'][1]))
                 self.t_e = CFG['calculofifo'][2]
                 self.txtfifo4.set_text(str(CFG['calculofifo'][4]))
@@ -331,7 +332,7 @@ class MostrarResultados(gtk.HBox):
             if CFG['menortiempo']==True:
                 self.txtmt.set_text("SJF")
                 self.txtmt1.set_text(str(self.n))
-                self.txtmt2.set_text(str(CFG['mtiempo'][0]))
+                #self.txtmt2.set_text(str(CFG['mtiempo'][0]))
                 self.txtmt3.set_text(str(CFG['mtiempo'][1]))
                 self.txtmt4.set_text(str(CFG['mtiempo'][4]))
                 self.txtmt5.set_text(str(CFG['mtiempo'][5]))
@@ -341,7 +342,7 @@ class MostrarResultados(gtk.HBox):
             if CFG['roundrobin']==True:
                 self.txtrr.set_text("RR")
                 self.txtrr1.set_text(str(self.n))
-                self.txtrr2.set_text(str(CFG['calculorr'][0]))
+                #self.txtrr2.set_text(str(CFG['calculorr'][0]))
                 self.txtrr3.set_text(str(CFG['calculorr'][1]))
                 self.txtrr4.set_text(str(CFG['calculorr'][4]))
                 self.txtrr5.set_text(str(CFG['calculorr'][5]))
@@ -351,7 +352,7 @@ class MostrarResultados(gtk.HBox):
             if CFG['soprtunidad']==True:
                 self.txtso.set_text("PSJF")
                 self.txtso1.set_text(str(self.n))
-                self.txtso2.set_text(str(CFG['psjf'][0]))
+                #self.txtso2.set_text(str(CFG['psjf'][0]))
                 self.txtso3.set_text(str(CFG['psjf'][1]))
                 self.txtso4.set_text(str(CFG['psjf'][4]))
  		self.txtso5.set_text(str(CFG['psjf'][5]))

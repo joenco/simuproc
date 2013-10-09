@@ -45,14 +45,18 @@ class SolicitudDatos(gtk.HBox):
         self.lbltitle1.set_attributes(attr)
         self.table.attach(self.lbltitle1, 0, 2, 0, 1)
 
-        self.FCFS = gtk.CheckButton("Algoritmo Primero en llegar primero en servirse (FCFS)")
+        self.FCFS = gtk.CheckButton("Primero en llegar primero en servirse (FCFS)")
         """Chekbutton que permite al usuario elejir el algoritmo FCFS"""
         self.table.attach(self.FCFS, 0, 1, 1, 2)
 
-        self.SJF = gtk.CheckButton("Algoritmo Menor tiempo restante (SJF)")
+        self.SJF = gtk.CheckButton("Menor tiempo restante (SJF)")
         """Chekbutton que permite al usuario elejir el algoritmo SJF"""
         self.table.attach(self.SJF, 0, 1, 2, 3)
 
+        self.lbltitle1 = gtk.Label("Quantum")
+        self.lbltitle1.set_alignment(0, 0.5)
+        self.table.attach(self.lbltitle1,1,4 , 2, 3)
+ 	
         self.rr = gtk.CheckButton("Round Robin (RR)")
         """Chekbutton que permite al usuario elejir el algoritmo RR"""
         #actionrr.connect_proxy(self.rr)
