@@ -394,7 +394,8 @@ class Algoritmos():
             #Espera
             for j in xrange(i):
               if (self.ejecucion[j]>0)and(j!=i):
-                self.esperado[j][1] +=self.rafaga[1]
+                #self.esperado[j][1] +=self.rafaga[1]
+                self.esperado[j][1] += 1
             self.rafaga = rafagacpu.rafaga_bloqueo(self.tbcpu,self.tb,self.f3,self.f4)
             self.ncpu += 1
           if(self.cola_procesos[i+1][2]<=0)and(self.quantum<=0):
@@ -434,7 +435,8 @@ class Algoritmos():
           #Espera
           for j in xrange(self.n):
             if (self.ejecucion[j]>0)and(j!=self.iterador):
-              self.esperado[j][1] +=self.rafaga[1]
+              #self.esperado[j][1] +=self.rafaga[1]
+              self.esperado[j][1] += 1
           self	.rafaga = rafagacpu.rafaga_bloqueo(self.tbcpu,self.tb,self.f3,self.f4)
           self.ncpu += 1
         if(self.quantum<=0):
@@ -526,7 +528,8 @@ class Algoritmos():
             #Espera tiempo de bloqueo
             for j in xrange(i):
               if (self.ejecucion[j]>0)and(j!=i):
-                self.esperado[j][1] +=self.rafaga[1]
+                #self.esperado[j][1] +=self.rafaga[1]
+                self.esperado[j][1] +=1
                 self.cola_procesos[i+1][2]-= self.rafaga[1]
             self.rafaga = rafagacpu.rafaga_bloqueo(self.tbcpu,self.tb,self.f3,self.f4)
             self.ncpu += 1
@@ -569,7 +572,8 @@ class Algoritmos():
             #Espera tiempo de bloqueo
             for j in xrange(self.inicio,self.n):
               if (self.ejecucion[j]>0)and(j!=i):
-                self.esperado[j][1] +=self.rafaga[1]
+                #self.esperado[j][1] +=self.rafaga[1]
+                self.esperado[j][1] += 1
             self.rafaga = rafagacpu.rafaga_bloqueo(self.tbcpu,self.tb,self.f3,self.f4)
             self.ncpu += 1
       """    
