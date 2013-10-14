@@ -6,7 +6,7 @@
 # ARCHIVO: main.py
 # COPYRIGHT:
 #       (C) 2013 Jorge E. Ortega A. <joenco@esdebian.org>
-#       (C) 2013 
+#       (C) 2013 Jesus Perez <perezj89@gmail.com>
 # LICENCIA: GPL-3
 # ==============================================================================
 #
@@ -31,7 +31,6 @@ import gtk, re, Image
 # Módulos locales
 from bienvenida import BienvenidaUsuario
 from solicitud import SolicitudDatos
-from confirmar import ConfirmarDatos
 from calculo import Algoritmos
 from separar import Separar
 from mostrar import MostrarResultados

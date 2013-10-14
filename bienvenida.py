@@ -6,7 +6,7 @@
 # ARCHIVO: bienvenida.py "este archivo es una modificación del tomado en el instalador de canaima"
 # COPYRIGHT:
 #       (C) 2013 Jorge E. Ortega A. <joenco@esdebian.org>
-#       (C) 2013 
+#       (C) 2013 Jesus Perez <perezj89@gmail.com>
 # LICENCIA: GPL-3
 # ==============================================================================
 #

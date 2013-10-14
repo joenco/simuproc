@@ -6,7 +6,7 @@
 # ARCHIVO: solicitud.py
 # COPYRIGHT:
 #       (C) 2013 Jorge E. Ortega A. <joenco@esdebian.org>
-#       (C) 2013 
+#       (C) 2013 Jesus Perez <perezj89@gmail.com>
 # LICENCIA: GPL-3
 # ==============================================================================
 #
