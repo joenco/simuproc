@@ -4,6 +4,7 @@ Realizado por Jorge Ortega <joenco@esdebian.org>
 
 - Dependencias
 	- python-matplotlib
+	python-imaging
 	- python-symPy
 	- python-scipy
 
