@@ -1,0 +1,1 @@
+Aplicación desarrollada con python y GTK para la simulación de procesos, utilizando diferentes algoritmos.
